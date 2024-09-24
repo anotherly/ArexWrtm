@@ -1,0 +1,207 @@
+@charset "utf-8";
+/* Noto Sans KR */
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 300;
+  src: url(../fonts/NotoSansKR-Light.woff) format('woff'),
+       url(../fonts/NotoSansKR-Light.otf) format('opentype');
+}
+@font-face {
+   font-family: 'Noto Sans KR';
+   font-style: normal;
+   font-weight: 400;
+   src: url(../fonts/NotoSansKR-Regular.woff) format('woff'),
+        url(../fonts/NotoSansKR-Regular.otf) format('opentype');
+ }
+@font-face {
+   font-family: 'Noto Sans KR';
+   font-style: normal;
+   font-weight: 500;
+   src: url(../fonts/NotoSansKR-Medium.woff) format('woff'),
+        url(../fonts/NotoSansKR-Medium.otf) format('opentype');
+ }
+@font-face {
+   font-family: 'Noto Sans KR';
+   font-style: normal;
+   font-weight: 700;
+   src: url(../fonts/NotoSansKR-Bold.woff) format('woff'),
+        url(../fonts/NotoSansKR-Bold.otf) format('opentype');
+ }
+@font-face {
+   font-family: 'Noto Sans KR';
+   font-style: normal;
+   font-weight: 900;
+   src: url(../fonts/NotoSansKR-Black.woff) format('woff'),
+        url(../fonts/NotoSansKR-Black.otf) format('opentype');
+ }
+
+ @font-face {
+	font-family:"KoPubWorld_Batang_Bold"; 
+	src:url(../fonts/KoPubWorld Batang Bold.ttf); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+ @font-face {
+	font-family:"KoPubWorld_Batang_Light"; 
+	src:url(../fonts/KoPubWorld Batang Light.ttf); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+ @font-face {
+	font-family:"KoPubWorld_Batang_Medium"; 
+	src:url(../fonts/KoPubWorld Batang Medium.ttf); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+ @font-face {
+	font-family:"KoPubWorld_Dotum_Bold"; 
+	src:url(../fonts/KoPubWorld Dotum Bold.ttf); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+ @font-face {
+	font-family:"KoPubWorld_Dotum_Light"; 
+	src:url(../fonts/KoPubWorld Dotum Light.ttf); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+ @font-face {
+	font-family:"KoPubWorld_Dotum_Medium"; 
+	src:url(../fonts/KoPubWorld Dotum Medium.ttf); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+
+@font-face {
+	font-family:"ChosunKg"; 
+	src:url(../fonts/ChosunKg.TTF); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+@font-face {
+	font-family:"ChosunBg"; 
+	src:url(../fonts/ChosunBg.TTF); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+@font-face {
+	font-family:"BCcardB"; 
+	src:url(../fonts/BCcardB.ttf); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+@font-face {
+	font-family:"BCcardL"; 
+	src:url(../fonts/BCcardL.ttf); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+@font-face {
+	font-family:"paybooc_Bold"; 
+	src:url(../fonts/paybooc Bold.ttf); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+@font-face {
+	font-family:"paybooc_ExtraBold"; 
+	src:url(../fonts/paybooc ExtraBold.ttf); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+@font-face {
+	font-family:"paybooc_Light"; 
+	src:url(../fonts/paybooc Light.ttf); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+@font-face {
+	font-family:"paybooc_Medium"; 
+	src:url(../fonts/paybooc Medium.ttf); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+@font-face {
+	font-family:"SLEIGothicTTF"; 
+	src:url(../fonts/SLEIGothicTTF.ttf); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+@font-face {
+	font-family:"OTWelcomeBA"; 
+	src:url(../fonts/OTWelcomeBA.ttf); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+@font-face {
+	font-family:"OTWelcomeRA"; 
+	src:url(../fonts/OTWelcomeRA.ttf); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+@font-face {
+	font-family:"GodoB"; 
+	src:url(../fonts/GodoB.ttf); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+@font-face {
+	font-family:"GodoM"; 
+	src:url(../fonts/GodoM.ttf); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+@font-face {
+	font-family:"NEXON Lv2 Gothic Bold"; 
+	src:url(../fonts/NEXON Lv2 Gothic Bold.ttf); 
+	font-style: normal; 
+	font-weight: normal; 
+}
+
+@font-face {
+    font-family: 'KOTRA_BOLD-Bold';
+    src: url(../fonts/KOTRA_BOLD.ttf);
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'VITRO_INSPIRE_TTF';
+    src: url(../fonts/VITRO INSPIRE TTF.ttf);
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'VITRO_CORE_TTF';
+    src: url(../fonts/VITRO CORE TTF.ttf);
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'VITRO_PRIDE_TTF';
+    src: url(../fonts/VITRO PRIDE TTF.ttf);
+    font-weight: normal;
+    font-style: normal;
+}
+ 

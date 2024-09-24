@@ -1,0 +1,73 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* html5 reset add */
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {margin: 0; padding: 0; border: 0; outline: 0;font-family: auto;}
+
+table{border-collapse:collapse;/*border-spacing:0;*/}
+fieldset,img{border:0;}
+address,caption,cite,code,dfn,em,strong,var{font-style:normal;font-weight:normal;}
+ol,ul,dl{list-style:none;}
+caption {text-align:left;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+q:before,q:after{content:'';}
+abbr,acronym{border:0;font-variant:normal;}
+sup{vertical-align:text-top;}
+sub{vertical-align:text-bottom;}
+input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}
+input,textarea,select{*font-size:100%; color:#777777 !important;font-family: auto;}
+legend{display:none;}
+
+
+/* Base CSS */
+html, body {width:100%; font-family:"돋움", dotum, "굴림", gulim, arial; color:#777777;}
+body {font-size:12px; line-height:18px;color:#585c5f;}
+img{vertical-align:middle;}
+button{cursor:pointer;}
+input,select, button{vertical-align:middle;}
+input[type="text"]:focus {outline:none;}
+input[type="checkbox"]:focus {outline:none;}
+input[type="radio"]:focus {outline:none;}
+input[type="password"]:focus {outline:none;}
+select:focus {outline:none;}
+textarea:focus {outline:none;}
+table caption {display:none;}
+em { font-style:normal;}
+h1,h2,h3,h4,h5,h6,strong {font-weight:bold;}
+hr {display:none;}
+
+
+a {color:#444;text-decoration:none; cursor:pointer;}
+a:hover, a:active, a:focus {color:#2758a5; text-decoration:none; cursor:pointer;}
+
+/* clear both */
+.clfix:after{content: "."; display:block; height:0; clear:both; visibility:hidden;}
+.clfix{display:inline-block;}
+.clfix{display:block;}
+.clfix{zoom:1;} /*for IE 5.5-7*/
+
+
+
+
+.table_sel {border:1px solid #C7C7C7; color:#777777; padding:2px;
+padding:1px\9; /*ie9 hack*/
+height:22px\0; margin-top:0px\0/; /*ie8 hack*/
+#margin-top:1px; /*ie6,7 hack*/
+}
+
+
+/* 20130117 추가분 */
+
+/* 기존 css수정사항_ 아래표기는 기존css를 그대로 표기한 것으로, css명만 참조하여 css가 수정되었음을 인지하세요.
+button{cursor:pointer;}
+*/

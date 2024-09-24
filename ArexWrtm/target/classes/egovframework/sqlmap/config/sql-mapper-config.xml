@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+	    <!-- <setting name="cacheEnabled" value="false" /> -->
+	    <!-- mybatis에서 #{} varchar 부분 null 허용 -->
+	    <setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+    
+    <!-- jdb : 쿼리에 맞는 vo 설정 -->
+	<typeAliases>
+		<!-- 사용자 -->		
+		<typeAlias alias="authVo" type="kr.co.hivesys.auth.vo.AuthVo" />
+		<typeAlias alias="terminalVo" type="kr.co.hivesys.terminal.vo.TerminalVo" />
+		<typeAlias alias="departVo" type="kr.co.hivesys.depart.vo.DepartVo" />
+		
+		<typeAlias alias="userVo" type="kr.co.hivesys.user.vo.UserVO" />
+		
+		<typeAlias alias="fileVo" type="kr.co.hivesys.comm.file.vo.FileVo" />
+	</typeAliases>
+	<!-- jdb : 사용하려는 *mapper.xml 등록 -->
+	<!-- jdb ※중요 ! : 여기서 매퍼위치 설정하거나 context mapper 에서 위치설정 해줘야함 그동안 이중설정했던건 
+	context-mapper.xml 에서 꼬였기 때문 ㅡㅡ -->
+	<!-- <mappers>
+	    <mapper resource="egovframework/sqlmap/mapper/mapMapper.xml" />
+   </mappers> -->
+</configuration>

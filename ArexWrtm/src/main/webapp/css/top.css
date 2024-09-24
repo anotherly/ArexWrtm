@@ -1,0 +1,144 @@
+
+/* login 상태 */
+.wrapper{
+	display: flex;
+    flex-direction: column;
+    /* height: 100%; */
+    /* background: #07336d; */
+    
+}
+
+.header-wrapper {
+	height: 100px;
+	padding-top: 20px;
+    padding-left: 30px;
+    background: #fff;
+}
+
+.header {
+	width: 450px;
+	height: 70px;
+	background: #FFFFFF url(../images/logoSystem.png) no-repeat left top;
+	cursor:pointer;
+}
+
+.login-user{
+    position: relative;
+    margin-right: 50px;
+    /* top: 50px; */
+    /* left: 1500px; */
+    min-width: 300px;
+    float: right;
+    bottom: 50px;
+}
+
+
+/* Menu */
+
+.menu-bar {
+    width: 100%;
+    background: url(/images/bg/blue_gra_1.png) 0% 0% / cover;
+    height: 45px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    min-width: 1920px;
+}
+
+.menu ul {
+	background: #eee;
+	border: 1px solid silver;
+	display: none;
+	padding: 0;
+	position: absolute;
+	left: 0;
+	top: 100%;
+	width: 230px;
+}
+
+.menu li {
+	float: left;
+	list-style:none;
+	position: relative;
+	width: 230px;
+	z-index:1000;
+	/* color:color: #4E5B64; */
+	/* text-align:center; */
+}
+
+.menu>li{
+	margin-right: 50px;
+}
+
+.menu li:hover { 
+	background:url(../images/menu-hover3.png) no-repeat;
+	cursor: pointer;
+	background-size:cover;
+}
+
+.menu li:hover>a { 
+	/* color: #00ffff;  */
+}
+.menu a {
+  color: #fff;
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size:18px;
+  font-weight:bold;
+}
+
+/* 기본 소메뉴 배경 */
+.menu ul {
+  background: #f7fcff;
+  border: 1px solid #e3e3e3;
+  display: none;
+  padding: 0;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 230px;
+  box-shadow: 1px 1px 3px 3px #e9e2e2;
+  z-index:10
+}
+.menu ul li { 
+	float: none;
+	/* background:#111;  */
+}
+
+/* 일반 소메뉴 글자 */
+.menu ul a { color: black; }
+
+.menu ul ul { left: 100%; top: 0; }
+
+/* 마우스 올렸을때 배경 */
+.menu ul li:hover { 
+	background: #d2d2d2; 
+	background-size:cover;
+	cursor: pointer;
+}
+/* 마우스 올렸을때 글자 */
+.menu ul li:hover>a { 
+	color: black;
+	font-weight:bold; 
+	cursor: pointer;
+}
+/* 소메뉴에서 항목 선택시 대메뉴 변경 */
+.menu a.active {
+	background:#0061DA;
+}
+
+/* 접히는 메뉴 세부 관련 */
+.menu-sub{
+	display: block;
+    line-height: 2;
+}
+
+.menu-sub div{
+	margin: 10px 0;
+}
+
+.menu-sub div a span{
+	color: #fff;
+    font-size: 17px;
+}

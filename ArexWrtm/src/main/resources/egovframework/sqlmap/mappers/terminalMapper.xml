@@ -1,0 +1,779 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.hivesys.terminal.mapper.TerminalMapper">
+<!-- 
+수정일           수정자         수정내용 
+========= ======= ================================================= 
+2020.07.23 정다빈     최초 생성 
+-->
+	
+	<resultMap type="terminalVO" id="selectTerminalList">
+		<result property="lteRImei" column="LTE-R_IMEI"/>
+		<result property="lteRImsi" column="LTE-R_IMSI"/>
+		<result property="lteRserial" column="LTE-R_SERIAL"/>
+		<result property="lteRUseRId" column="LTE-R_USER_ID"/>
+		<result property="lteRMacAdd" column="LTE-R_MAC_ADD"/>
+		<result property="lteRIp" column="LTE-R_IP"/>
+		<result property="lteRSimNo" column="LTE-R_SIM_NO"/>
+		<result property="conSystem01Ip" column="CON_SYSTEM01_IP"/>
+		<result property="conSystem01" column="CON_SYSTEM01"/>
+		<result property="conSystem02Ip" column="CON_SYSTEM02_IP"/>
+		<result property="conSystem02" column="CON_SYSTEM02"/>
+		<result property="conSystem03Ip" column="CON_SYSTEM03_IP"/>
+		<result property="conSystem03" column="CON_SYSTEM03"/>
+		<result property="conGw" column="CON_GW"/>
+		<result property="lteRUsed" column="LTE-R_USED"/>
+		<result property="insLocTxt" column="INS_LOC_TXT"/>
+		<result property="lteRCode" column="LTE-R_CODE"/>
+		<result property="lteRDeviceType" column="LTE-R_DEVICE_TYPE"/>
+		<result property="swVerCode" column="SW_VER_CODE"/>
+		<result property="teamCnt" column="TEAM_CNT"/>
+		<result property="deviceCnt" column="DEVICE_CNT"/>
+		<result property="lterCellId" column="LTE-R_CELL_ID"/>
+		<result property="rmtResetYdt" column="RMT_RESET_YDT"/>
+		<result property="rmtResetRlt" column="RMT_RESET_RLT"/>
+		<result property="rmtUptYdt" column="RMT_UPT_YDT"/>
+		<result property="rmtUptRlt" column="RMT_UPT_RLT"/>
+		<result property="getDeviceInfoYdt" column="GET_DEVICE_INFO_YDT"/>
+		<result property="swVerUpdate" column="SW_VER_UPDATE"/>
+		<result property="obsCount" column="OBS_COUNT"/>
+		<result property="useYn" column="USE_YN"/>
+		<result property="regYdt" column="REG_YDT"/>
+		<result property="intervalTime" column="INTERVAL_TIME"/>
+		<result property="departCode" column="DEPART_CODE"/>
+		<result property="departName" column="DEPART_NAME"/>
+		<result property="cpyCode" column="CPY_CODE"/>
+		<result property="cpyName" column="CPY_NAME"/>
+		<result property="hqCode" column="HQ_CODE"/>
+		<result property="hqName" column="HQ_NAME"/>
+		<result property="teamCode" column="TEAM_CODE"/>
+		<result property="teamName" column="TEAM_NAME"/>
+		<result property="idx" column="IDX"/>
+		<result property="receiveTime" column="RECEIVE_TIME"/>
+		
+		<result property="memCritVal" column="MEM_CRIT_VAL"/>
+		<result property="lteRComUpVal" column="LTE-R_COM_UP_VAL"/>
+		<result property="lteRComDnVal" column="LTE-R_COM_DN_VAL"/>
+		
+		<result property="RSSI" column="LTE-R_RSSI_VAL"/>
+		<result property="RSRP" column="LTE-R_RSRP_VAL"/>
+		<result property="RSRQ" column="LTE-R_RSSI_VAL"/>
+		
+		<result property="keyVal" column="KEY_VAL"/>
+		<result property="cnt" column="CNT"/>
+		<result property="keyDate" column="KEY_DATE"/>
+		
+		<result property="lteRBand" column="LTE-R_BAND"/>
+		<result property="lteRChannel" column="LTE-R_CHANNEL"/>
+		<result property="lteRMCC" column="LTE-R_MCC"/>
+		<result property="lteRMNC" column="LTE-R_MNC"/>
+		
+	</resultMap>
+	
+	
+	<select id="selectTerminalList" parameterType="terminalVO" resultMap="selectTerminalList">
+	SELECT J1.*,
+	CASE WHEN J2.rtime2 IS NULL then 'f'
+		  WHEN J2.NOW_STATUS='R' THEN 'reset'
+		  WHEN J2.NOW_STATUS='U' THEN 'update'
+		  WHEN J2.rtime2 <![CDATA[ < ]]> NOW() -INTERVAL 3 MINUTE then 'obs'
+		  WHEN J2.`LTE-R_RSSI_VAL` <![CDATA[ < ]]> (SELECT WEAK_VAL FROM TBL_RSSI_STRENGTH) THEN 'weak' 
+		  WHEN J2.`LTE-R_RSRP_VAL` <![CDATA[ < ]]> (SELECT WEAK_VAL FROM TBL_RSRP_STRENGTH) THEN 'weak' 
+		  WHEN J2.`LTE-R_RSRQ_VAL` <![CDATA[ < ]]> (SELECT WEAK_VAL FROM TBL_RSRQ_STRENGTH) THEN 'weak' 
+	ELSE 'N' END AS OBS_COUNT 
+	FROM
+	 (
+		SELECT A.*,B.* FROM
+		    (
+		    SELECT 
+				 `LTE-R_IMEI`
+				,`LTE-R_IMSI`
+				,`LTE-R_SERIAL`
+				,`LTE-R_USER_ID`
+				,`LTE-R_MAC_ADD`
+				,`LTE-R_IP`
+				,`LTE-R_SIM_NO`
+				,`CON_SYSTEM01_IP`
+				,`CON_SYSTEM01`
+				,`CON_SYSTEM02_IP`
+				,`CON_SYSTEM02`
+				,`CON_SYSTEM03_IP`
+				,`CON_SYSTEM03`
+				,`CON_GW`
+				,`LTE-R_USED`
+				,`INS_LOC_TXT`
+				,`LTE-R_CODE`
+				,`LTE-R_DEVICE_TYPE`
+				,`SW_VER_CODE`
+				,`TEAM_CNT`
+				,`DEVICE_CNT`
+				,`LTE-R_CELL_ID`
+				,`RMT_RESET_YDT`
+				,`RMT_RESET_RLT`
+				,`RMT_UPT_YDT`
+				,`RMT_UPT_RLT`
+				,`GET_DEVICE_INFO_YDT`
+				,`SW_VER_UPDATE`
+				,`USE_YN`
+				,DATE_FORMAT(REG_YDT ,'%Y-%m-%d') AS REG_YDT
+				,`INTERVAL_TIME`
+			FROM
+				tbl_router_info
+				WHERE 1=1
+				<!-- 검색조건 -->
+				<if test="lteRIp !=null and lteRIp neq ''"> 
+					AND `LTE-R_IP` LIKE CONCAT('%',#{lteRIp},'%')
+				</if>
+				<if test="lteRMacAdd !=null and lteRMacAdd neq ''"> 
+					AND `LTE-R_MAC_ADD` LIKE CONCAT('%',#{lteRMacAdd},'%')
+				</if>
+				<if test="lteRUsed !=null and lteRUsed neq ''"> 
+					AND `LTE-R_USED` LIKE CONCAT('%',#{lteRUsed},'%')
+				</if>
+				<if test="insLocTxt !=null and insLocTxt neq ''"> 
+					AND `INS_LOC_TXT` LIKE CONCAT('%',#{insLocTxt},'%')
+				</if>
+				<if test="deviceCnt !=null and deviceCnt neq ''"> 
+					AND `DEVICE_CNT` LIKE CONCAT('%',#{deviceCnt},'%')
+				</if>
+			) A
+			LEFT JOIN 
+			(
+				SELECT 
+					 DEPART_CODE
+					,DEPART_NAME
+					,CPY_NAME
+					,CPY_CODE
+					,HQ_NAME
+					,HQ_CODE
+					,TEAM_NAME
+					,TEAM_CODE
+					,REG_YDT AS DEPART_DATE
+				FROM tbl_depart_info
+			)B
+			ON(SUBSTR(A.`LTE-R_CODE`,1,11)=B.DEPART_CODE)
+		)J1	
+		LEFT JOIN 
+		(
+			SELECT `LTE-R_IP` AS ip2
+			,receive_time AS rtime2 
+			,`LTE-R_RSSI_VAL`
+			,`LTE-R_RSRP_VAL`
+			,`LTE-R_RSRQ_VAL`
+			,`NOW_STATUS`
+			FROM tbl_last_data 
+		)J2
+		ON(J1.`LTE-R_IP`=J2.ip2)
+		WHERE 1=1
+		<if test="departCode != null and departCode neq ''">
+			AND J1.DEPART_CODE=#{departCode}
+		</if>
+		<if test="teamCode != null and teamCode neq ''">
+			AND SUBSTR(J1.DEPART_CODE,9,3)=#{teamCode}
+		</if>
+		ORDER BY J1.`LTE-R_USED` ASC, J1.`INS_LOC_TXT` ASC
+		
+		<if test="flagPage!=null and flagPage neq ''">
+			LIMIT 42 OFFSET #{startNum}
+		</if>
+		
+	</select>
+
+	<!-- 차상단말기 등록 -->
+	<insert id="insertTerminal" parameterType="terminalVO">
+		INSERT INTO tbl_router_info(
+			`LTE-R_IP`
+			,`LTE-R_MAC_ADD`
+			,`LTE-R_IMEI`
+			,`LTE-R_IMSI`
+			,`LTE-R_SERIAL`
+			,`LTE-R_USER_ID`
+			,`LTE-R_SIM_NO`
+			,`CON_SYSTEM01_IP`
+			,`CON_SYSTEM01`
+			,`CON_SYSTEM02_IP`
+			,`CON_SYSTEM02`
+			,`CON_SYSTEM03_IP`
+			,`CON_SYSTEM03`
+			,`CON_GW`
+			,`LTE-R_USED`
+			,`INS_LOC_TXT`
+			,`LTE-R_CODE`
+			,`LTE-R_DEVICE_TYPE`
+			,`SW_VER_CODE`
+			,`TEAM_CNT`
+			,`DEVICE_CNT`
+			,`LTE-R_CELL_ID`
+			,`RMT_RESET_YDT`
+			,`RMT_RESET_RLT`
+			,`RMT_UPT_YDT`
+			,`RMT_UPT_RLT`
+			,`GET_DEVICE_INFO_YDT`
+			,`SW_VER_UPDATE`
+			,`OBS_COUNT`
+			,`USE_YN`
+			,`REG_YDT`
+			,`INTERVAL_TIME`
+			,`LTE-R_BAND`
+			,`LTE-R_CHANNEL`
+			,`LTE-R_MCC`
+			,`LTE-R_MNC`
+		)
+		VALUES (
+			#{lteRIp}
+			,#{lteRMacAdd}
+			,#{lteRImei}
+			,#{lteRImsi}
+			,#{lteRserial}
+			,#{lteRUseRId}
+			,#{lteRSimNo}
+			,#{conSystem01Ip}
+			,#{conSystem01}
+			,#{conSystem02Ip}
+			,#{conSystem02}
+			,#{conSystem03Ip}
+			,#{conSystem03}
+			,#{conGw}
+			,#{lteRUsed}
+			,#{insLocTxt}
+			,#{lteRCode}
+			,#{lteRDeviceType}
+			,#{swVerCode}
+			,#{teamCnt}
+			,#{deviceCnt}
+			,#{lterCellId}
+			,#{rmtResetYdt}
+			,#{rmtResetRlt}
+			,#{rmtUptYdt}
+			,#{rmtUptRlt}
+			,#{getDeviceInfoYdt}
+			,#{swVerUpdate}
+			,#{obsCount}
+			,#{useYn}
+			,#{regYdt}
+			,#{intervalTime}
+			,#{lteRBand}
+			,#{lteRChannel}
+			,#{lteRMCC}
+			,#{lteRMNC}
+		)
+	</insert>
+	
+	<select id="selectTerminal" parameterType="terminalVO" resultMap="selectTerminalList">
+		SELECT J1.*,C.* FROM
+			(SELECT A.*,B.* FROM
+			    (SELECT 
+					 `LTE-R_IMEI`
+					,`LTE-R_IMSI`
+					,`LTE-R_SERIAL`
+					,`LTE-R_USER_ID`
+					,`LTE-R_MAC_ADD`
+					,`LTE-R_IP`
+					,`LTE-R_SIM_NO`
+					,`CON_SYSTEM01_IP`
+					,`CON_SYSTEM01`
+					,`CON_SYSTEM02_IP`
+					,`CON_SYSTEM02`
+					,`CON_SYSTEM03_IP`
+					,`CON_SYSTEM03`
+					,`CON_GW`
+					,`LTE-R_USED`
+					,`INS_LOC_TXT`
+					,`LTE-R_CODE`
+					,`LTE-R_DEVICE_TYPE`
+					,`SW_VER_CODE`
+					,`TEAM_CNT`
+					,`DEVICE_CNT`
+					,`LTE-R_CELL_ID`
+					,`RMT_RESET_YDT`
+					,`RMT_RESET_RLT`
+					,`RMT_UPT_YDT`
+					,`RMT_UPT_RLT`
+					,`GET_DEVICE_INFO_YDT`
+					,`SW_VER_UPDATE`
+					,`OBS_COUNT`
+					,`USE_YN`
+					, DATE_FORMAT(REG_YDT ,'%Y-%m-%d %H:%i:%s') AS REG_YDT
+					,`INTERVAL_TIME`
+					,`LTE-R_BAND`
+					,`LTE-R_CHANNEL`
+					,`LTE-R_MCC`
+					,`LTE-R_MNC`
+				FROM
+					tbl_router_info
+					WHERE `LTE-R_IP`=#{lteRIp}
+				) A
+				LEFT JOIN 
+				(
+					SELECT 
+						 DEPART_CODE
+						,DEPART_NAME
+						,CPY_NAME
+						,CPY_CODE
+						,HQ_NAME
+						,HQ_CODE
+						,TEAM_NAME
+						,TEAM_CODE
+						,REG_YDT AS DEPART_DATE
+					FROM tbl_depart_info
+				)B
+				ON(SUBSTR(A.`LTE-R_CODE`,1,11)=B.DEPART_CODE)
+				ORDER BY A.REG_YDT
+		)J1
+		LEFT JOIN
+		(
+			SELECT 
+			 `LTE-R_BAND`
+			,`LTE-R_CHANNEL`
+			,`LTE-R_CELL_ID`
+			,`LTE-R_MCC`
+			,`LTE-R_MNC`
+			,`LTE-R_RSSI_VAL`
+			,`LTE-R_RSRP_VAL`
+			,`LTE-R_RSRQ_VAL`
+			,`LTE-R_IMEI`
+			,`LTE-R_IMSI`
+			,`LTE-R_SERIAL`
+			,`LTE-R_IP`
+			,`LTE-R_MAC_ADD`
+			,`LTE-R_SIM_NO`
+			,`CON_SYSTEM01_IP`
+			,`CON_SYSTEM02_IP`
+			,`CON_SYSTEM03_IP`
+			,`LTE-R_OPERATION_TM`
+			,`MEM_CRIT_VAL`
+			,`LTE-R_COM_UP_VAL`
+			,`LTE-R_COM_DN_VAL`
+			,`LTE-R_DEVICE_TYPE`
+			,`SW_VER_CODE`
+			,`OBS_CODE`
+			, DATE_FORMAT(`RECEIVE_TIME` ,'%Y-%m-%d %H:%i:%s') AS `RECEIVE_TIME`
+			, DATE_FORMAT(`UPDATE_TIME` ,'%Y-%m-%d %H:%i:%s') AS `UPDATE_TIME`
+			,`NOW_STATUS`
+			,`TEST_YN`
+			,`COMMAND`
+			,`PCI`
+			FROM tbl_last_data 
+			WHERE `LTE-R_IP`=#{lteRIp}
+			ORDER BY RECEIVE_TIME DESC LIMIT 1
+		)C
+		ON(J1.`LTE-R_IP`=C.`LTE-R_IP`)
+		ORDER BY J1.REG_YDT DESC
+	</select>
+	
+	<update id="updateTerminal" parameterType="terminalVO">
+		UPDATE tbl_router_info
+		SET
+			`LTE-R_IP`=#{lteRIp} 
+			,`LTE-R_MAC_ADD`=#{lteRMacAdd}
+			,`LTE-R_USER_ID`=#{lteRUseRId}
+			,`LTE-R_IMEI`=#{lteRImei}
+			,`LTE-R_IMSI`=#{lteRImsi}
+			,`LTE-R_SERIAL`=#{lteRserial}
+			,`LTE-R_SIM_NO`=#{lteRSimNo}
+			,`CON_SYSTEM01_IP`=#{conSystem01Ip}
+			,`CON_SYSTEM01`=#{conSystem01}
+			,`CON_SYSTEM02_IP`=#{conSystem02Ip}
+			,`CON_SYSTEM02`=#{conSystem02}
+			,`CON_SYSTEM03_IP`=#{conSystem03Ip}
+			,`CON_SYSTEM03`=#{conSystem03}
+			,`CON_GW`=#{conGw}
+			,`LTE-R_USED`=#{lteRUsed}
+			,`INS_LOC_TXT`=#{insLocTxt}
+			,`LTE-R_CODE`=#{lteRCode}
+			,`LTE-R_DEVICE_TYPE`=#{lteRDeviceType}
+			,`SW_VER_CODE`=#{swVerCode}
+			,`LTE-R_CELL_ID`=#{lterCellId}
+			,`RMT_RESET_YDT`=#{rmtResetYdt}
+			,`RMT_RESET_RLT`=#{rmtResetRlt}
+			,`RMT_UPT_YDT`=#{rmtUptYdt}
+			,`RMT_UPT_RLT`=#{rmtUptRlt}
+			<if test="getDeviceInfoYdt!=null and getDeviceInfoYdt neq ''">
+				,`GET_DEVICE_INFO_YDT`=#{getDeviceInfoYdt}
+			</if>
+			,`SW_VER_UPDATE`=#{swVerUpdate}
+			,`OBS_COUNT`=#{obsCount}
+			,`USE_YN`=#{useYn}
+			,`INTERVAL_TIME`=#{intervalTime}
+			,`LTE-R_BAND`=#{lteRBand}
+			,`LTE-R_CHANNEL`=#{lteRChannel}
+			,`LTE-R_MCC`=#{lteRMCC}
+			,`LTE-R_MNC`=#{lteRMNC}
+		WHERE `LTE-R_IP`=#{lteRIp} 
+		<!-- AND `LTE-R_MAC_ADD`=#{lteRMacAdd} -->
+	</update>
+	
+		<!-- 사용자 삭제 -->
+	<delete id="deleteTerminal">
+		DELETE FROM tbl_router_info 
+		WHERE `LTE-R_IP` IN
+		<foreach collection="chkList" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+	</delete>
+	
+	
+	<!-- 단말기 차트 관련 쿼리 - 최초 개별 단말기 선택 시 -->
+	<select id="chartQFirst" parameterType="terminalVo" resultMap="selectTerminalList">
+		SELECT 
+		DATE_FORMAT(RECEIVE_TIME ,'%Y-%m-%d') AS RECEIVE_TIME
+		<!-- 데이터 2차 가공 p/m 에 따른 백분율 변환-->
+		,CASE WHEN INSTR(`SW_VER_CODE`, '700P')!=0 THEN ROUND((`MEM_CRIT_VAL` * 100)/128000,3)
+		      ELSE ROUND((`MEM_CRIT_VAL` * 100)/32000,3) END AS `MEM_CRIT_VAL`
+		,ROUND(`LTE-R_COM_UP_VAL`*0.1,3) as `LTE-R_COM_UP_VAL`
+		,ROUND(`LTE-R_COM_DN_VAL`*0.1,3) as `LTE-R_COM_DN_VAL`
+
+		FROM 
+		(
+			SELECT A.* FROM
+			(
+			SELECT 
+				  RECEIVE_TIME 
+				, `LTE-R_IP`
+				, `LTE-R_MAC_ADD`
+				, `SW_VER_CODE`
+				
+				<!-- 데이터 1차 가공부 : 단위제거-->
+				,CASE WHEN INSTR(`MEM_CRIT_VAL`, 'B')=0 THEN REGEXP_REPLACE(`MEM_CRIT_VAL`,'[a-z]','') 
+				ELSE 
+					CASE WHEN INSTR(`MEM_CRIT_VAL`, 'GB') !=0 THEN ROUND(REGEXP_REPLACE(`MEM_CRIT_VAL`,'[a-z]','') *1000000,3)
+						  WHEN INSTR(`MEM_CRIT_VAL`, 'MB') !=0 THEN ROUND(REGEXP_REPLACE(`MEM_CRIT_VAL`,'[a-z]','') *1000,3)
+						  WHEN INSTR(`MEM_CRIT_VAL`, 'KB') !=0 THEN REGEXP_REPLACE(`MEM_CRIT_VAL`,'[a-z]','')
+						  WHEN INSTR(`MEM_CRIT_VAL`, 'B') !=0 THEN ROUND(REGEXP_REPLACE(`MEM_CRIT_VAL`,'[a-z]','')/1000,3)
+				 ELSE 0 END
+				END as `MEM_CRIT_VAL`
+				 
+				,CASE WHEN INSTR(`LTE-R_COM_UP_VAL`, 'B')=0 THEN REGEXP_REPLACE(`LTE-R_COM_UP_VAL`,'[a-z]','')
+				ELSE
+					CASE WHEN INSTR(`LTE-R_COM_UP_VAL`, 'GB') !=0 THEN ROUND(REGEXP_REPLACE(`LTE-R_COM_UP_VAL`,'[a-z]','') *1000,3)
+						  WHEN INSTR(`LTE-R_COM_UP_VAL`, 'MB') !=0 THEN REGEXP_REPLACE(`LTE-R_COM_UP_VAL`,'[a-z]','')
+						  WHEN INSTR(`LTE-R_COM_UP_VAL`, 'KB') !=0 THEN ROUND(REGEXP_REPLACE(`LTE-R_COM_UP_VAL`,'[a-z]','')/1000,3)
+						  WHEN INSTR(`LTE-R_COM_UP_VAL`, 'B') !=0 THEN ROUND(REGEXP_REPLACE(`LTE-R_COM_UP_VAL`,'[a-z]','')/1000000,3)
+					ELSE 0 END 
+				 END as `LTE-R_COM_UP_VAL`
+		
+				,CASE WHEN INSTR(`LTE-R_COM_DN_VAL`, 'B')=0 THEN REGEXP_REPLACE(`LTE-R_COM_DN_VAL`,'[a-z]','')
+				ELSE
+				CASE WHEN INSTR(`LTE-R_COM_DN_VAL`, 'GB') !=0 THEN ROUND(REGEXP_REPLACE(`LTE-R_COM_DN_VAL`,'[a-z]','') *1000,3)
+					  WHEN INSTR(`LTE-R_COM_DN_VAL`, 'MB') !=0 THEN REGEXP_REPLACE(`LTE-R_COM_DN_VAL`,'[a-z]','') 
+					  WHEN INSTR(`LTE-R_COM_DN_VAL`, 'KB') !=0 THEN ROUND(REGEXP_REPLACE(`LTE-R_COM_DN_VAL`,'[a-z]','')/1000,3)
+					  WHEN INSTR(`LTE-R_COM_DN_VAL`, 'B') !=0 THEN ROUND(REGEXP_REPLACE(`LTE-R_COM_DN_VAL`,'[a-z]','')/1000000,3)
+				ELSE 0 END
+				END as `LTE-R_COM_DN_VAL`
+				
+				FROM tbl_receive_data 
+				WHERE  1=1
+				AND `LTE-R_IP`=#{lteRIp} 
+				AND RECEIVE_TIME >= NOW()-INTERVAL 210 SECOND
+				UNION ALL SELECT 0 AS RECEIVE_TIME,0 AS `LTE-R_IP`,0 AS `LTE-R_MAC_ADD`,0 AS `SW_VER_CODE`,0 AS `MEM_CRIT_VAL`,0 AS `LTE-R_COM_UP_VAL`,0 AS `LTE-R_COM_DN_VAL` FROM DUAL
+				UNION ALL SELECT 0 AS RECEIVE_TIME,0 AS `LTE-R_IP`,0 AS `LTE-R_MAC_ADD`,0 AS `SW_VER_CODE`,0 AS `MEM_CRIT_VAL`,0 AS `LTE-R_COM_UP_VAL`,0 AS `LTE-R_COM_DN_VAL` FROM DUAL
+				UNION ALL SELECT 0 AS RECEIVE_TIME,0 AS `LTE-R_IP`,0 AS `LTE-R_MAC_ADD`,0 AS `SW_VER_CODE`,0 AS `MEM_CRIT_VAL`,0 AS `LTE-R_COM_UP_VAL`,0 AS `LTE-R_COM_DN_VAL` FROM DUAL
+				UNION ALL SELECT 0 AS RECEIVE_TIME,0 AS `LTE-R_IP`,0 AS `LTE-R_MAC_ADD`,0 AS `SW_VER_CODE`,0 AS `MEM_CRIT_VAL`,0 AS `LTE-R_COM_UP_VAL`,0 AS `LTE-R_COM_DN_VAL` FROM DUAL
+				UNION ALL SELECT 0 AS RECEIVE_TIME,0 AS `LTE-R_IP`,0 AS `LTE-R_MAC_ADD`,0 AS `SW_VER_CODE`,0 AS `MEM_CRIT_VAL`,0 AS `LTE-R_COM_UP_VAL`,0 AS `LTE-R_COM_DN_VAL` FROM DUAL
+				UNION ALL SELECT 0 AS RECEIVE_TIME,0 AS `LTE-R_IP`,0 AS `LTE-R_MAC_ADD`,0 AS `SW_VER_CODE`,0 AS `MEM_CRIT_VAL`,0 AS `LTE-R_COM_UP_VAL`,0 AS `LTE-R_COM_DN_VAL` FROM DUAL
+				
+			)A
+			WHERE 1=1
+			and( A.RECEIVE_TIME!=0 OR ROWNUM() <![CDATA[ <= ]]> 6 )
+		)B
+		ORDER BY B.RECEIVE_TIME ASC
+		LIMIT 6
+	</select>
+	
+	
+	<!-- 단말기 차트 관련 쿼리 - 실시간 -->
+	<select id="chartQ" parameterType="terminalVo" resultMap="selectTerminalList">
+		SELECT 
+		 A.`LTE-R_IP`
+		,A.`LTE-R_MAC_ADD`
+		,A.`LTE-R_USED`
+		,A.`INS_LOC_TXT`
+		,DATE_FORMAT(B.RECEIVE_TIME ,'%Y-%m-%d') AS RECEIVE_TIME
+		
+		<!-- 데이터 2차 가공 p/m 에 따른 백분율 변환-->
+		
+		,CASE WHEN INSTR(`SW_VER_CODE`, '700P')!=0 THEN ROUND((IFNULL(B.`MEM_CRIT_VAL`,0) * 100)/128000,3)
+			  ELSE ROUND((IFNULL(B.`MEM_CRIT_VAL`,0) * 100)/32000,3) END AS `MEM_CRIT_VAL`
+		,ROUND(IFNULL(B.`LTE-R_COM_UP_VAL`,0)*0.1,3) as `LTE-R_COM_UP_VAL`
+		,ROUND(IFNULL(B.`LTE-R_COM_DN_VAL`,0)*0.1,3) as `LTE-R_COM_DN_VAL`
+		
+		,B.`CON_SYSTEM01_IP`
+		,B.`CON_SYSTEM02_IP`
+		,B.`SW_VER_CODE`
+		,IFNULL(B.`LTE-R_RSRP_VAL`,0) AS `LTE-R_RSRP_VAL`
+		,IFNULL(B.`LTE-R_RSRQ_VAL`,0) AS `LTE-R_RSRQ_VAL`
+		,B.`LTE-R_IMEI`
+		,B.`LTE-R_IMSI`
+		,B.`LTE-R_MNC`
+		,B.`LTE-R_MCC`
+		,B.`LTE-R_BAND`
+		,B.`LTE-R_CHANNEL`
+		FROM
+	    (
+		    SELECT `LTE-R_IP`,`LTE-R_MAC_ADD`,`LTE-R_USED`,INS_LOC_TXT FROM TBL_ROUTER_INFO
+		    WHERE `LTE-R_IP`=#{lteRIp} 
+	    )A
+	    LEFT JOIN
+		(
+			SELECT 
+			`LTE-R_IP` AS	`LTE-R_IP2`
+			,RECEIVE_TIME
+			,CASE WHEN INSTR(`MEM_CRIT_VAL`, 'B')=0 THEN REGEXP_REPLACE(`MEM_CRIT_VAL`,'[a-z]','') 
+			ELSE 
+				CASE WHEN INSTR(`MEM_CRIT_VAL`, 'GB') !=0 THEN ROUND(REGEXP_REPLACE(`MEM_CRIT_VAL`,'[a-z]','') *1000000,3)
+					  WHEN INSTR(`MEM_CRIT_VAL`, 'MB') !=0 THEN ROUND(REGEXP_REPLACE(`MEM_CRIT_VAL`,'[a-z]','') *1000,3)
+					  WHEN INSTR(`MEM_CRIT_VAL`, 'KB') !=0 THEN REGEXP_REPLACE(`MEM_CRIT_VAL`,'[a-z]','')
+					  WHEN INSTR(`MEM_CRIT_VAL`, 'B') !=0 THEN ROUND(REGEXP_REPLACE(`MEM_CRIT_VAL`,'[a-z]','')/1000,3)
+			 ELSE 0 END
+			END as `MEM_CRIT_VAL`
+			 
+			,CASE WHEN INSTR(`LTE-R_COM_UP_VAL`, 'B')=0 THEN REGEXP_REPLACE(`LTE-R_COM_UP_VAL`,'[a-z]','')
+			ELSE
+				CASE WHEN INSTR(`LTE-R_COM_UP_VAL`, 'GB') !=0 THEN ROUND(REGEXP_REPLACE(`LTE-R_COM_UP_VAL`,'[a-z]','') *1000,3)
+					  WHEN INSTR(`LTE-R_COM_UP_VAL`, 'MB') !=0 THEN REGEXP_REPLACE(`LTE-R_COM_UP_VAL`,'[a-z]','')
+					  WHEN INSTR(`LTE-R_COM_UP_VAL`, 'KB') !=0 THEN ROUND(REGEXP_REPLACE(`LTE-R_COM_UP_VAL`,'[a-z]','')/1000,3)
+					  WHEN INSTR(`LTE-R_COM_UP_VAL`, 'B') !=0 THEN ROUND(REGEXP_REPLACE(`LTE-R_COM_UP_VAL`,'[a-z]','')/1000000,3)
+				ELSE 0 END 
+			 END as `LTE-R_COM_UP_VAL`
+	
+			,CASE WHEN INSTR(`LTE-R_COM_DN_VAL`, 'B')=0 THEN REGEXP_REPLACE(`LTE-R_COM_DN_VAL`,'[a-z]','')
+			ELSE
+			CASE WHEN INSTR(`LTE-R_COM_DN_VAL`, 'GB') !=0 THEN ROUND(REGEXP_REPLACE(`LTE-R_COM_DN_VAL`,'[a-z]','') *1000,3)
+				  WHEN INSTR(`LTE-R_COM_DN_VAL`, 'MB') !=0 THEN REGEXP_REPLACE(`LTE-R_COM_DN_VAL`,'[a-z]','') 
+				  WHEN INSTR(`LTE-R_COM_DN_VAL`, 'KB') !=0 THEN ROUND(REGEXP_REPLACE(`LTE-R_COM_DN_VAL`,'[a-z]','')/1000,3)
+				  WHEN INSTR(`LTE-R_COM_DN_VAL`, 'B') !=0 THEN ROUND(REGEXP_REPLACE(`LTE-R_COM_DN_VAL`,'[a-z]','')/1000000,3)
+			ELSE 0 END
+			END as `LTE-R_COM_DN_VAL`
+	
+			,`CON_SYSTEM01_IP`
+			,`CON_SYSTEM02_IP`
+			,`SW_VER_CODE`
+			,`LTE-R_RSRP_VAL`
+			,`LTE-R_RSRQ_VAL`
+			,`LTE-R_IMEI`
+			,`LTE-R_IMSI`
+			,`LTE-R_MNC`
+			,`LTE-R_MCC`
+			,`LTE-R_BAND`
+			,`LTE-R_CHANNEL`
+	
+			FROM TBL_LAST_DATA
+			WHERE  `LTE-R_IP`=#{lteRIp} 
+			AND RECEIVE_TIME <![CDATA[ > ]]> NOW() - INTERVAL 1 MINUTE
+			ORDER BY RECEIVE_TIME DESC
+			LIMIT 1
+		)B
+		ON(A.`LTE-R_IP`=B.`LTE-R_IP2`)
+	</select>
+	
+	<resultMap type="terminalVO" id="mainChart1">
+		<result property="lteRCode" column="LTE-R_CODE"/>
+		<result property="teamName" column="TEAM_NAME"/>
+		<result property="cnt" column="CNT"/>
+	</resultMap>
+	<select id="mainChart1" parameterType="terminalVo" resultMap="mainChart1">
+		SELECT SUBSTR(A.`LTE-R_CODE`,1,11),A.lteCode AS `LTE-R_CODE`
+		, COUNT(A.lteCode) AS CNT
+		,B.*
+		FROM
+		(
+		
+			SELECT  `LTE-R_CODE`,SUBSTR(`LTE-R_CODE`,9,3) AS lteCode,USE_YN FROM tbl_router_info T
+				<!-- 로그인 사용자의 소속을 가져와서 해당하는 것만 찾음 -->
+				<!-- WHERE SUBSTR(`LTE-R_CODE`,1,7) LIKE CONCAT(SUBSTR('ARX-SCH-SHT',1,7),'%') -->
+		)A
+		LEFT JOIN 
+		tbl_depart_info B
+		ON(SUBSTR(A.`LTE-R_CODE`,1,11)=B.DEPART_CODE)
+		GROUP BY A.lteCode
+		ORDER BY CNT DESC
+	</select>
+		
+	<resultMap type="terminalVO" id="mainChart2">
+		<result property="keyVal" column="KEY_VAL"/>
+		<result property="cnt" column="CNT"/>
+	</resultMap>
+	<select id="mainChart2" parameterType="terminalVo" resultMap="mainChart2">
+		WITH RAN AS (
+			SELECT * FROM tbl_rssi_strength
+		)
+		SELECT B.KEY_VAL,COUNT(B.KEY_VAL) AS cnt FROM
+		(	
+			SELECT T1.*,T2.* FROM
+			(SELECT `LTE-R_IP`,`LTE-R_MAC_ADD`,`LTE-R_CODE`,SUBSTR(`LTE-R_CODE`,9,3) AS lteCode FROM tbl_router_info) T1
+			LEFT JOIN tbl_depart_info T2 ON SUBSTR(T1.`LTE-R_CODE`,1,11)=T2.DEPART_CODE
+		)A
+		LEFT JOIN
+		(SELECT `LTE-R_IP` AS K1,`LTE-R_MAC_ADD` AS K2,
+		CASE 
+		WHEN `LTE-R_RSSI_VAL` <![CDATA[ > ]]> RAN.EXCELLENT_VAL THEN 'EXCELLENT'
+		WHEN `LTE-R_RSSI_VAL` <![CDATA[ > ]]> RAN.GOOD_VAL THEN 'GOOD'
+		WHEN `LTE-R_RSSI_VAL` <![CDATA[ > ]]> RAN.MEDIUM_VAL THEN 'MIDDLE'
+		ELSE 'WEAK' END AS KEY_VAL
+		FROM tbl_last_data,RAN)B
+		 ON A.`LTE-R_IP`=B.K1
+		 <!-- AND A.`LTE-R_MAC_ADD`=B.K2 -->
+		  WHERE 1=1
+		  <!--관리자 아닐 시 로그인 사용자 정보 입력 -->
+		<if test="departCode != null and departCode neq ''">
+			AND A.DEPART_CODE=#{departCode}
+		</if>
+		GROUP BY b.key_val
+		HAVING KEY_VAL IS NOT NULL
+		<!-- ORDER BY CNT DESC -->
+	</select>
+	
+	<resultMap type="terminalVO" id="barChart">
+		<result property="lteRComUpVal" column="LTE-R_COM_UP_VAL"/>
+		<result property="lteRComDnVal" column="LTE-R_COM_DN_VAL"/>
+		<result property="teamCode" column="TEAM_CODE"/>
+		<result property="teamName" column="TEAM_NAME"/>
+	</resultMap>
+	<select id="barChart" parameterType="terminalVo" resultMap="barChart">
+		SELECT J1.TEAM_CODE, J1.TEAM_NAME 
+		,ROUND(AVG(J1.`LTE-R_COM_UP_VAL`),0) AS `LTE-R_COM_UP_VAL` 
+		,ROUND(AVG(J1.`LTE-R_COM_DN_VAL`),0) AS `LTE-R_COM_DN_VAL`
+		,J1.REG_YDT
+		FROM
+		(
+		SELECT A.* ,B.* FROM
+		(	
+			SELECT T1.*,T2.* FROM
+			(SELECT `LTE-R_IP`,`LTE-R_MAC_ADD`,`LTE-R_CODE`,SUBSTR(`LTE-R_CODE`,9,3) AS lteCode FROM tbl_router_info) T1
+			LEFT JOIN tbl_depart_info T2 ON SUBSTR(T1.`LTE-R_CODE`,1,11)=T2.DEPART_CODE
+		)A
+		LEFT JOIN
+		(
+			SELECT `LTE-R_IP` AS K1,`LTE-R_MAC_ADD` AS K2
+		 
+		,CASE WHEN INSTR(`MEM_CRIT_VAL`, 'B')=0 THEN REGEXP_REPLACE(`MEM_CRIT_VAL`,'[a-z]','') 
+		ELSE 
+			CASE WHEN INSTR(`MEM_CRIT_VAL`, 'GB') !=0 THEN ROUND(REGEXP_REPLACE(`MEM_CRIT_VAL`,'[a-z]','') *1000000,3)
+				  WHEN INSTR(`MEM_CRIT_VAL`, 'MB') !=0 THEN ROUND(REGEXP_REPLACE(`MEM_CRIT_VAL`,'[a-z]','') *1000,3)
+				  WHEN INSTR(`MEM_CRIT_VAL`, 'KB') !=0 THEN REGEXP_REPLACE(`MEM_CRIT_VAL`,'[a-z]','')
+				  WHEN INSTR(`MEM_CRIT_VAL`, 'B') !=0 THEN ROUND(REGEXP_REPLACE(`MEM_CRIT_VAL`,'[a-z]','')/1000,3)
+		 ELSE 0 END
+		END as `MEM_CRIT_VAL`
+		 
+		,CASE WHEN INSTR(`LTE-R_COM_UP_VAL`, 'B')=0 THEN REGEXP_REPLACE(`LTE-R_COM_UP_VAL`,'[a-z]','')
+		ELSE
+			CASE WHEN INSTR(`LTE-R_COM_UP_VAL`, 'GB') !=0 THEN ROUND(REGEXP_REPLACE(`LTE-R_COM_UP_VAL`,'[a-z]','') *1000,3)
+				  WHEN INSTR(`LTE-R_COM_UP_VAL`, 'MB') !=0 THEN REGEXP_REPLACE(`LTE-R_COM_UP_VAL`,'[a-z]','')
+				  WHEN INSTR(`LTE-R_COM_UP_VAL`, 'KB') !=0 THEN ROUND(REGEXP_REPLACE(`LTE-R_COM_UP_VAL`,'[a-z]','')/1000,3)
+				  WHEN INSTR(`LTE-R_COM_UP_VAL`, 'B') !=0 THEN ROUND(REGEXP_REPLACE(`LTE-R_COM_UP_VAL`,'[a-z]','')/1000000,3)
+			ELSE 0 END 
+		 END as `LTE-R_COM_UP_VAL`
+
+		,CASE WHEN INSTR(`LTE-R_COM_DN_VAL`, 'B')=0 THEN REGEXP_REPLACE(`LTE-R_COM_DN_VAL`,'[a-z]','')
+		ELSE
+		CASE WHEN INSTR(`LTE-R_COM_DN_VAL`, 'GB') !=0 THEN ROUND(REGEXP_REPLACE(`LTE-R_COM_DN_VAL`,'[a-z]','') *1000,3)
+			  WHEN INSTR(`LTE-R_COM_DN_VAL`, 'MB') !=0 THEN REGEXP_REPLACE(`LTE-R_COM_DN_VAL`,'[a-z]','') 
+			  WHEN INSTR(`LTE-R_COM_DN_VAL`, 'KB') !=0 THEN ROUND(REGEXP_REPLACE(`LTE-R_COM_DN_VAL`,'[a-z]','')/1000,3)
+			  WHEN INSTR(`LTE-R_COM_DN_VAL`, 'B') !=0 THEN ROUND(REGEXP_REPLACE(`LTE-R_COM_DN_VAL`,'[a-z]','')/1000000,3)
+		ELSE 0 END
+		END as `LTE-R_COM_DN_VAL`
+		
+			FROM tbl_last_data
+		)B
+		 ON A.`LTE-R_IP`=B.K1
+		  WHERE 1=1
+		  <!--관리자 아닐 시 로그인 사용자 정보 입력 -->
+		<if test="departCode != null and departCode neq ''">
+			AND A.DEPART_CODE=#{departCode}
+		</if>
+		 )J1
+		 GROUP BY J1.lteCode
+		 ORDER BY J1.REG_YDT
+	</select>
+	
+	<resultMap type="terminalVO" id="userRsrp">
+		<result property="keyVal" column="KEY_VAL"/>
+		<result property="cnt" column="CNT"/>
+	</resultMap>
+	<select id="userRsrp" parameterType="terminalVo" resultMap="userRsrp">
+		WITH RAN AS (
+			SELECT * FROM tbl_rsrp_strength
+		)
+		SELECT B.KEY_VAL,COUNT(B.KEY_VAL) AS cnt FROM
+		(	
+			SELECT T1.*,T2.* FROM
+			(SELECT `LTE-R_IP`,`LTE-R_MAC_ADD`,`LTE-R_CODE`,SUBSTR(`LTE-R_CODE`,9,3) AS lteCode FROM tbl_router_info) T1
+			LEFT JOIN tbl_depart_info T2 ON SUBSTR(T1.`LTE-R_CODE`,1,11)=T2.DEPART_CODE
+		)A
+		LEFT JOIN
+		(SELECT `LTE-R_IP` AS K1,`LTE-R_MAC_ADD` AS K2,
+		CASE 
+		WHEN `LTE-R_RSRP_VAL` <![CDATA[ > ]]> RAN.EXCELLENT_VAL THEN 'EXCELLENT'
+		WHEN `LTE-R_RSRP_VAL` <![CDATA[ > ]]> RAN.GOOD_VAL THEN 'GOOD'
+		WHEN `LTE-R_RSRP_VAL` <![CDATA[ > ]]> RAN.MEDIUM_VAL THEN 'MIDDLE'
+		ELSE 'WEAK' END AS KEY_VAL
+		FROM tbl_last_data,RAN)B
+		 ON A.`LTE-R_IP`=B.K1
+		 AND A.`LTE-R_MAC_ADD`=B.K2
+		  WHERE 1=1
+		  <!--관리자 아닐 시 로그인 사용자 정보 입력 -->
+		<if test="departCode != null and departCode neq ''">
+			AND A.DEPART_CODE=#{departCode}
+		</if>
+		GROUP BY b.key_val
+		HAVING KEY_VAL IS NOT NULL
+	</select>
+	
+	<resultMap type="terminalVO" id="userRsrq">
+		<result property="keyVal" column="KEY_VAL"/>
+		<result property="cnt" column="CNT"/>
+	</resultMap>
+	<select id="userRsrq" parameterType="terminalVo" resultMap="userRsrq">
+		WITH RAN AS (
+			SELECT * FROM tbl_rsrq_strength
+		)
+		SELECT B.KEY_VAL,COUNT(B.KEY_VAL) AS cnt FROM
+		(	
+			SELECT T1.*,T2.* FROM
+			(SELECT `LTE-R_IP`,`LTE-R_MAC_ADD`,`LTE-R_CODE`,SUBSTR(`LTE-R_CODE`,9,3) AS lteCode FROM tbl_router_info) T1
+			LEFT JOIN tbl_depart_info T2 ON SUBSTR(T1.`LTE-R_CODE`,1,11)=T2.DEPART_CODE
+		)A
+		LEFT JOIN
+		(SELECT `LTE-R_IP` AS K1,`LTE-R_MAC_ADD` AS K2,
+		CASE 
+		WHEN `LTE-R_RSRQ_VAL` <![CDATA[ > ]]> RAN.EXCELLENT_VAL THEN 'EXCELLENT'
+		WHEN `LTE-R_RSRQ_VAL` <![CDATA[ > ]]> RAN.GOOD_VAL THEN 'GOOD'
+		WHEN `LTE-R_RSRQ_VAL` <![CDATA[ > ]]> RAN.MEDIUM_VAL THEN 'MIDDLE'
+		ELSE 'WEAK' END AS KEY_VAL
+		FROM tbl_last_data,RAN)B
+		 ON A.`LTE-R_IP`=B.K1
+		  WHERE 1=1
+		  <!--관리자 아닐 시 로그인 사용자 정보 입력 -->
+		<if test="departCode != null and departCode neq ''">
+			AND A.DEPART_CODE=#{departCode}
+		</if>
+		GROUP BY b.key_val
+		HAVING KEY_VAL IS NOT NULL
+	</select>
+	
+	<!-- 선택된 팀별로 팀별/전체 단말기 수 파악 -->
+	<select id="routerTeamCnt" parameterType="terminalVo" resultMap="selectTerminalList">
+		SELECT 
+			SUBSTR(`LTE-R_CODE`,1,11) AS `LTE-R_CODE`
+			,COUNT(SUBSTR(`LTE-R_CODE`,1,11)) AS `TEAM_CNT`
+			,(SELECT COUNT(*) FROM tbl_router_info) AS `DEVICE_CNT`
+		FROM tbl_router_info
+		<if test="departCode != null and departCode neq ''">
+		WHERE SUBSTR(`LTE-R_CODE`,1,11)=#{departCode}
+		</if>
+		GROUP BY SUBSTR(`LTE-R_CODE`,1,11)
+	</select>
+	
+	<!-- 단말기 상세 - 단말기 정보 불러오기 -->
+	<select id="deviceReload" parameterType="terminalVo" resultMap="selectTerminalList">
+		SELECT A.*, NOW() as GET_DEVICE_INFO_YDT
+		FROM tbl_last_data A
+		WHERE  A.`LTE-R_IP`=#{lteRIp} 
+		ORDER BY RECEIVE_TIME DESC
+		LIMIT 1
+	</select>
+	
+	
+</mapper>

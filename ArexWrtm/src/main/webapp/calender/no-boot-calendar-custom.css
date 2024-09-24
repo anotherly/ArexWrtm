@@ -1,0 +1,178 @@
+/*
+부트스트랩놈을 가져다쓰면 이것저것 디자인 많이 깨지니
+부트스트랩 없이 자체 커스텀 한 css
+부트스트랩 쓸거면 이거 쓸필요없음
+*/
+
+/*############################BOOTSTRAP 부분##########################################  */
+/* 달력 버튼부 */
+.input-group-addon:last-child {
+    border-left: 0;
+}
+
+.input-group-addon {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    color: #555;
+    text-align: center;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 20px;
+}
+
+.input-group-addon, .input-group-btn {
+    width: 1%;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.input-group .form-control, .input-group-addon, .input-group-btn {
+    display: table-cell;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.input-group {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+    width:153px;
+}
+
+@font-face {
+	font-family: 'Glyphicons Halflings';
+	src: url(../../fonts/glyphicons-halflings-regular.eot);
+	src: url(../../fonts/glyphicons-halflings-regular.eot?#iefix)
+		format('embedded-opentype'),
+		url(../../fonts/glyphicons-halflings-regular.woff2) format('woff2'),
+		url(../../fonts/glyphicons-halflings-regular.woff) format('woff'),
+		url(../../fonts/glyphicons-halflings-regular.ttf) format('truetype'),
+		url(../../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular)
+		format('svg')
+}
+
+.glyphicon {
+	position: relative;
+	top: 1px;
+	display: inline-block;
+	font-family: 'Glyphicons Halflings';
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+
+.bootstrap-datetimepicker-widget .list-unstyled {
+    margin: 0;
+}
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+
+.table-condensed>tbody>tr>td, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>td, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>thead>tr>th {
+    padding: 5px;
+}
+
+.bootstrap-datetimepicker-widget table th {
+    height: 20px;
+    line-height: 20px;
+    width: 20px;
+}
+.bootstrap-datetimepicker-widget table td, .bootstrap-datetimepicker-widget table th {
+    text-align: center;
+    border-radius: 4px;
+}
+
+.glyphicon-calendar:before {
+	content: "\e109"
+}
+
+.glyphicon-chevron-left:before {
+	content: "\e079"
+}
+
+.carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right,
+	.carousel-control .icon-next, .carousel-control .icon-prev {
+	position: absolute;
+	top: 50%;
+	z-index: 5;
+	display: inline-block;
+	margin-top: -10px
+}
+
+.carousel-control .glyphicon-chevron-left, .carousel-control .icon-prev
+	{
+	left: 50%;
+	margin-left: -10px
+}
+
+
+.glyphicon-chevron-right:before {
+	content: "\e080"
+}
+
+.carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right,
+	.carousel-control .icon-next, .carousel-control .icon-prev {
+	position: absolute;
+	top: 50%;
+	z-index: 5;
+	display: inline-block;
+	margin-top: -10px
+}
+
+.carousel-control .glyphicon-chevron-right, .carousel-control .icon-next
+	{
+	right: 50%;
+	margin-right: -10px
+}
+
+.table-condensed{
+	border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.table-condensed>tbody>tr>td, .table-condensed>tbody>tr>th,
+	.table-condensed>tfoot>tr>td, .table-condensed>tfoot>tr>th,
+	.table-condensed>thead>tr>td, .table-condensed>thead>tr>th {
+	padding: 5px
+}
+
+/*######################################################################  */
+
+/* 개인 커스텀 부분 */
+.datetime-between{
+	display: flex;
+}
+

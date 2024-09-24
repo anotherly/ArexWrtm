@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.hivesys.user.mapper.UserMapper">
+<!-- 
+수정일           수정자         수정내용 
+========= ======= ================================================= 
+2020.07.23 정다빈     최초 생성 
+-->
+
+	<!-- 전체 사용자 조회 -->
+	<resultMap type="userVO" id="selectUserList">
+		<result property="userId" column="USER_ID"/>
+		<result property="userPw" column="USER_PW"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userRank" column="USER_RANK"/>
+		<result property="departCode" column="DEPART_CODE"/>
+		<result property="userPhone" column="USER_PHONE"/>
+		<result property="userTel" column="USER_TEL"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userAuth" column="USER_AUTH"/>
+		<result property="usedYn" column="USED_YN"/>
+		<result property="regYdt" column="REG_YDT"/>
+		<result property="updateYdt" column="UPDATE_YDT"/>
+		<result property="departCode" column="DEPART_CODE"/>
+		<result property="cpyName" column="CPY_NAME"/>
+		<result property="hqName" column="HQ_NAME"/>
+		<result property="teamName" column="TEAM_NAME"/>
+	</resultMap>	
+	<select id="selectUserList" parameterType="userVO" resultMap="selectUserList">
+		SELECT J2.* FROM  
+			(	
+				SELECT J1.*,C.* FROM
+			    (
+				    SELECT A.*,B.AUTH_DEFINE FROM
+				    (
+					SELECT 
+						 USER_ID	
+						,USER_PW	
+						,USER_NAME	
+						,USER_PHONE	
+						,USER_EMAIL	
+						,DEPART_CODE	
+						,USER_RANK	
+						,USED_YN	
+						,date_format(REG_YDT, '%Y-%m-%d') as REG_YDT	
+						,USER_AUTH	
+					FROM TBL_USER_INFO 
+					WHERE 1=1 	
+					<if test="departCode !=null and departCode neq ''"> 
+						AND DEPART_CODE LIKE CONCAT('%',#{departCode},'%')
+					</if>
+					<if test="schUserId !=null and schUserId neq ''"> 
+						AND USER_ID LIKE CONCAT('%',#{schUserId},'%')
+					</if>
+					<if test="schUserName !=null and schUserName neq ''"> 
+						AND USER_NAME LIKE CONCAT('%',#{schUserName},'%')
+					</if>
+					<if test="schUserCpy !=null and schUserCpy neq ''"> 
+						AND SUBSTR(DEPART_CODE,1,3) LIKE CONCAT('%',#{schUserCpy},'%')
+					</if>
+					<if test="schUserHq !=null and schUserHq neq ''"> 
+						AND SUBSTR(DEPART_CODE,5,3) LIKE CONCAT('%',#{schUserHq},'%')
+					</if>
+					<if test="schUserTeam !=null and schUserTeam neq ''"> 
+						AND SUBSTR(DEPART_CODE,9,3) LIKE CONCAT('%',#{schUserTeam},'%')
+					</if>
+					<if test="sDate !=null and sDate neq '' and eDate !=null and eDate neq '' ">
+					    AND <![CDATA[ REG_YDT >= #{sDate} AND REG_YDT <= #{eDate} ]]>
+					</if>
+				)A
+				LEFT JOIN 
+				(SELECT AUTH_LEVEL, AUTH_DEFINE FROM TBL_AUTH_INFO)B
+				ON(A.USER_AUTH=B.AUTH_LEVEL)
+			)J1
+			LEFT JOIN 
+			(SELECT 
+			  DEPART_CODE AS DPT
+			 ,CPY_NAME
+			 ,HQ_NAME
+			 ,TEAM_NAME
+			FROM TBL_DEPART_INFO)C
+			ON (J1.DEPART_CODE=C.DPT)
+		)J2	
+		ORDER BY J2.REG_YDT DESC
+	</select>
+
+	<!-- 특정 사용자 조회 
+	(기간검색때문에 로그인이 안될수도 있음.. 그렇다고 로직마다 별도 파라미터 처리를 하는것은 고칠부분이 많아보임)
+	-->
+	<resultMap type="userVO" id="selectUser">
+		<result property="userId" column="USER_ID"/>
+		<result property="userPw" column="USER_PW"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userRank" column="USER_RANK"/>
+		<result property="departCode" column="DEPART_CODE"/>
+		<result property="userPhone" column="USER_PHONE"/>
+		<result property="userTel" column="USER_TEL"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userAuth" column="USER_AUTH"/>
+		<result property="usedYn" column="USED_YN"/>
+		<result property="regYdt" column="REG_YDT"/>
+		<result property="updateYdt" column="UPDATE_YDT"/>
+		<result property="cpyCode" column="CPY_CODE"/>
+		<result property="cpyName" column="CPY_NAME"/>
+		<result property="hqCode" column="HQ_CODE"/>
+		<result property="hqName" column="HQ_NAME"/>
+		<result property="teamCode" column="TEAM_CODE"/>
+		<result property="teamName" column="TEAM_NAME"/>
+	</resultMap>	
+	<select id="selectUser" parameterType="userVO" resultMap="selectUser">
+		SELECT J2.* FROM  
+			(	
+				SELECT J1.*,C.* FROM
+			    (
+				    SELECT A.*,B.AUTH_DEFINE FROM
+				    (
+					SELECT 
+						 USER_ID	
+						,USER_PW	
+						,USER_NAME	
+						,USER_PHONE	
+						,USER_EMAIL	
+						,DEPART_CODE	
+						,USER_RANK	
+						,USED_YN	
+						,date_format(REG_YDT, '%Y-%m-%d %H:%i:%s') as REG_YDT	
+						,USER_AUTH	
+					FROM TBL_USER_INFO 
+					WHERE USER_ID=#{userId}
+				)A
+				LEFT JOIN 
+				(SELECT AUTH_LEVEL, AUTH_DEFINE FROM TBL_AUTH_INFO)B
+				ON(A.USER_AUTH=B.AUTH_LEVEL)
+			)J1
+			LEFT JOIN 
+			(SELECT 
+			  DEPART_CODE AS DPT
+			 ,CPY_CODE
+			 ,CPY_NAME
+			 ,HQ_CODE
+			 ,HQ_NAME
+			 ,TEAM_CODE
+			 ,TEAM_NAME
+			FROM TBL_DEPART_INFO)C
+			ON (J1.DEPART_CODE=C.DPT)
+		)J2	
+		ORDER BY J2.REG_YDT DESC
+	</select>
+	
+	<!-- 사용자 등록 -->
+	<insert id="insertUser" parameterType="userVO">
+		INSERT INTO TBL_USER_INFO(
+		
+		<if test="userId !=null and userId  neq '' ">`USER_ID`</if>
+		<if test="userPw !=null and userPw  neq '' ">,`USER_PW`</if>
+		<if test="userName !=null and userName  neq '' ">,`USER_NAME`</if>
+		<if test="userRank !=null and userRank  neq '' ">,`USER_RANK`</if>
+		<if test="departCode !=null and departCode  neq '' ">,`DEPART_CODE`</if>
+		<if test="userPhone !=null and userPhone  neq '' ">,`USER_PHONE`</if>
+		<if test="userTel !=null and userTel  neq '' ">,`USER_TEL`</if>
+		<if test="userEmail !=null and userEmail  neq '' ">,`USER_EMAIL`</if>
+		<if test="userAuth !=null and userAuth  neq '' ">,`USER_AUTH`</if>
+		<if test="usedYn !=null and usedYn  neq '' ">,`USED_YN`</if>
+		<if test="regYdt !=null and regYdt  neq '' ">,`REG_YDT`</if>
+		<if test="updateYdt !=null and updateYdt  neq '' ">,`UPDATE_YDT`</if>
+		)
+		VALUES (
+		<if test="userId !=null and userId  neq '' ">#{userId}</if>
+		<if test="userPw !=null and userPw  neq '' ">,#{userPw}</if>
+		<if test="userName !=null and userName  neq '' ">,#{userName}</if>
+		<if test="userRank !=null and userRank  neq '' ">,#{userRank}</if>
+		<if test="departCode !=null and departCode  neq '' ">,#{departCode}</if>
+		<if test="userPhone !=null and userPhone  neq '' ">,#{userPhone}</if>
+		<if test="userTel !=null and userTel  neq '' ">,#{userTel}</if>
+		<if test="userEmail !=null and userEmail  neq '' ">,#{userEmail}</if>
+		<if test="userAuth !=null and userAuth  neq '' ">,#{userAuth}</if>
+		<if test="usedYn !=null and usedYn  neq '' ">,1</if>
+		<if test="regYdt !=null and regYdt  neq '' ">,NOW()</if>
+		<if test="updateYdt !=null and updateYdt  neq '' ">,#{updateYdt}</if>
+		)
+	</insert>
+	
+	<!-- 사용자 정보 수정-->
+	<update id="updateUser" parameterType="userVO">
+		UPDATE TBL_USER_INFO
+		SET
+			UPDATE_YDT = NOW() 
+			<if test="userPw !=null and userPw  neq '' ">
+				,`USER_PW`=#{userPw}
+			</if>
+			,`USER_NAME`=#{userName}
+			,`USER_RANK`=#{userRank}
+			,`DEPART_CODE`=#{departCode}
+			,`USER_PHONE`=#{userPhone}
+			,`USER_TEL`=#{userTel}
+			,`USER_EMAIL`=#{userEmail}
+			,`USER_AUTH`=#{userAuth}
+			,`USED_YN`=#{usedYn}
+		WHERE `USER_ID` =#{userId}
+	</update>
+	
+	<!-- 사용자 삭제 -->
+	<delete id="deleteUser" parameterType="userVO">
+		DELETE FROM TBL_USER_INFO 
+		WHERE USER_ID IN
+		<foreach collection="chkList" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+	</delete>
+
+</mapper>

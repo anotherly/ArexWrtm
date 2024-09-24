@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.hivesys.user.mapper.loginMapper">
+<!-- 
+수정일           수정자         수정내용 
+========= ======= ================================================= 
+2020.07.23 정다빈     최초 생성 
+-->
+	
+	<!-- 로그인 이력 저장(로그인 시) -->
+	<insert id="insertLogin" parameterType="userVO">
+		INSERT INTO LOGIN_HISTORY(
+			USER_ID
+			,ST_TIME
+		)
+		VALUES (
+			#{USER_ID}
+			,to_char(sysdate,'YYYY-MM-DD HH24:MI:SS')
+		)
+	</insert>
+	
+	<!-- 로그아웃 시 로그아웃 시간 기록-->
+	<update id="logoutUpdate" parameterType="userVO">
+		UPDATE LOGIN_HISTORY
+		SET FN_TIME = to_char(sysdate,'YYYY-MM-DD HH24:MI:SS')
+		WHERE USER_ID=#{USER_ID}
+		AND ST_TIME = 
+		(
+			select ST_TIME from login_history 
+			where user_id =#{USER_ID} 
+			and ST_time >to_char(sysdate-2,'YYYY-MM-DD')
+			and fn_time IS NULL		
+		)
+	</update>
+	
+	<!-- 서버 비정상 종료로 인한 누적 기록 삭제-->
+	<delete id="errloginDelete" parameterType="userVO">
+		delete from login_history
+		where user_id =#{USER_ID}
+		and fn_time is null
+	</delete>
+	
+	<!-- 사용자 사용이력 조회 -->
+	<select id="loginHistory" parameterType="userVO" resultType="userVO">
+	   SELECT A.*
+		,B.USER_NAME 
+		,C.AREA_NAME REGION_NAME
+		,ROUND(
+		(TO_DATE(FN_TIME, 'YYYY-MM-DD HH24:MI:SS')
+		- TO_DATE(ST_TIME, 'YYYY-MM-DD HH24:MI:SS')
+         )* 24 * 60) USE_TIME
+		FROM LOGIN_HISTORY A 
+		LEFT JOIN 
+		SYS_USER B
+		ON A.USER_ID=B.USER_ID
+		LEFT JOIN 
+		CODE_AREACODE C
+		ON B.REGION_ID=C.AREA_CODE
+		where 1=1
+		<if test="REGION_ID !=null"> 
+			AND B.REGION_ID=#{REGION_ID}
+		</if>	
+		<if test="AUTH_CODE !=null and AUTH_CODE neq ''"> 
+			AND B.AUTH_CODE=#{AUTH_CODE}
+		</if>	
+		<if test="searchType !=null and searchType neq ''"> 
+			<choose>
+			    <when test="searchType eq 'USER_ID'">
+					AND B.USER_ID LIKE '%'||#{searchValue}||'%'	        
+			    </when>
+			    <otherwise>
+			        AND B.USER_NAME LIKE '%'||#{searchValue}||'%'	
+			    </otherwise>
+			</choose>
+		</if>
+		<choose>
+			<when test="sDate !=null and eDate !=null">
+		    	AND A.ST_TIME BETWEEN #{sDate} AND TO_DATE(#{eDate}, 'YYYY-MM-DD')+1
+			</when>
+			<otherwise>
+			    AND A.ST_TIME > to_char(sysdate-1,'YYYY-MM-DD')
+			</otherwise>    
+		</choose>
+		ORDER BY A.ST_TIME DESC
+	</select>
+</mapper>

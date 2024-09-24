@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+.lte-table{
+	width: 100%;
+    height: 100%;
+    line-height: 2;
+}
+
+.lte-div{
+/* 	margin-left: 37px;
+	margin-top: 20px; */
+}
+
+.td-div{
+	width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: space-around;
+    /* background: #0b064d; */
+    /* border: 1px solid black; */
+    /* padding: 8px; */
+    cursor: pointer;
+}
+
+.img-container{
+	display:flex;
+}
+
+.img-container>div{
+	width: 4vw;
+    height: 8vh;
+}
+
+.td-div span{
+    font-size: calc(1vw - 7px);
+    font-weight: bold;
+    width: 100%;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+#lteTbd{
+	/* background-color: darkblue; */
+	background: none;
+}
+
+.lte-table td{
+    border: 1px solid #c0c0c0;
+    width: 65px;
+    height: 50px;
+    text-align: right;
+    padding: 10px 0;
+    font-size: 15px;
+    /* background: #fff;*/
+}
+
+.lte-table td.selected{
+	background: #006f6f;
+}
+
+
+.lte-table td.selected span{
+	color: yellow;
+}
+
+.tn-active{
+	background:url(../images/trainA.png) no-repeat;
+	font-weight:bold;
+	color:#fff;
+	background-size: cover;
+}
+
+.HWY{
+	width: 100px;
+    height: 140px;
+	background:url(../images/icons/adt.png) no-repeat;
+	font-weight:bold;
+	background-size: auto;
+	background-color: ligthgray;
+}
+
+.HUY{
+	width: 100px;
+    height: 140px;
+	background:url(../images/icons/gdt.png) no-repeat;
+	font-weight:bold;
+	color:gray;
+	background-size: auto;
+}
+.ndata{
+	background:url(../images/tbnon2.png) no-repeat;
+	background-size: cover;
+}
+
+#paging{
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+#paging span{
+	font-size:25px;
+	color:#fff;
+	cursor:pointer;
+}
+

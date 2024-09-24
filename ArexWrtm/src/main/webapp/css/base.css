@@ -1,0 +1,155 @@
+@charset "utf-8";
+/* font-family: 'Noto Sans KR' */
+/* base CSS Document Unable to modify */
+body,p,div,span,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select{margin:0; padding:0;}
+body,input,textarea,button,select{font-family:'Noto Sans KR','맑은 고딕','malgun gothic','돋움',Dotum,Sans-serif; color:#59636b;}
+html,body{font-size:15px; line-height:1.5;}
+h1,h2,h3,h4,h5,h6{font-size:1rem;}
+input,textarea,button,select{font-size:0.9375rem;}
+img, fieldset, button{border:0;}
+textarea{overflow:auto;}
+input[type=submit],
+input[type=button],
+button{cursor:pointer;}
+img{vertical-align:top;}
+address, em{font-style:normal;}
+table{border-spacing:0; border-collapse:collapse;}
+table,th,td{border:none;}
+caption{overflow:hidden; line-height:0; text-indent:-2000em;}
+legend, .hidden{overflow: hidden;  border: 0;  width: 1px;  height: 1px;  clip: rect(1px, 1px, 1px, 1px); clip-path: inset(50%);  display: inline-block; z-index:-1;position:absolute;}
+.hidden2{width:0px !important; height:0px !important; padding:0 !important; margin:0 !important; overflow:hidden !important; text-indent:100% !important; white-space:nowrap !important; font-size:0 !important;}
+i{font-style:normal;}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block;}
+figure{padding:0px; margin:0px;}
+
+/* 링크 기본값 */
+a:link{text-decoration:none; color:#000;}
+a:visited{text-decoration:none; color:#000;}
+a:hover{text-decoration:none; color:#000;}
+a:active{text-decoration:none;}
+a:focus{text-decoration:none;}
+
+/* 리스트 스타일 제거 */
+ul,ol,li{list-style:none;}
+
+/* mobile */
+body{-webkit-text-size-adjust:none; -moz-text-size-adjust:none; -ms-text-size-adjust:none;}
+
+/* 별도 페이지 스타일 추가 20230831 */
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: #292929;
+    font: 90% Roboto, Arial, sans-serif;
+    font-weight: 300;
+}
+
+p {
+    padding: 0 10px;
+    line-height: 1.8;
+}
+
+ul li {
+    padding-right: 10px;
+    line-height: 2;
+}
+
+h3 {
+    padding: 5px 20px;
+    margin: 0;
+}
+
+/* div#header {
+    position: relative;
+} */
+
+div#header h1 {
+    height: 80px;
+    line-height: 80px;
+    margin: 0;
+    padding-left: 10px;
+    background: #e0e0e0;
+    color: #292929;
+}
+
+div#header a {
+    position: absolute;
+    right: 0;
+    top: 23px;
+    padding: 10px;
+    color: #006;
+}
+
+div#navigation {
+    background: #7cb71c;
+}
+
+div#navigation li {
+    list-style: none;
+}
+
+div#extra {
+    background: #147FA9;
+}
+
+div#footer {
+    background: #42444e;
+    color: #fff;
+}
+
+div#footer p {
+    padding: 20px 10px;
+}
+
+div#wrapper {
+    float: left;
+    width: 100%;
+}
+
+div#content {
+    margin: 0 0 0 21%;
+    min-height:300px;
+}
+
+div#navigation {
+    float: left;
+    width: 20%;
+    margin-left: -100%;
+    min-height:300px;
+}
+
+div#extra {
+    float: left;
+    width: 25%;
+    margin-left: -25%;
+}
+
+div#footer {
+    position : absolute;
+    bottom : 0px;
+    clear: left;
+    width: 100%;
+}
+
+/* -- 버튼 목록 관련 스타일 -- */
+DIV.buttonlist { padding:7px 2px 3px 2px; text-align:right; min-height:10px; }
+DIV.buttonlist .left { float:left; margin:0; padding:0; }
+DIV.buttonlist .right { float:right; margin:0; padding:0; }
+
+
+/* Custom CSS for styling */
+.text-title-pickers{
+    border: none;
+    padding-top:10px;
+}
+.text-between-pickers {
+    border: none;
+    padding-top: 10px;
+    font-size: 14px;
+    color: #333;
+}

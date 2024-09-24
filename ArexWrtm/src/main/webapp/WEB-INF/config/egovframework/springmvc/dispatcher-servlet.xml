@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xmlns:task="http://www.springframework.org/schema/task"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                http://www.springframework.org/schema/context 
+                http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                http://www.springframework.org/schema/mvc 
+                http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                http://www.springframework.org/schema/task 
+                http://www.springframework.org/schema/task/spring-task-4.0.xsd ">
+	<context:annotation-config/>
+    <!-- 주입할 어노테이션과 스캔하여 주입할 패키지를 설정 -->
+    <context:component-scan base-package="kr.co.hivesys">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <!-- <context:exclude-filter type="annotation" expression="egovframework.rte.psl.dataaccess.mapper.Mapper"/> -->
+    </context:component-scan>
+    <!-- .do없이 호출을 받기 위한 방안 2-->
+    <mvc:default-servlet-handler />
+    <!-- .do없이 호출을 받기 위한 방안 3-->
+    <mvc:annotation-driven />
+    
+    <!-- /webapp/resources 폴더 내에 이미지 파일을 읽기 위한 매핑 -->
+    <mvc:resources location="/firmwareFile/" mapping="/firmwareFile/**"/>
+    
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
+    
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+        <property name="interceptors">
+            <list>
+                <ref bean="localeChangeInterceptor" />
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+    <!-- 쿠키를 이용한 Locale 이용시 <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/> -->
+    <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName" value="language" />
+    </bean>
+
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="defaultErrorView" value="cmmn/egovError"/>
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.springframework.dao.DataAccessException">cmmn/dataAccessFailure</prop>
+                <prop key="org.springframework.transaction.TransactionException">cmmn/transactionFailure</prop>
+                <prop key="egovframework.rte.fdl.cmmn.exception.EgovBizException">cmmn/egovError</prop>
+                <prop key="org.springframework.security.AccessDeniedException">cmmn/egovError</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="1"
+	    p:viewClass="org.springframework.web.servlet.view.JstlView"
+	    p:prefix="/WEB-INF/jsp/" p:suffix=".jsp"/>
+
+    <!-- jdb : 파일 업로드 관련 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		  <property name="defaultEncoding" value="UTF-8" /> <!-- 인코딩-->
+		  <property name="maxUploadSize" value="10000000" /> <!--  최대 사이즈-->
+	</bean>
+    
+<!-- jdb : 스케줄러파일이 존재하는 패키지 설정--> 
+<!-- 	 <context:component-scan base-package="kr.co.hivesys"/>
+		<task:scheduler id="setScheduler" pool-size="10"/>
+		<task:scheduled-tasks scheduler="setScheduler">
+		<task:scheduled ref="dfScheduler" method="clientAutoChk" cron="0 0 3 * * *"/>
+	</task:scheduled-tasks> -->
+	
+	<!-- <bean id="dfScheduler" class="kr.co.hivesys.comm.DfScheduler" /> -->
+ 	
+	<!-- 참조 : https://lng1982.tistory.com/97 -->
+	
+	<!-- 내부적으로 DefaultServletHttpRequestHandler가 담당하게 되고, 이 핸들러(컨트롤러)는 /**로 매핑 -->
+	 <!-- <mvc:default-servlet-handler /> --> 
+	<!-- DefaultAnnotationHandlerMapping이 자동 등록되게 설정 -->
+	 <!-- <mvc:annotation-driven /> -->
+ 
+    <!-- For Pagination Tag -->
+    <!-- <bean id="imageRenderer" class="egovframework.example.cmmn.web.EgovImgPaginationRenderer"/> -->
+
+    <!-- <bean id="paginationManager" class="egovframework.rte.ptl.mvc.tags.ui.pagination.DefaultPaginationManager">
+        <property name="rendererType">
+            <map>
+                <entry key="image" value-ref="imageRenderer"/>
+            </map>
+        </property>
+    </bean> -->
+	<!-- /For Pagination Tag -->
+	
+	<!-- jdb : 로그인 인터셉터 관련 기능 추가 -->    
+    <bean id="loginInterceptor" class="kr.co.hivesys.comm.LoginInterceptor"/>
+    <mvc:interceptors>
+        <!-- loginInterceptor -->
+		<mvc:interceptor>
+			<mvc:mapping path="/login/login.do"/>
+			<mvc:mapping path="/login/loginPost.do"/>
+			<mvc:mapping path="/login/loginPostAdmin.do"/>
+			<mvc:mapping path="/login/logout.do"/>
+			<ref bean="loginInterceptor"/>		     
+		</mvc:interceptor>        
+    </mvc:interceptors>
+	
+	<!-- json START -->
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+	    <property name="order" value="0"></property>
+	</bean>
+	<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" id="jsonView">
+	    <property name="contentType" value="application/json;charset=UTF-8"></property>
+	</bean>
+	<!-- json END -->
+	
+
+    <mvc:view-controller path="/cmmn/validator.do" view-name="cmmn/validator"/>
+</beans>

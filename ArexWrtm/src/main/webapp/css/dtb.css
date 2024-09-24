@@ -1,0 +1,216 @@
+/* 테이블 및 데이터테이블 관련 커스텀 css */
+
+#tableList{
+	width:100%;
+	border-collapse: collapse;
+}
+
+#tableList thead{
+	background:lightgrey;
+	line-height: 1.5;
+}
+
+#tableList tbody tr{
+	border-bottom:1px solid black;
+}
+
+.simpleTb{
+	width: 60vw;
+    line-height: calc(7vh - 10px);
+    text-align: center;
+    min-width: 650px;
+    min-height: 200px;
+    border-collapse: collapse;
+}
+
+.simpleTb thead{
+	background:lightgrey;
+}
+
+.simpleTb tbody tr{
+	border-bottom:1px solid black;
+}
+
+.simpleTb tbody td{
+	border: 1px solid lightgray;
+}
+
+.admin_view {
+	position: absolute;
+	flot: left;
+	width: 565px;
+	height: 420px;
+	margin-left: 10px;
+	margin-top: 0px;
+	background: #eaeff3;
+	border: 1px solid #a8b4c4;
+	padding: 10px;
+}
+
+.admin_list{
+	width: 1600px;
+    margin: 25px 0;
+    line-height: calc(2.4vh - 1px);
+    border-collapse: collapse;
+    margin: 25px 0;
+    min-width:1200px;
+}
+
+.admin_list tr td {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border: 1px solid grey;
+}
+
+
+/* .admin_list tr td:nth-child(2n-1) {
+	font-weight: bold;
+	background: url("../images/ico_text.gif") 0 0 no-repeat;
+	padding-left: 10px;
+	background: #f5f5f5;
+} */
+
+.td-name{
+	font-weight: bold;
+	background: url("../images/ico_text.gif") 0 0 no-repeat;
+	padding-left: 10px;
+	background: #f5f5f5;
+	width:200px;
+}
+
+
+.gnb_tab2 {
+	float: left;
+	width: 900px;
+	margin-bottom: 10px;
+	margin-top: 0px;
+}
+
+.gnb_tab2 .lst_tab {
+	*margin-top: 9px;
+}
+
+.gnb_tab2 .lst_tab li {
+	float: left;
+	padding: 4px 10px 4px 10px;
+	border: 1px solid #a8b4c4;
+	margin-rignt: 10px;
+	font-weight: bold;
+}
+
+.gnb_tab2 .lst_tab li a {
+	color: #222;
+	padding: 10px;
+}
+
+.gnb_tab2 .lst_tab li a:hover {
+	padding: 4px 10px 4px 10px;
+	*padding: 4px 10px 4px 10px;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.gnb_tab2 .lst_tab .ns {
+	float: left;
+	border: 1px solid #fff;
+	padding: 0;
+	width: 3px;
+}
+
+.gnb_tab2 .lst_tab .on {
+	background: #1460ac;
+	color: #FFF;
+	font-weight: bold;
+	width: 170px;
+}
+
+.admin_view2 {
+	position: absolute;
+	flot: left;
+	width: 750px;
+	margin-left: 0px;
+	margin-top: 27px;
+	background: #fff;
+	border: 1px solid #1460ac;
+	padding: 10px;
+}
+
+.admin_view2 tr td {
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+.admin_table {
+	background: #f5f5f5;
+	border: 1px solid #99c4ce;
+	padding: 10px;
+	text-align: center;
+	font-weight: bold;
+	padding: 10px;
+	margin-top: 20px;
+	color: #1e5fb3;
+}
+
+.admin_table tr td {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.admin_table_line {
+	border-bottom: 1px solid #99c4ce;
+}
+
+.admin_table2 {
+	border: 1px solid #99c4ce;
+	padding: 10px;
+	text-align: center;
+	font-weight: bold;
+	padding: 10px;
+	margin-top: 10px;
+}
+
+.admin_table2 tr td {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.admin_table_line2 {
+	border-bottom: 1px solid #a8b4c4;
+}
+
+.b {
+	font-weight: bold;
+}
+
+.admin_edit {
+    width: 1200px;
+    border: 1px solid #1460ac;
+    padding: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin_edit2 {
+	position: absolute;
+	flot: left;
+	width: 100%;
+	margin-left: 0px;
+	margin-top: 0px;
+	background: #fff;
+	border: 1px solid #1460ac;
+	padding: 10px;
+}
+
+.admin_edit3 {
+	position: absolute;
+	flot: left;
+	width: 750px;
+	height: 610px;
+	margin-left: 0px;
+	margin-top: 0px;
+	background: #fff;
+	border: 1px solid #1460ac;
+	padding: 10px;
+}

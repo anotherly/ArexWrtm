@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.hivesys.depart.mapper.DepartMapper">
+<!-- 
+수정일           수정자         수정내용 
+========= ======= ================================================= 
+2020.07.23 정다빈     최초 생성 
+-->
+	
+	<resultMap type="departVO" id="selectDepartList">
+		<result property="departCode" column="DEPART_CODE"/>
+		<result property="departName" column="DEPART_NAME"/>
+		<result property="cpyName" column="CPY_NAME"/>
+		<result property="cpyCode" column="CPY_CODE"/>
+		<result property="hqName" column="HQ_NAME"/>
+		<result property="hqCode" column="HQ_CODE"/>
+		<result property="teamName" column="TEAM_NAME"/>
+		<result property="teamCode" column="TEAM_CODE"/>
+		<result property="usedYn" column="USED_YN"/>
+		<result property="regYdt" column="REG_YDT"/>
+		<result property="updateYdt" column="UPDATE_YDT"/>
+	</resultMap>
+	<select id="selectDepartList" parameterType="departVO" resultMap="selectDepartList">
+		SELECT 
+			 DEPART_CODE
+			,DEPART_NAME
+			,CPY_NAME
+			,CPY_CODE
+			,HQ_NAME
+			,HQ_CODE
+			,TEAM_NAME
+			,TEAM_CODE
+			,IF(USED_YN=1,"사용중","미사용") AS USED_YN
+			,REG_YDT
+			,UPDATE_YDT
+		FROM tbl_depart_info
+		WHERE 1=1
+		<!-- 검색조건 -->
+		<if test="schAllCode !=null and schAllCode  neq '' "> 
+		    AND `DEPART_CODE` LIKE CONCAT('%',#{schAllCode},'%')
+		</if>
+		<if test="schCpy !=null and schCpy  neq '' "> 
+		    AND `CPY_NAME` LIKE CONCAT('%',#{schCpy},'%')
+		</if>
+		<if test="schHq !=null and schHq  neq '' "> 
+		    AND `HQ_NAME` LIKE CONCAT('%',#{schHq},'%')
+		</if>
+		<if test="schTeam !=null and schTeam  neq '' "> 
+		    AND `TEAM_NAME` LIKE CONCAT('%',#{schTeam},'%')
+		</if>
+	</select>
+	
+	<resultMap type="departVO" id="selectDepartList1">
+		<result property="cpyName" column="CPY_NAME"/>
+		<result property="cpyCode" column="CPY_CODE"/>
+	</resultMap>
+	<select id="selectDepartList1" parameterType="departVO" resultMap="selectDepartList1">
+		SELECT DISTINCT CPY_NAME,CPY_CODE
+		FROM tbl_depart_info;
+	</select>
+	
+	<resultMap type="departVO" id="selectDepartList2">
+		<result property="hqName" column="HQ_NAME"/>
+		<result property="hqCode" column="HQ_CODE"/>
+	</resultMap>
+	<select id="selectDepartList2" parameterType="departVO" resultMap="selectDepartList2">
+		SELECT DISTINCT HQ_NAME,HQ_CODE
+		FROM tbl_depart_info;
+	</select>
+	
+	<resultMap type="departVO" id="selectDepartList3">
+		<result property="teamName" column="TEAM_NAME"/>
+		<result property="teamCode" column="TEAM_CODE"/>
+	</resultMap>
+	<select id="selectDepartList3" parameterType="departVO" resultMap="selectDepartList3">
+		SELECT DISTINCT TEAM_NAME,TEAM_CODE
+		FROM tbl_depart_info;
+	</select>
+
+	<!-- 차상단말기 등록 -->
+	<insert id="insertDepart" parameterType="departVO">
+		INSERT INTO tbl_depart_info(
+			<if test="departCode !=null and departCode  neq '' ">`DEPART_CODE`</if>
+			<if test="departName !=null and departName  neq '' ">,`DEPART_NAME`</if>
+			<if test="cpyName !=null and cpyName  neq '' ">,`CPY_NAME`</if>
+			<if test="cpyCode !=null and cpyCode  neq '' ">,`CPY_CODE`</if>
+			<if test="hqName !=null and hqName  neq '' ">,`HQ_NAME`</if>
+			<if test="hqCode !=null and hqCode  neq '' ">,`HQ_CODE`</if>
+			<if test="teamName !=null and teamName  neq '' ">,`TEAM_NAME`</if>
+			<if test="teamCode !=null and teamCode  neq '' ">,`TEAM_CODE`</if>
+			<if test="usedYn !=null and usedYn  neq '' ">,`USED_YN`</if>
+			<if test="regYdt !=null and regYdt  neq '' ">,`REG_YDT`</if>
+			<if test="updateYdt !=null and updateYdt  neq '' ">,`UPDATE_YDT`</if>
+		)
+		VALUES (
+			<if test="departCode !=null and departCode  neq '' ">#{departCode}</if>
+			<if test="departName !=null and departName  neq '' ">,#{departName}</if>
+			<if test="cpyName !=null and cpyName  neq '' ">,#{cpyName}</if>
+			<if test="cpyCode !=null and cpyCode  neq '' ">,#{cpyCode}</if>
+			<if test="hqName !=null and hqName  neq '' ">,#{hqName}</if>
+			<if test="hqCode !=null and hqCode  neq '' ">,#{hqCode}</if>
+			<if test="teamName !=null and teamName  neq '' ">,#{teamName}</if>
+			<if test="teamCode !=null and teamCode  neq '' ">,#{teamCode}</if>
+			<if test="usedYn !=null and usedYn  neq '' ">,#{usedYn}</if>
+			<if test="regYdt !=null and regYdt  neq '' ">,#{regYdt}</if>
+			<if test="updateYdt !=null and updateYdt  neq '' ">,#{updateYdt}</if>
+		)
+	</insert>
+	
+	<resultMap type="departVO" id="selectDepart">
+		<result property="departCode" column="DEPART_CODE"/>
+		<result property="departName" column="DEPART_NAME"/>
+		<result property="cpyName" column="CPY_NAME"/>
+		<result property="cpyCode" column="CPY_CODE"/>
+		<result property="hqName" column="HQ_NAME"/>
+		<result property="hqCode" column="HQ_CODE"/>
+		<result property="teamName" column="TEAM_NAME"/>
+		<result property="teamCode" column="TEAM_CODE"/>
+		<result property="usedYn" column="USED_YN"/>
+		<result property="regYdt" column="REG_YDT"/>
+		<result property="updateYdt" column="UPDATE_YDT"/>
+	</resultMap>
+	<select id="selectDepart" parameterType="departVO" resultMap="selectDepart">
+		SELECT 
+			 DEPART_CODE
+			,DEPART_NAME
+			,CPY_NAME
+			,CPY_CODE
+			,HQ_NAME
+			,HQ_CODE
+			,TEAM_NAME
+			,TEAM_CODE
+			,USED_YN
+			,REG_YDT
+			,UPDATE_YDT
+		FROM tbl_depart_info
+		WHERE 1=1
+		<if test="departCode !=null and departCode  neq '' "> AND `DEPART_CODE` =#{departCode}</if>
+	</select>
+	
+	<update id="updateDepart" parameterType="departVO">
+		UPDATE tbl_depart_info
+		SET
+			<if test="cpyName !=null and cpyName  neq '' ">`CPY_NAME`=#{cpyName}</if>
+			<if test="cpyCode !=null and cpyCode  neq '' ">,`CPY_CODE`=#{cpyCode}</if>
+			<if test="hqName !=null and hqName  neq '' ">,`HQ_NAME`=#{hqName}</if>
+			<if test="hqCode !=null and hqCode  neq '' ">,`HQ_CODE`=#{hqCode}</if>
+			<if test="teamName !=null and teamName  neq '' ">,`TEAM_NAME`=#{teamName}</if>
+			<if test="teamCode !=null and teamCode  neq '' ">,`TEAM_CODE`=#{teamCode}</if>
+			<if test="usedYn !=null and usedYn  neq '' ">,`USED_YN`=#{usedYn}</if>
+			<if test="updateYdt !=null and updateYdt  neq '' ">,`UPDATE_YDT`=#{updateYdt}</if>
+		
+		    <if test="departCode neq oldDeptCode">
+				<if test="departCode !=null and departCode  neq '' ">,`DEPART_CODE`=#{departCode}</if>
+		    </if>
+		    <if test="departName neq oldDeptName">
+				<if test="departName !=null and departName  neq '' ">,`DEPART_NAME`=#{departName}</if>
+		    </if>
+			
+		WHERE `DEPART_CODE`=#{oldDeptCode} AND `DEPART_NAME`=#{oldDeptName}
+	</update>
+	
+		<!-- 사용자 삭제 -->
+	<delete id="deleteDepart">
+		DELETE FROM tbl_depart_info 
+		WHERE `DEPART_CODE` IN
+		<foreach collection="chkList" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+	</delete>
+	
+</mapper>

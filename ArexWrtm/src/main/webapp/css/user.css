@@ -1,0 +1,73 @@
+/* insert */
+
+.tbMng-nonbt td input {
+    border: none;
+    border-bottom: 1px solid #afafaf;
+    width: 270px;
+/*     background: black;
+    color: white; */
+}
+
+.tbMng-nonbt td:first-child {
+    white-space: nowrap;
+    font-size: 15px;
+    width: 150px;
+    /* padding: 10px; */
+    font-weight: bold;
+    vertical-align: center;
+    /* color: #fff; */
+}
+
+.tbMng-nonbt td:last-child {
+    white-space: nowrap;
+    width: 270px;
+    font-size: 13px;
+    padding: 10px;
+    /* color: #fff; */
+    margin: 0px;
+    vertical-align: center;
+}
+
+
+.tbList-nonbt label .required {
+    color: #E74C3C;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.rem {
+    font-size: 8px;
+    color: red;
+    margin: 0px;
+}
+
+.searchBtnDiv {
+    position: relative;
+}
+
+#userPhone1, #userPhone2, #userPhone3 {
+    width: 40px;
+    border: 1px solid #c0c0c0;
+}
+
+.inputPhone p {
+    margin: 0;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+/*  */
+
+
+.user-detail{
+	width: 1200px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 3;
+    background:#fff;
+}
+    

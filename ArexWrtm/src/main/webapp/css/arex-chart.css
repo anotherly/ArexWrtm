@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+/* 해당 부분에 따라 반응형 차트가 가능 */
+svg{
+      width:  100%;
+      height: 38vh;
+      min-height: 38vh;
+      preserveAspectRatio:none;
+}
+
+.containerAll {
+    display: flex;
+    width: calc(100vw - 100px);
+    height: calc(100vh - 100px);
+    padding: 10px 20px;
+    flex-direction: row;
+    min-width: 1280px;
+    min-height: 720px;
+}
+
+.container_b{
+	display: flex;
+    width: 50%;
+    height: 100%;
+    flex-direction: column;
+    min-width: 643px;
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+}
+
+.pie_container{
+	width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.pie-contents{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chart-title{
+    /* font-weight: bold; */
+    /* font-family: 'VITRO_PRIDE_TTF'; */
+    /* font-family: 'VITRO_INSPIRE_TTF'; */
+    /* font-family: 'KOTRA_BOLD-Bold'; */
+    /* font-family: 'VITRO_CORE_TTF'; */
+    /* font-family: "KoPubWorld_Dotum_Light"; */
+    /* font-family: "KoPubWorld_Batang_Bold"; */
+    /* font-family: "OTWelcomeRA"; */
+    /* font-family: "SLEIGothicTTF"; */
+    /* font-family: "paybooc_Light"; */
+    /* font-family: "BCcardL"; */
+    /* font-family: "ChosunBg";*/
+    font-family: "ChosunKg";
+}
+

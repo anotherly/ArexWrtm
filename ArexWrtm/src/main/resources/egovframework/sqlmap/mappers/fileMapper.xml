@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.hivesys.comm.file.mapper.FileMapper">
+<!-- 
+수정일           수정자         수정내용 
+========= ======= ================================================= 
+2020.07.23 정다빈     최초 생성 
+-->
+
+	<resultMap type="fileVo" id="selectFileList">
+		<result property="fileId" column="FILE_ID"/>
+		<result property="fileDir" column="FILE_DIR"/>
+		<result property="fileName" column="FILE_NAME"/>
+		<result property="regDt" column="REG_DT"/>
+		<result property="fileVersion" column="FILE_VERSION"/>
+		<result property="fileType" column="FILE_TYPE"/>
+	</resultMap>
+	<select id="selectFileList" parameterType="fileVo" resultMap="selectFileList">
+		SELECT * FROM FILE_INFO
+		WHERE 1=1 
+		<if test=" fileId !=null and fileId neq '' ">
+		    AND FILE_ID=#{fileId}
+		</if>    
+		<if test=" fileVersion !=null and fileVersion neq '' ">
+		    AND FILE_VERSION=#{fileVersion}
+		</if>    
+	</select>
+
+	<insert id="insertFile"  parameterType="fileVo">
+	    INSERT INTO FILE_INFO 
+	    (FILE_ID, FILE_NAME,FILE_DIR,FILE_VERSION,REG_DT,FILE_TYPE) 
+	    VALUES 
+	    <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.fileId},#{item.fileName},#{item.fileDir},#{item.fileVersion},NOW(),#{item.fileType})
+        </foreach>
+	</insert>
+
+</mapper>
