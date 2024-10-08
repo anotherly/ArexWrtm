@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.hivesys.auth.mapper.AuthMapper">
+<!-- 
+수정일           수정자         수정내용 
+========= ======= ================================================= 
+2020.07.23 정다빈     최초 생성 
+-->
+
+	<!-- DB에 존재하는 모든 URL 호출 (중복 X) -->
+	<resultMap type="authVo" id="selectAuthList">
+		<result property="authLevel" column="AUTH_LEVEL"/>
+		<result property="authDefine" column="AUTH_DEFINE"/>
+		<result property="funcCtrl" column="FUNC_CTRL"/>
+		<result property="funcMotr" column="FUNC_MOTR"/>
+		<result property="funcDepart" column="FUNC_DEPART"/>
+		<result property="funcAuth" column="FUNC_AUTH"/>
+		<result property="funcUser" column="FUNC_USER"/>
+		<result property="funcLter" column="FUNC_LTER"/>
+		<result property="usedYn" column="USED_YN"/>
+		<result property="regYdt" column="REG_YDT"/>
+		<result property="updateYdt" column="UPDATE_YDT"/>
+	</resultMap>
+	<select id="selectAuthList" resultMap="selectAuthList">
+		SELECT 
+			 AUTH_LEVEL
+			,AUTH_DEFINE
+			,IF(FUNC_CTRL=1,"접근 허용","접근 불가")   AS FUNC_CTRL
+			,IF(FUNC_MOTR=1,"접근 허용","접근 불가")   AS FUNC_MOTR
+			,IF(FUNC_DEPART=1,"접근 허용","접근 불가") AS FUNC_DEPART
+			,IF(FUNC_AUTH=1,"접근 허용","접근 불가")   AS FUNC_AUTH
+			,IF(FUNC_USER=1,"접근 허용","접근 불가")   AS FUNC_USER
+			,IF(FUNC_LTER=1,"접근 허용","접근 불가")   AS FUNC_LTER
+			,USED_YN
+			,REG_YDT
+			,UPDATE_YDT
+		FROM TBL_AUTH_INFO
+		WHERE 1=1 
+		<if test="authLevel !=null and authLevel  neq '' "> AND `AUTH_LEVEL` =#{authLevel}</if>
+		<!-- 검색조건 -->
+		<if test="schCtrl !=null and schCtrl  neq '' "> 
+		    AND `FUNC_CTRL`=#{schCtrl}
+		</if>
+		<if test="schMotr !=null and schMotr  neq '' "> 
+		    AND `FUNC_MOTR`=#{schMotr}
+		</if>
+		<if test="schDepart !=null and schDepart  neq '' "> 
+		    AND `FUNC_DEPART`=#{schDepart}
+		</if>
+		<if test="schAuth !=null and schAuth  neq '' "> 
+		    AND `FUNC_AUTH`=#{schAuth}
+		</if>
+		<if test="schUser !=null and schUser  neq '' "> 
+		    AND `FUNC_USER`=#{schUser}
+		</if>
+		<if test="schLter !=null and schLter  neq '' "> 
+		    AND `FUNC_LTER`=#{schLter}
+		</if>
+		<if test="schAuthName !=null and schAuthName  neq '' "> 
+		    AND `AUTH_DEFINE` LIKE CONCAT('%',#{schAuthName},'%')
+		</if>
+	</select>
+	<!-- 차상단말기 등록 -->
+	<insert id="insertAuth" parameterType="authVo">
+		INSERT INTO TBL_AUTH_INFO(
+			<if test="authLevel !=null and authLevel  neq '' ">`AUTH_LEVEL`</if>
+			<if test="authDefine !=null and authDefine  neq '' ">,`AUTH_DEFINE`</if>
+			<if test="funcCtrl !=null and funcCtrl  neq '' ">,`FUNC_CTRL`</if>
+			<if test="funcMotr !=null and funcMotr  neq '' ">,`FUNC_MOTR`</if>
+			<if test="funcDepart !=null and funcDepart  neq '' ">,`FUNC_DEPART`</if>
+			<if test="funcAuth !=null and funcAuth  neq '' ">,`FUNC_AUTH`</if>
+			<if test="funcUser !=null and funcUser  neq '' ">,`FUNC_USER`</if>
+			<if test="funcLter !=null and funcLter  neq '' ">,`FUNC_LTER`</if>
+			<if test="usedYn !=null and usedYn  neq '' ">,`USED_YN`</if>
+			<if test="regYdt !=null and regYdt  neq '' ">,`REG_YDT`</if>
+			<if test="updateYdt !=null and updateYdt  neq '' ">,`UPDATE_YDT`</if>
+		)
+		VALUES (
+			<if test="authLevel !=null and authLevel  neq '' ">#{authLevel}</if>
+			<if test="authDefine !=null and authDefine  neq '' ">,#{authDefine}</if>
+			<if test="funcCtrl !=null and funcCtrl  neq '' ">,#{funcCtrl}</if>
+			<if test="funcMotr !=null and funcMotr  neq '' ">,#{funcMotr}</if>
+			<if test="funcDepart !=null and funcDepart  neq '' ">,#{funcDepart}</if>
+			<if test="funcAuth !=null and funcAuth  neq '' ">,#{funcAuth}</if>
+			<if test="funcUser !=null and funcUser  neq '' ">,#{funcUser}</if>
+			<if test="funcLter !=null and funcLter  neq '' ">,#{funcLter}</if>
+			<if test="usedYn !=null and usedYn  neq '' ">,#{usedYn}</if>
+			<if test="regYdt !=null and regYdt  neq '' ">,#{regYdt}</if>
+			<if test="updateYdt !=null and updateYdt  neq '' ">,#{updateYdt}</if>
+		)
+	</insert>
+	
+	<resultMap type="authVo" id="selectAuth">
+		<result property="authLevel" column="AUTH_LEVEL"/>
+		<result property="authDefine" column="AUTH_DEFINE"/>
+		<result property="funcCtrl" column="FUNC_CTRL"/>
+		<result property="funcMotr" column="FUNC_MOTR"/>
+		<result property="funcDepart" column="FUNC_DEPART"/>
+		<result property="funcAuth" column="FUNC_AUTH"/>
+		<result property="funcUser" column="FUNC_USER"/>
+		<result property="funcLter" column="FUNC_LTER"/>
+		<result property="usedYn" column="USED_YN"/>
+		<result property="regYdt" column="REG_YDT"/>
+		<result property="updateYdt" column="UPDATE_YDT"/>
+	</resultMap>
+	<select id="selectAuth" resultMap="selectAuth">
+		SELECT 
+			 AUTH_LEVEL
+			,AUTH_DEFINE
+			,FUNC_CTRL
+			,FUNC_MOTR
+			,FUNC_DEPART
+			,FUNC_AUTH
+			,FUNC_USER
+			,FUNC_LTER
+			,USED_YN
+			,REG_YDT
+			,UPDATE_YDT
+		FROM TBL_AUTH_INFO
+		WHERE 1=1 
+		<if test="authLevel !=null and authLevel  neq '' "> AND `AUTH_LEVEL` =#{authLevel}</if>
+	</select>
+	
+	<update id="updateAuth" parameterType="authVo">
+		UPDATE TBL_AUTH_INFO
+		SET
+			<if test="authLevel !=null and authLevel  neq '' ">`AUTH_LEVEL`=#{authLevel}</if>
+			<if test="authDefine !=null and authDefine  neq '' ">,`AUTH_DEFINE`=#{authDefine}</if>
+			<if test="funcCtrl !=null and funcCtrl  neq '' ">,`FUNC_CTRL`=#{funcCtrl}</if>
+			<if test="funcMotr !=null and funcMotr  neq '' ">,`FUNC_MOTR`=#{funcMotr}</if>
+			<if test="funcDepart !=null and funcDepart  neq '' ">,`FUNC_DEPART`=#{funcDepart}</if>
+			<if test="funcAuth !=null and funcAuth  neq '' ">,`FUNC_AUTH`=#{funcAuth}</if>
+			<if test="funcUser !=null and funcUser  neq '' ">,`FUNC_USER`=#{funcUser}</if>
+			<if test="funcLter !=null and funcLter  neq '' ">,`FUNC_LTER`=#{funcLter}</if>
+			<if test="usedYn !=null and usedYn  neq '' ">,`USED_YN`=#{usedYn}</if>
+			<if test="regYdt !=null and regYdt  neq '' ">,`REG_YDT`=#{regYdt}</if>
+			<if test="updateYdt !=null and updateYdt  neq '' ">,`UPDATE_YDT`=#{updateYdt}</if>
+		WHERE `AUTH_LEVEL` =#{authLevel}
+	</update>
+	
+	<!-- 사용자 삭제 -->
+	<delete id="deleteAuth">
+		DELETE FROM TBL_AUTH_INFO 
+		WHERE `AUTH_LEVEL` IN
+		<foreach collection="chkList" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+	</delete>
+	
+</mapper>
