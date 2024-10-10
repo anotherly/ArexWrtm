@@ -11,8 +11,13 @@
 	var chkTerId='';
 	$(document).ready(function(){
 		
+		// 24-10-10 : 페이지 옮겨도 30초 후 갱신 시 페이지 변하지 않도록 처리하기 위한 변수
+		var nowPage = 0;
+		var nextPage = 1;
+		
 		var alData=ajaxMethod("/terminal/list.ajax");
 		trainOne(alData.data);
+		hideTr(nowPage*6,nextPage*6);
 		
 		//시간 갱신
 		$("#nowDt").text(alData.nowDt);
@@ -33,20 +38,30 @@
 				if(startNum>0){
 					startNum=startNum-1;
 					endNum=endNum-1;
-					hideTr(startNum*6,endNum*6);
+					
+					nowPage = startNum;
+					nextPage = endNum;
+					hideTr(nowPage*6,nextPage*6);
+					
+					console.log('디버깅용');
 				}
 			} else {//뒤로 가기
 				//최대 페이지 수-1 보다 
 				if(startNum<maxPage){
 					startNum=startNum+1;
 					endNum=endNum+1;
-					hideTr(startNum*6,endNum*6);
+					
+					nowPage = startNum;
+					nextPage = endNum;
+					hideTr(nowPage*6,nextPage*6);
 				}
 			}
+			
 		});
 		//우측상단 탭 클릭시
 		//팀별 조회
 		$(".arex_tab").on('click',function(){
+			
 			//색상 활성 비활성
 			var parDiv=$(this).parent().children();
 			$(parDiv).each(function(i,list){
@@ -64,6 +79,7 @@
 			
 			if(alData.length!=0){
 				trainOne(alData);
+				hideTr(nowPage*6,nextPage*6);
 			}
 		});
 		
@@ -81,16 +97,17 @@
 		//우측 단말기 갱신
 		tableTimer=setInterval(function(){
 			console.log("우측 단말기 갱신");
-			
 			// 선택된 탭이 전체일 때
 			if(teamCode == '') {
 				var alData=ajaxMethod("/terminal/list.ajax");
 				trainOne(alData.data);
+				hideTr(nowPage*6,nextPage*6);
 			} else { // 전체 이외의 탭을 선택했을 때
 				var alData=ajaxMethod("/terminal/list.ajax",{"teamCode":teamCode});
 				
 				if(alData.data.length!=0){
 					trainOne(alData.data);
+					hideTr(nowPage*6,nextPage*6);
 				}
 			}
 			

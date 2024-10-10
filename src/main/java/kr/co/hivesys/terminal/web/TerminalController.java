@@ -252,6 +252,8 @@ public class TerminalController {
 		}
 	
 	//차트 실시간 조회 최초
+	
+	// 단말기 선택 시, 좌측 메모리 up/down 현황 차트 
 	@RequestMapping(value="/realtimeChartFirst.ajax")
 	public @ResponseBody ModelAndView realtimeChartFirst
 	( 
@@ -288,7 +290,7 @@ public class TerminalController {
 		return mav;
 	}
 	
-	//차트 서브 상세화면
+	// 단말기 선택 시 단말기 정보 가져오기
 	@RequestMapping(value="/chart/subDetail.do")
 	public @ResponseBody ModelAndView subDetail( 
 	HttpServletRequest request, HttpServletResponse response

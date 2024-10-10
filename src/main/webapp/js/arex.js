@@ -72,7 +72,7 @@ function trainOne(alData){
 	//테이블 생성 완료후 해야할 것들
 	plusPage=6-($("#lteTbd tr").length%6);
 	
-	hideTr(startNum*6,endNum*6);
+	/*hideTr(startNum*6,endNum*6);*/
 
 }
 
@@ -169,14 +169,14 @@ function selectBackgra(teamName,obsCount){
 
 //페이징 처리를 위한 행 감춤
 function hideTr(startPage,endPage){
-	$("#lteTbd tr").each(function(i,list){
-		//console.log("i : "+i+"	/	"+"list : "+list);
-		if(i >= startPage && i < endPage){
-			$(list).show();
-		}else{
-			$(list).hide();
-		}
-	});
+		$("#lteTbd tr").each(function(i,list){
+			
+			if(i >= startPage && i < endPage){
+				$(list).show();
+			}else{
+				$(list).hide();
+			}
+		});
 }
 
 
