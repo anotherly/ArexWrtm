@@ -1395,3 +1395,13 @@ input:focus{
 .mw_90{max-width: 90%;}
 .mw_100{max-width: 100%;}
 
+
+
+/* 24-10-11 : 단말기 운영 누적시간, 상세보기 버튼 위치 조정*/
+.content_dummy {
+	display: flex;
+    width: 50%;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}

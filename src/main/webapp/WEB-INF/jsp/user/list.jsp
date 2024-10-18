@@ -126,7 +126,10 @@
 			var tagId = $(this).parent().children().first().children().first().val();
 			$(this).attr('id');
 			if(tagId!="chkTd"){
-				$("#contents").load("/user/detail.do",{"userId":tagId}); 
+				/* $("#contents").load("/user/detail.do",{"userId":tagId});  */
+				
+				//24-10-17 : 뒤로가기 문제 해결
+				location.href='/user/detail.do?userId=' + tagId;
 			}
 		});
 

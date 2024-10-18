@@ -12,13 +12,14 @@
 		<div>운용/사용률 현황</div>
 	</a>
 </li>
-<li class="menu-item" id="ROOT_TEST_SW">
+<!-- 기관관리 / 권한 관리 hidden 처리 - 24/10/15 -->
+<li class="menu-item" id="ROOT_TEST_SW" style="display:none;">
 	<a href="/depart/list.do" class="menu-link" style="color: rgb(255, 255, 255);">
 		<i class="menu-icon n09"></i>
 		<div>기관 관리</div>
 	</a>
 </li>	
-<li class="menu-item" id="ROOT_TEST_SW">
+<li class="menu-item" id="ROOT_TEST_SW"  style="display:none;">
 	<a href="/auth/list.do" class="menu-link" style="color: rgb(255, 255, 255);">
 		<i class="menu-icon n08"></i>
 		<div>권한 관리</div>

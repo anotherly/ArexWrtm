@@ -6,6 +6,42 @@
     <title>단말장치(LTE-R) 관리 WEB 시스템</title>
 	<meta charset="UTF-8">
     <jsp:include page="../cmn/top.jsp" flush="false" />
+    
+    <style>
+    	/* 24-10-18 : 단말기 개수 폰트 사이즈 설정 */
+		@media(max-width : 3840px) {
+			/* 화면이 4K 일 때 */
+			
+			/* 단말기 카운터 스타일 조정  */
+			#countRouter {
+				font-size : 20px;
+				width: 250px;
+				margin-top : 10px;
+			}
+			
+			/* td 스타일 조정 */
+			.lte-table td {
+				width : 167px; /* tr 전체 넓이 / 7 값 */
+				height : 165px;
+			} 
+			
+		}
+		
+		@media(max-width : 1920px) {
+			/* 화면이 FullHD일 때 */
+			
+			/* 단말기 카운터 스타일 조정  */
+			#countRouter {
+				font-size : 15px;
+				width: 200px;
+				margin-top : 15px;
+			}
+			
+			.lte-table td {
+				height : 65px;
+			}
+		}
+    </style>
 <script>
 	var teamCode='';
 	var chkTerId='';
@@ -16,6 +52,9 @@
 		var nextPage = 1;
 		
 		var alData=ajaxMethod("/terminal/list.ajax");
+		var Fcounter = alData.data.length;
+		
+		countRouter(teamCode,Fcounter); // 단말기 총 개수를 세는 함수
 		trainOne(alData.data);
 		hideTr(nowPage*6,nextPage*6);
 		
@@ -30,6 +69,18 @@
 			$("#all_chart").load("/chart/mainUserChart.do");
 		} 
 		
+		
+		// 단말기 총 개수 함수
+		function countRouter(teamCode,counter) {	
+			if(counter == 0 || counter == "undefined" || counter == null || counter == '') {
+				$('#countRouter').text("단말기 개수 : 0개" );
+			} else {
+				$('#countRouter').text("단말기 개수 : " + counter + " 개" );
+				$('#countRouter').css('color','#fff');
+
+			}
+		}
+		
 		//페이징 처리
 		$('#paging span').on('click',function(){
 			var btnId=$(this).attr('id');
@@ -42,8 +93,7 @@
 					nowPage = startNum;
 					nextPage = endNum;
 					hideTr(nowPage*6,nextPage*6);
-					
-					console.log('디버깅용');
+
 				}
 			} else {//뒤로 가기
 				//최대 페이지 수-1 보다 
@@ -75,7 +125,10 @@
 			}else{
 				teamCode='';
 			}
-			alData=ajaxMethod("/terminal/list.ajax",{"teamCode":teamCode}).data;
+			var alData=ajaxMethod("/terminal/list.ajax",{"teamCode":teamCode}).data;
+			var counter = alData.length;
+			
+			countRouter(teamCode,counter); // 단말기 총 개수를 세는 함수
 			
 			if(alData.length!=0){
 				trainOne(alData);
@@ -92,7 +145,7 @@
 			}else{
 				$("#all_chart").load("/chart/mainUserChart.do");
 			}
-		},30*1000);
+		},30*1000); // 기본값 30*1000 
 		
 		//우측 단말기 갱신
 		tableTimer=setInterval(function(){
@@ -100,12 +153,17 @@
 			// 선택된 탭이 전체일 때
 			if(teamCode == '') {
 				var alData=ajaxMethod("/terminal/list.ajax");
+				var counter = alData.data.length;
+				
+				countRouter(teamCode,counter); // 단말기 총 개수를 세는 함수
 				trainOne(alData.data);
 				hideTr(nowPage*6,nextPage*6);
 			} else { // 전체 이외의 탭을 선택했을 때
 				var alData=ajaxMethod("/terminal/list.ajax",{"teamCode":teamCode});
+				var counter = alData.data.length;
 				
 				if(alData.data.length!=0){
+					countRouter(teamCode,counter);
 					trainOne(alData.data);
 					hideTr(nowPage*6,nextPage*6);
 				}
@@ -178,6 +236,7 @@
 							<input type="hidden" id="returnTeam">
 						</c:if>
 					</div>
+					<span id="countRouter"></span>
 					<div id="paging" style="width: 100px;">
 						<span id="pageStart" class="pg-btn">◀</span>
 						<span id="pageEnd"  class="pg-btn">▶</span>

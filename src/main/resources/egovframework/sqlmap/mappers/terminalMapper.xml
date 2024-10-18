@@ -70,6 +70,9 @@
 		<result property="lteRMCC" column="LTE-R_MCC"/>
 		<result property="lteRMNC" column="LTE-R_MNC"/>
 		
+		<!--  24-10-14 : 추가 컬럼 -->
+		<result property="lteROper" column="LTE-R_OPERATION_TM"/>
+		
 	</resultMap>
 	
 	
@@ -476,10 +479,22 @@
 				
 			)A
 			WHERE 1=1
-			and( A.RECEIVE_TIME!=0 OR ROWNUM() <![CDATA[ <= ]]> 6 )
+			and( A.RECEIVE_TIME!=0 OR ROWNUM
+			() <![CDATA[ <= ]]> 6 )
 		)B
 		ORDER BY B.RECEIVE_TIME ASC
 		LIMIT 6
+	</select>
+	
+	
+	<!-- 누적 운영 시간 차트 관련 쿼리 -->
+	<select id="chartD" parameterType="terminalVo" resultMap="selectTerminalList">
+		SELECT `lte-r_ip`, receive_time, `lte-r_operation_tm`
+		FROM tbl_operation_time
+		WHERE `lte-r_ip` = #{lteRIp} 
+		AND receive_time BETWEEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 6 MONTH), '%Y-%m-%d') 
+		AND DATE_FORMAT(CURDATE(), '%Y-%m-%d')
+		ORDER BY receive_time;
 	</select>
 	
 	

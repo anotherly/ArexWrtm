@@ -19,6 +19,7 @@ public interface TerminalService {
 	public void deleteTerminal(List<String> listArr);
 
 	TerminalVo chartQ(TerminalVo inputVo);
+	List<TerminalVo> chartD(TerminalVo inputVo);
 	
 	List<TerminalVo>  mainChart1(TerminalVo inputVo);
 	List<TerminalVo>  mainChart2(TerminalVo inputVo);

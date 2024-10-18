@@ -78,69 +78,8 @@ public class TerminalVo {
 	
 	private String keyType;
 	
-	public String getKeyType() {
-		return keyType;
-	}
-
-	public void setKeyType(String keyType) {
-		this.keyType = keyType;
-	}
-
-	public String getFailureRegYdt() {
-		return failureRegYdt;
-	}
-
-	public void setFailureRegYdt(String failureRegYdt) {
-		this.failureRegYdt = failureRegYdt;
-	}
-
-	public String getFailbackYdt() {
-		return failbackYdt;
-	}
-
-	public void setFailbackYdt(String failbackYdt) {
-		this.failbackYdt = failbackYdt;
-	}
-
-	public String getKeyDate() {
-		return keyDate;
-	}
-
-	public void setKeyDate(String keyDate) {
-		this.keyDate = keyDate;
-	}
-
-	public String getNowStatus() {
-		return nowStatus;
-	}
-
-	public void setNowStatus(String nowStatus) {
-		this.nowStatus = nowStatus;
-	}
-
-	public String getRSSI() {
-		return RSSI;
-	}
-
-	public void setRSSI(String RSSI) {
-		this.RSSI = RSSI;
-	}
-
-	public String getKeyVal() {
-		return keyVal;
-	}
-
-	public void setKeyVal(String keyVal) {
-		this.keyVal = keyVal;
-	}
-
-	public String getCnt() {
-		return cnt;
-	}
-
-	public void setCnt(String cnt) {
-		this.cnt = cnt;
-	}
+	// 24-10-14 추가 컬럼
+	private String lteROper;
 
 	public String getLteRImei() {
 		return lteRImei;
@@ -462,6 +401,14 @@ public class TerminalVo {
 		this.lteRComDnVal = lteRComDnVal;
 	}
 
+	public String getRSSI() {
+		return RSSI;
+	}
+
+	public void setRSSI(String rSSI) {
+		RSSI = rSSI;
+	}
+
 	public String getRSRP() {
 		return RSRP;
 	}
@@ -582,6 +529,70 @@ public class TerminalVo {
 		this.flagPage = flagPage;
 	}
 
+	public String getKeyVal() {
+		return keyVal;
+	}
+
+	public void setKeyVal(String keyVal) {
+		this.keyVal = keyVal;
+	}
+
+	public String getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(String cnt) {
+		this.cnt = cnt;
+	}
+
+	public String getKeyDate() {
+		return keyDate;
+	}
+
+	public void setKeyDate(String keyDate) {
+		this.keyDate = keyDate;
+	}
+
+	public String getNowStatus() {
+		return nowStatus;
+	}
+
+	public void setNowStatus(String nowStatus) {
+		this.nowStatus = nowStatus;
+	}
+
+	public String getFailureRegYdt() {
+		return failureRegYdt;
+	}
+
+	public void setFailureRegYdt(String failureRegYdt) {
+		this.failureRegYdt = failureRegYdt;
+	}
+
+	public String getFailbackYdt() {
+		return failbackYdt;
+	}
+
+	public void setFailbackYdt(String failbackYdt) {
+		this.failbackYdt = failbackYdt;
+	}
+
+	public String getKeyType() {
+		return keyType;
+	}
+
+	public void setKeyType(String keyType) {
+		this.keyType = keyType;
+	}
+
+	public String getLteROper() {
+		return lteROper;
+	}
+
+	public void setLteROper(String lteROper) {
+		this.lteROper = lteROper;
+	}
+
 	@Override
 	public String toString() {
 		return "TerminalVo [lteRImei=" + lteRImei + ", lteRImsi=" + lteRImsi + ", lteRserial=" + lteRserial
@@ -601,8 +612,10 @@ public class TerminalVo {
 				+ cpyName + ", hqName=" + hqName + ", hqCode=" + hqCode + ", teamName=" + teamName + ", teamCode="
 				+ teamCode + ", obsCode=" + obsCode + ", idx=" + idx + ", startNum=" + startNum + ", endNum=" + endNum
 				+ ", flagPage=" + flagPage + ", keyVal=" + keyVal + ", cnt=" + cnt + ", keyDate=" + keyDate
-				+ ", nowStatus=" + nowStatus + "]";
+				+ ", nowStatus=" + nowStatus + ", failureRegYdt=" + failureRegYdt + ", failbackYdt=" + failbackYdt
+				+ ", keyType=" + keyType + ", lteROper=" + lteROper + "]";
 	}
+	
 
 	
 }

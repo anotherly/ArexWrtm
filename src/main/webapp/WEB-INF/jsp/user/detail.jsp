@@ -3,21 +3,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-
-<script>
-
+<head>
+	<title>단말장치(LTE-R) 관리 WEB 시스템</title>
+	<meta charset="UTF-8">
+    <jsp:include page="../cmn/top.jsp" flush="false" />
+    
+    <script>
 	$(document).ready(function(){
 		console.log("상세");
 		var tagId='${data.userId}';
 		$("#btnSave").on('click', function(){
-			$("#contents").load('/user/update.do',{"userId":tagId});
+			/* $("#contents").load('/user/update.do',{"userId":tagId}); */
+			
+			//24-10-17 : 뒤로가기 문제 해결
+			location.href='/user/update.do?userId=' + tagId;
 		});
 		$("#btnCancel").on('click', function(){
 			location.href='/user/list.do';
 		});
 	});
-
 </script>
+</head>
+<body>
 	<!-- work Start -->
 	<div id="work" class="work-wrap">
 		<!-- contents_box Start -->
@@ -113,5 +120,5 @@
 		</div>
 		<!-- contents_box End -->
 	</div>
-
+</body>
 </html>

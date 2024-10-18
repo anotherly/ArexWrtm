@@ -48,6 +48,9 @@
     
     /*2024-10-08 : 4K - fullHD 최적 행간 */
     line-height:1.4;
+    
+    /* 24-10-15 : 사용용도 텍스트 중앙 정렬*/
+    text-align : center;
 }
 
 #lteTbd{

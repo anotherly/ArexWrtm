@@ -10,6 +10,12 @@
 	padding:0;
 }
 
+.contents_box2 {
+	background:none;
+	box-shadow: none;
+	padding:0;
+}
+
 .ctn_tbl_row .ctn_tbl_th,.ctn_tbl_row .ctn_tbl_td{
 	min-height:unset;
 	height:50px;
@@ -42,6 +48,29 @@
 	border-radius : 5px;
 	border : none;
 	color : yellow;
+	margin-left:15px;
+}
+
+/* 24-10-18 : 차트 크기 조절 */
+@media(max-width : 3840px) {
+	#opration_box > svg{
+		margin-top : 70px;
+	}
+	
+	#chartDetail {
+		margin-top : 40px;
+	}
+
+}
+
+@media(max-width : 1920px) {
+	#opration_box > svg{
+			margin-top : 0px;
+	}
+	
+	#chartDetail {
+		margin-top : 0px;
+	}
 }
 
 </style>
@@ -49,11 +78,16 @@
 	var chartObj;
 	var lteRIp='';
 	$(document).ready(function(){
+		
 		// 상세보기 버튼 클릭 전 css
-		$('.operation_time').css('margin-right','-260px');
+		$('#opration_box').hide();
 		
 		// 상세 클릭 관련 변수
 		var detailChecker = 'true';
+		
+		var operArr = [];
+		var dateArr = [];
+		
 		
 		console.log("서브 상세");
 		//차트 화면일경우 상세정보 테마 변경
@@ -63,7 +97,7 @@
 		$('.ctn_tbl_th').css('font-size','calc(5px + 0.4vw + 0.4vh)');
 		$('.ctn_tbl_td').css('font-size','calc(5px + 0.4vw + 0.4vh)');
 		 */
-		$('.contents_box *').css('color','#fff');
+		 $('.contents_box *').css('color','#fff'); 
 		 
 		lteRIp='${data.lteRIp}';
 		var rtVo=ajaxMethod("/realtimeChartFirst.ajax",{"lteRIp":lteRIp}).data;
@@ -71,9 +105,12 @@
 		var memArr;
 		var downArr;
 		var upArr;
+
 		
-		// 2024-10-10 : 2번째 y축 (운영 시간) 변수 생성
-		var operArr;
+		// 누적 운영 시간 함수 실행
+		var secondF = $('#lteROperVal').val();
+		operationText(secondF,'true');
+		
 		
 		if (typeof rtVo !== "undefined" && rtVo != null  && rtVo != '') {
 			memArr=[
@@ -109,9 +146,6 @@
 			memArr=[0,0,0,0,0,0];
 			downArr=[0,0,0,0,0,0];
 			upArr=[0,0,0,0,0,0];
-			
-			// 2024-10-10 : 2번째 y축 (운영 시간) null 일 때 처리
-			operArr=[0,0,0,0,0,0];
 			
 			
 			$("#memCritVal").text(0);
@@ -176,15 +210,7 @@
 	            		, downArr[3]
 	            		, downArr[4]
 	            		, downArr[5]
-	            	]/* ,
-	                ['OPERATIONTIME'
-	                	, operArr[0]
-	                	, operArr[1]
-	                	, operArr[2]
-	                	, operArr[3]
-	                	, operArr[4]
-	                	, operArr[5]
-	                ] */
+	            	]
 	            ],
 	            connectNull: true,
 	            axes: {
@@ -195,7 +221,6 @@
 		        	'MEMORY': '#003399',
 		        	'UP': '#71ABA8',
 		        	'DOWN': '#A072CE',
-/* 		        	'운영시간' : '#DACA00' */
 		        }
 	        },
 	        axis: {
@@ -225,23 +250,16 @@
 	                    position: 'outer-right',
 	                }
 	            } */
-	            /* 2024-10-10 : y축 추가 */
-	            , y2: {
-	            	show : true,
-	            	label : {
-	            		max : 100,
-	            		text : '운영시간',
-	            		position : 'outer-right',
-	            	}
-	            }
 	        }
 	    });
 
 	  	//화면 테마에 맞춰 그래프 선 및 폰트 색상 변경
 		cssChart();
-	    
+	  	
+		$('#chartDiv svg:first').addClass('svgFirst');
 	    $("#chartDiv").css('min-height','38vh');
 		chartObj.resize();
+		
 		
 	    subChartTimer=setInterval(function(){
 	    	console.log("차트 갱신");
@@ -254,9 +272,8 @@
 	               ['x', (new Date().getTime())],
 	               ['MEMORY', MEMORY],
 	               ['UP', UP],
-	               ['DOWN', DOWN],
-	               // 2024-10-10 : 2번째 y축 생성
-/* 	               ['OPERATIONTIME', OPERATIONTIME] */
+	               ['DOWN', DOWN]
+
 	           ],
 	       });
 			cssChart();
@@ -286,10 +303,157 @@
 			}
 		});
 		
+		// 24-10-11 : 배열에 데이터 넣는 작업
+		// getMonth 함수 : 운영 누적 시간에서 x축에 넣을 현재 달을 기준으로 -5개월 까지의 값을 배열에 넣어 저장하는 함수
+		function getMonths() {
+			const cDate = new Date(); // 현재 날짜 가져오기
+			const cMonth = cDate.getMonth(); // 현재 월 가져오기 : 0(1월)~11(12월)
+			const cArr = []; //반환할 배열
+			
+			// 월 배열에 넣기
+			for(var i = 0; i < 6; i++) {
+				var month = (cMonth - i + 12)%12; //12로 나눈 나머지 사용
+				cArr.unshift(month+1); // 1월 부터 시작하는 월을 위해 +1
+			}
+			
+			return cArr; // 월을 넣은 배열 리턴
+		}
+		
+		function getDates() {
+		    const cDate = new Date(); // 현재 날짜 가져오기
+		    const cYear = cDate.getFullYear(); // 현재 년도 가져오기
+		    const cMonth = cDate.getMonth(); // 현재 월 가져오기 : 0(1월)~11(12월)
+		    const cArr = []; // 반환할 배열
+
+		    // 월 배열에 넣기
+		    for (var i = 0; i < 6; i++) {
+		        // 12로 나눈 나머지를 사용하여 월 계산
+		        var month = (cMonth - i + 12) % 12; 
+		        var yearOffset = Math.floor((cMonth - i) / 12); 
+		        var year = cYear - yearOffset; 
+		        var date = year + "-" + String(month + 1).padStart(2, '0'); 
+		        cArr.unshift(date); 
+		    }
+
+		    return cArr; // 날짜를 넣은 배열 리턴
+		}
 		
 		
+		operArr = getMonths(); // 전역 변수 배열에 값 저장
+		dateArr = getDates();
+		
+		
+		// 24-10-16 : 누적 운영 시간 (초)단위에서 -> (년)(개월)(일)(시) 단위로 변경하기
+		// 1시간 보다 적은 숫자일 경우에는 (분)(초)로 나오도록 하기
+		
+		function operationText(second, situation) {
+		    var returnOfer = '';
+		    var nowTitle = '현재 운영 누적 시간 : ';
+		    var allTitle = '총 운영 누적 시간 : ';
+		
+		    if (situation === 'true') {
+		        if (second < 3600) {
+		            var returnMin = Math.floor(second / 60);
+		            var returnSec = second % 60;
+		
+		            if (returnMin === 0 && returnSec !== 0) {
+		                returnOfer = nowTitle + returnSec + '초';
+		            } else if (returnMin !== 0 && returnSec === 0) {
+		                returnOfer = nowTitle + returnMin + '분';
+		            } else if (returnMin !== 0 && returnSec !== 0) {
+		                returnOfer = nowTitle + returnMin + '분  ' + returnSec + '초';
+		            } else {
+		                returnOfer = nowTitle + '0분 0초';
+		            }
+		        } else {
+		        	var returnY = Math.floor(second / 31622400);
+		            var minusY = second - (returnY * 31622400);
+		            var returnM = Math.floor(minusY / 2592000);
+		            var minusM = minusY - (returnM * 2592000);
+		            var returnD = Math.floor(minusM / 86400);
+		    		var minusD = minusM - (returnD * 86400);
+		    		var returnH = Math.floor(minusD / 3600);
+		            returnOfer = nowTitle;
+		
+		            if (returnY !== 0) {
+		                returnOfer += returnY + '년 ';
+		            }
+		            if (returnM !== 0) {
+		                returnOfer += returnM + '개월 ';
+		            }
+		            if (returnD !== 0) {
+		                returnOfer += returnD + '일 ';
+		            }
+		    		
+		            if(returnH !== 0) {
+		            	returnOfer += returnH + '시간'	;
+		            }
+		        }
+		
+		        $('#oper_text').text(returnOfer);
+		        
+		    } else {
+		    	returnOfer = allTitle;
+		    	
+		    	if(second == 0) {
+		    		returnOfer += '없음';
+		    	} else {
+		    		
+		    		var returnY = Math.floor(second / 31622400);
+			        var minusY = second - (returnY * 31622400);
+			        var returnM = Math.floor(minusY / 2592000);
+			        var minusM = minusY - (returnM * 2592000);
+			        var returnD = Math.floor(minusM / 86400);
+					var minusD = minusM - (returnD * 86400);
+					var returnH = Math.floor(minusD / 3600);
+			
+			        if (returnY !== 0) {
+			            returnOfer += returnY + '년 ';
+			        }
+			        if (returnM !== 0) {
+			            returnOfer += returnM + '개월 ';
+			        }
+			        if (returnD !== 0) {
+			            returnOfer += returnD + '일 ';
+			        }
+			        if(returnH !== 0) {
+			        	returnOfer += returnH + '시간'	;
+			        }
+		    	}
+		    	
+		        $('#oper_text').text(returnOfer);
+		    }
+		}
+
 		$('#showOper').on('click', function(){
 			console.log(' 운영시간 차트 버튼 클릭');
+			
+			// 차트에 넣을 데이터 불러오기
+			var detailChart = ajaxMethod("/detailChart.ajax",{"lteRIp":lteRIp}).data;
+
+			var detailArr = [];
+
+			for (var j = 0; j < dateArr.length; j++) {
+			    var found = false; // detailChart에서 찾았는지 여부를 표시하는 변수
+
+			    // detailChart의 모든 값을 순회합니다.
+			    for (var i = 0; i < detailChart.length; i++) {
+			        // receiveTime이 같으면 lteROper 값을 detailArr에 넣고 found를 true로 설정
+			        if (dateArr[j] === detailChart[i].receiveTime.substring(0, 7)) {
+/* 						var dayVal = Math.floor(detailChart[i].lteROper / 86400);
+			            detailArr[j] = dayVal;  */
+			            
+			            detailArr[j] = detailChart[i].lteROper;
+		            found = true;
+			            break; // 일치하는 값이 발견되면 inner loop를 종료
+			        }
+			    }
+
+			    // 찾지 못한 경우 detailArr에 0을 넣음.
+			    if (!found) {
+			        detailArr[j] = 0;
+			    }
+			}
 			
 			// 클릭한 버튼이 상세 보기일 때
 			if(detailChecker == 'true') {
@@ -297,21 +461,118 @@
 				$('.showSecond').show();
 				$('.secondTitle').hide();
 				$('#contents_box').hide();
+					
+				$('#title2').css('margin-bottom','33px');
 				
-				// 버튼 클릭 시 텍스트 위치 조절
-				$('.operation_time').css('margin-right','-134px');
+				var chartD = c3.generate({
+				    bindto: '#opration_box',
+					size :{
+				    	auto : true
+				    }, 
+				    data: {
+				    	type: "line",
+				        x: 'x',
+				        columns: [
+				            ['x', operArr[0] + '월', operArr[1] + '월', operArr[2] + '월', operArr[3] + '월', operArr[4] + '월', operArr[5] + '월'],
+				            ['누적운영시간',detailArr[0],detailArr[1],detailArr[2],detailArr[3],detailArr[4],detailArr[5]] 
+				        ],
+				        axes: {
+				            '누적운영시간': 'y' 
+				        }
+				    },
+				    legend: {
+				    	show : false //범례 빼기
+				    },
+				    axis: {
+				        x: {
+				            type: 'category',
+				            label: {
+				                position: 'outer-bottom'
+				            }
+				        },
+				        y: {
+				        	tick: {
+				        		/* count : 7, */
+				                format: function(value) {
+									var days = Math.floor(value / 86400);
+				                    console.log("format :" + days);
+				                    return days + '일'; // Y축 레이블  
+
+				                    /* var days = Math.floor(value / 86400);
+				                    console.log("format :" + days);
+				                    return days >= 0 ? days : ''; // days가 음수일 경우 빈 문자열 반환 */
+				                }
+				            }, 
+				            label: {
+				                text: '누적 시간(일)',
+				                position: 'outer-left',
+				            }
+				        }
+				    },
+				    tooltip: {
+				    	  show: true
+				    	  ,format : {
+				    		  value: function (value) {
+				                  var returnOfer = '';
+				                  var returnY = Math.floor(value / 31622400);
+				                  var minusY = value - (returnY * 31622400);
+				                  var returnM = Math.floor(minusY / 2592000);
+				                  var minusM = minusY - (returnM * 2592000);
+				                  var returnD = Math.floor(minusM / 86400);
+				                  var minusD = minusM - (returnD * 86400);
+				                  var returnH = Math.floor(minusD / 3600);
+
+				                  if (returnY !== 0) {
+				                      returnOfer += returnY + '년 ';
+				                  }
+				                  if (returnM !== 0) {
+				                      returnOfer += returnM + '개월 ';
+				                  }
+				                  if (returnD !== 0) {
+				                      returnOfer += returnD + '일 ';
+				                  }
+				                  if (returnH !== 0) {
+				                      returnOfer += returnH + '시간';
+				                  }
+
+				                  if (returnOfer === '') {
+				                      returnOfer = '0시간'; // 기본값 설정
+				                  }
+
+				                  return returnOfer;
+				              }
+				    	  }
+				    }
+				});
+
+				cssChart();
+				chartD.resize();
+				
+/* 				$('#opration_box svg').css('margin-left','32px'); */
+				$('#opration_box').show();
+
 				$('#showOper').text("상세접기");
+				
+				//24-10-16 : 총 운영 누적 시간 / 현재 운영 누적 시간
+				var second = detailArr[5];
+				operationText(second,'false'); // 상세 접기 X이므로 situation 값에 false 들어감
+				
 				
 				detailChecker = 'false';
 			} else { // 클릭한 버튼이 상세 접기일 때
+				$('#title2').css('margin-bottom','0px');
+				$('#opration_box').hide();
+				
 				$('.showSecond').hide();
 				$('.secondTitle').show();
 				$('#contents_box').show();
 				
-				$('.operation_time').css('margin-right','-260px');
 				$('#showOper').text("상세보기");
-				
 				detailChecker = 'true';
+				
+				//24-10-16 : 총 운영 누적 시간 / 현재 운영 누적 시간
+				var second = $('#lteROperVal').val();	
+				operationText(second,'true'); // 상세 접기 이므로 situation 값에 true 들어감
 			}
 		});
 	});
@@ -330,21 +591,24 @@
 	<div id="work" class="work-wrap" style="min-width: unset;padding:0px;">
 		<!-- contents_box Start -->
 		
-		<div class="tilte" style="width: 100%;display: flex;align-items: center;justify-content: space-between;">
+		<div id="title2" class="tilte" style="width: 100%;display: flex;align-items: center;justify-content: space-between;">
 		<!-- 운영시간 차트 버튼 클릭 시 show 처리 -->
 			<span class="showSecond" style="font-size: 25px;font-weight: bold;border-bottom: 2px double yellow;color: #fff; display:none;">${data.lteRUsed} 운영 시간 정보</span>
 			<span class="secondTitle" style="font-size: 25px;font-weight: bold;border-bottom: 2px double yellow;color: #fff;">단말기 상세 정보</span>
 			<!-- 24-10-10 : 데이터 수신 시각 => 단말기 운영 누적 시간으로 변경 / 상세 보기, 상세보기 접기 버튼 위치 이동 -->
 			
-			<!--  <span style="font-size: 18px;font-weight: bold;color: #fff;">데이터 수신시각 : ${data.receiveTime}</span> -->
-			<span class="operation_time" style="font-size: 18px;font-weight: bold;color: #fff;">단말기 운영 누적시간 : ${data.receiveTime}</span> <!-- 값 아직 변경 안됨 / 변경 필요 -->
-			<!--  2024-10-10 : 운영시간 차트 띄우는 버튼  -->
-			<button id="showOper">상세보기</button>
+			<div class="content_dummy">
+				<!--  <span style="font-size: 18px;font-weight: bold;color: #fff;">데이터 수신시각 : ${data.receiveTime}</span> -->
+				<span id="oper_text" class="operation_time" style="font-size: 18px;font-weight: bold;color: #fff; margin-left:18px;">현재 운영 누적시간 : ${data.lteROper}초</span> <!-- 값 아직 변경 안됨 / 변경 필요 -->
+				<input type='hidden' value='${data.lteROper}' id='lteROperVal'>
+				<!--  2024-10-10 : 운영시간 차트 띄우는 버튼  -->
+				<button id="showOper">상세보기</button>
+			</div>
 		</div>
 		
 		
 		<!--  운영 시간 차트 띄울 div  -->
-		<div id="opration_box" class="contents_box" style="display:none;">
+		<div id="opration_box" class="contents_box2" style="display:none; max-height: 300px;position: relative;display: flex;align-content: center;align-items: center;">
 		</div>
 		
 		<div id="contents_box" class="contents_box">

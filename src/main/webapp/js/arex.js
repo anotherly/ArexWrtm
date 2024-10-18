@@ -45,7 +45,7 @@ function trainOne(alData){
 		
 		/* 2024-10-08 : 단말기 구분을 위해 단말기 사용용도 + ip D 클래스로 처리 */
 		// ip에서 D클래스 슬라이스
-		var dClass = alData[i].lteRIp.substr(9,2);
+		var dClass = alData[i].lteRIp.substr(9);
 		
 		// 이후 사용용도 + D 클래스 붙이기
 		var spanVal = alData[i].lteRUsed + "_" + dClass;

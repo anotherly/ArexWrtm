@@ -3,39 +3,44 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<style>
-/* .ctn_tbl_row .ctn_tbl_th {
-    flex: 0 0 150px;
-} */
-
-.ctn_tbl_row .ctn_tbl_th,.ctn_tbl_row .ctn_tbl_td{
-	min-height:unset;
-	height:50px;
-}
-
-@media screen and (max-width: 1920px){
+<head>
+ 	<title>단말장치(LTE-R) 관리 WEB 시스템</title>
+	<meta charset="UTF-8">
+    <jsp:include page="../cmn/top.jsp" flush="false" />
+	<style>
+	/* .ctn_tbl_row .ctn_tbl_th {
+	    flex: 0 0 150px;
+	} */
+	
 	.ctn_tbl_row .ctn_tbl_th,.ctn_tbl_row .ctn_tbl_td{
-		height:40px;
+		min-height:unset;
+		height:50px;
 	}
-}
-
-</style>
-<script>
-
-	$(document).ready(function(){
-		console.log("상세");
-		var tagId="${data.lteRIp}";
-		$("#btnSave").on('click', function(){
-			$("#contents").load('/terminal/update.do',{"lteRIp":tagId});
+	
+	@media screen and (max-width: 1920px){
+		.ctn_tbl_row .ctn_tbl_th,.ctn_tbl_row .ctn_tbl_td{
+			height:40px;
+		}
+	}
+	
+	</style>
+	<script>
+	
+		$(document).ready(function(){
+			console.log("상세");
+			var tagId="${data.lteRIp}";
+			$("#btnSave").on('click', function(){
+				$("#contents").load('/terminal/update.do',{"lteRIp":tagId});
+			});
+			$("#btnCancel").on('click', function(){
+				location.href='/terminal/list.do';
+			});
+			//$(".ctn_tbl_row .ctn_tbl_th").css("flex","0 0 150px");
 		});
-		$("#btnCancel").on('click', function(){
-			location.href='/terminal/list.do';
-		});
-		//$(".ctn_tbl_row .ctn_tbl_th").css("flex","0 0 150px");
-	});
-
-</script>
-
+	
+	</script>
+</head>
+<body>
 			<!-- work Start -->
 			<div id="work" class="work-wrap" style="padding-top: 0px;">
 				<!-- contents_box Start -->
@@ -227,5 +232,5 @@
 			</div>
 			<!-- work End -->
 	<!-- container End ------------------>
-
+</body>
 </html>

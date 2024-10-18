@@ -1,8 +1,13 @@
 @charset "UTF-8";
 
 /* 해당 부분에 따라 반응형 차트가 가능 */
-svg{
-      width:  100%;
+
+svg {
+    /* 모든 SVG에 대한 스타일 */
+}
+
+.svgFirst {
+    width:  100%;
       height: 38vh;
       min-height: 38vh;
       preserveAspectRatio:none;

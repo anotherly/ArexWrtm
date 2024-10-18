@@ -141,7 +141,8 @@
 			var tagId = $(this).parent().children().first().children().first().val();
 			$(this).attr('id');
 			if(tagId!="chkTd"){
-				$("#contents").load("/terminal/detail.do",{"lteRIp":tagId}); 
+				//$("#contents").load("/terminal/detail.do",{"lteRIp":tagId}); 
+				location.href="/terminal/detail.do?lteRIp="+tagId;
 			}
 		});
 

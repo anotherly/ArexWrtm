@@ -22,6 +22,7 @@ public interface TerminalMapper {
 	void deleteTerminal(HashMap<String, Object> map);
 
 	TerminalVo chartQ(TerminalVo inputVo);
+	List<TerminalVo> chartD(TerminalVo inputVo);
 	
 	List<TerminalVo>  mainChart1(TerminalVo inputVo);
 	List<TerminalVo>  mainChart2(TerminalVo inputVo);

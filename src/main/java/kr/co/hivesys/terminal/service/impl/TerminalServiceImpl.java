@@ -51,6 +51,12 @@ public class TerminalServiceImpl implements TerminalService{
 	public TerminalVo chartQ(TerminalVo inputVo) {
 		return TerminalMapper.chartQ(inputVo);
 	}
+	
+	@Override
+	public List<TerminalVo> chartD(TerminalVo inputVo) {
+		return TerminalMapper.chartD(inputVo);
+	}
+	
 	@Override
 	public List<TerminalVo>  mainChart1(TerminalVo inputVo) {
 		return TerminalMapper.mainChart1(inputVo);

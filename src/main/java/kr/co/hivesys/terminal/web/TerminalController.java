@@ -290,6 +290,26 @@ public class TerminalController {
 		return mav;
 	}
 	
+	
+	// 누적 운영 시간 차트 조회
+	@RequestMapping(value="/detailChart.ajax")
+	public @ResponseBody ModelAndView detailChart (HttpServletRequest request, HttpServletResponse response,
+			@ModelAttribute("TerminalVo") TerminalVo inputVo) throws Exception {
+		
+		ModelAndView mav = new ModelAndView("jsonView");
+		List<TerminalVo>  tlist= new ArrayList<>();
+		try {
+			tlist = terminalService.chartD(inputVo);
+			mav.addObject("data",tlist);
+		} catch (Exception e) {
+			e.printStackTrace();
+			mav.addObject("msg","에러가 발생하였습니다");
+		}
+		return mav;
+	}
+	
+	
+	
 	// 단말기 선택 시 단말기 정보 가져오기
 	@RequestMapping(value="/chart/subDetail.do")
 	public @ResponseBody ModelAndView subDetail( 
