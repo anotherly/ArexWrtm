@@ -6,6 +6,14 @@
     <title>단말장치(LTE-R) 관리 WEB 시스템</title>
 	<meta charset="UTF-8">
     <jsp:include page="../cmn/top.jsp" flush="false" />
+    <style>
+    	body {
+		  -webkit-user-select:none;
+		  -moz-user-select:none;
+		  -ms-user-select:none;
+		  user-select:none
+		}
+    </style>
 <script>
 	var updUrl="/user/update.do";
 	var delUrl="/user/delete.ajax";
@@ -41,9 +49,21 @@
                 },
                 {data:"userId"},
                 {data:"userName"},
-                {data:"cpyName"},
-                {data:"hqName"},
-                {data:"teamName"},
+                {data:"cpyName",
+                	"render": function (data, type, row, meta) {
+                        return data ? data : '해당 없음'; 
+                    },
+                },
+                {data:"hqName",
+                	"render": function (data, type, row, meta) {
+                        return data ? data : '해당 없음'; 
+                    },	
+               	},
+                {data:"teamName",
+               		"render": function (data, type, row, meta) {
+                        return data ? data : '해당 없음';
+                    },	
+                },
                 {data:"regYdt"}
             ],
             "lengthMenu": [ [5, 10, 20], [5, 10, 20] ],

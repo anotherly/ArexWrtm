@@ -72,6 +72,11 @@ table.dataTable tbody tr{
                 "url":"/stat/list.ajax",
                 "type":"POST",
                 "dataType": "json",
+                data: function (d) {
+                    
+                    d.keyDate = $("#sDate").val(); 
+                    d.keyType = typeId;
+                }
             },  
             columns: [
                 {

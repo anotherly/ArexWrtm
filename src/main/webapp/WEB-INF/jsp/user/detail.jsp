@@ -48,20 +48,35 @@
 							</div>
 							
 							<div class="ctn_tbl_row">
-								<div class="ctn_tbl_th ">기관</div>
-								<div class="ctn_tbl_td">
-									        	${data.cpyName}
-								</div>
-								<div class="ctn_tbl_th ">본부/처/실</div>
-								<div class="ctn_tbl_td">
-										        ${data.hqName}
-								</div>
+							    <div class="ctn_tbl_th">기관</div>
+							    <div class="ctn_tbl_td">
+							        <c:if test="${not empty data.cpyName}">
+							            ${data.cpyName}
+							        </c:if>
+							        <c:if test="${empty data.cpyName}">
+							           	 해당 없음
+							        </c:if>
+							    </div>
+							    <div class="ctn_tbl_th">본부/처/실</div>
+							    <div class="ctn_tbl_td">
+							        <c:if test="${not empty data.hqName}">
+							            ${data.hqName}
+							        </c:if>
+							        <c:if test="${empty data.hqName}">
+							          	  해당 없음
+							        </c:if>
+							    </div>
 							</div>
 							
 							<div class="ctn_tbl_row">
 								<div class="ctn_tbl_th ">팀명</div>
 								<div class="ctn_tbl_td">
-									       		${data.teamName}
+								    <c:if test="${not empty data.teamName}">
+								        ${data.teamName}
+								    </c:if>
+								    <c:if test="${empty data.teamName}">
+								        해당 없음
+								    </c:if>
 								</div>
 								<div class="ctn_tbl_th ">직급</div>
 								<div class="ctn_tbl_td">
@@ -88,23 +103,31 @@
 								<div class="ctn_tbl_th ">사용자 권한</div>
 								<div class="ctn_tbl_td">
 									<!-- <input type="text" id="userAuth" name ="userAuth" placeholder="" class="form-control input_base_require"> -->
-									<select class="table_sel"  style="width: 164px; height:100%;"  name="schUserHq">
+									<%-- <select class="table_sel"  style="width: 164px; height:100%;"  name="schUserHq">
 									    <c:forEach var="authVo" items="${authList}">
-									        <option value="${authVo.authLevel}"<c:if test="${data.authLevel eq authVo.authLevel}">selected</c:if>>
+									        <option value="${authVo.authLevel}"<c:if test="${authVo.authLevel eq data.userAuth}">selected</c:if>>
 										        ${authVo.authDefine}
 									        </option>
 									    </c:forEach>
-									</select>
+									</select> --%>
+									   
+									    <c:forEach var="authVo" items="${authList}">
+									        <c:if test="${authVo.authLevel eq data.userAuth}">
+									        	${authVo.authDefine}
+									        </c:if>
+									    </c:forEach>
 								</div>
 							</div>
 						
 							<div class="ctn_tbl_row">
 								<div class="ctn_tbl_th ">사용 여부</div>
 								<div class="ctn_tbl_td">
-									<select name ="usedYn">
+									<%--<select name ="usedYn">
 										<option value='1' <c:if test="${data.usedYn eq 1}">selected</c:if> >사용</option>
 										<option value='0' <c:if test="${data.usedYn eq 0}">selected</c:if> >미사용</option>
-									</select>
+									</select> --%>
+									<c:if test="${data.usedYn eq 0}">미사용</c:if>
+									<c:if test="${data.usedYn eq 1}">사용</c:if>
 								</div>
 							</div>
 						</div>

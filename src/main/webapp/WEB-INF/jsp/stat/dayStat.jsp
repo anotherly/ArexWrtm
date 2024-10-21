@@ -67,6 +67,10 @@ table.dataTable tbody tr{
                 "url":"/stat/list.ajax",
                 "type":"POST",
                 "dataType": "json",
+                data: function (d) {
+ 
+                    d.keyDate = $("#sDate").val(); 
+                }
             },  
             columns: [
                 {
@@ -78,7 +82,21 @@ table.dataTable tbody tr{
                         //console.log(data);
                         return data;
                     }
+                    
                 },
+                /* {data:"keyDate",
+                	"render": function (data, type, row, meta) {
+                		const today = new Date();
+                		const isoString = today.toISOString(); // ISO 형식의 문자열 (예: "2024-10-21T14:35:00.000Z")
+
+                		const year = isoString.substr(0, 4); // 연도
+                		const month = isoString.substr(5, 2); // 월
+                		const day = isoString.substr(8, 2); // 일
+                		
+                		var keyDate = year + '-' + month + '-' + day;
+                        return keyDate;
+                    }
+                }, */
                 {data:"rssi"},
                 {data:"rsrp"},
                 {data:"rsrq"},

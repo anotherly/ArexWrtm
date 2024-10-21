@@ -6,6 +6,14 @@
     <title>단말장치(LTE-R) 관리 WEB 시스템</title>
 	<meta charset="UTF-8">
     <jsp:include page="../cmn/top.jsp" flush="false" />
+    <style>
+    	body {
+		  -webkit-user-select:none;
+		  -moz-user-select:none;
+		  -ms-user-select:none;
+		  user-select:none
+		}
+    </style>
 <script>
 	var updUrl="/firmware/update.do";
 	var delUrl="/firmware/delete.ajax";
@@ -80,9 +88,9 @@
 		});
 		
 		//체크박스영역 제외 마우스 올릴시 포인터로
-		$("#tableList").on("mouseleave", "tbody td:not(':first-child')", function(){
+/* 		$("#tableList").on("mouseleave", "tbody td:not(':first-child')", function(){
 			$(this).css('cursor','pointer');
-		});
+		}); */
 		
 		//페이지 이동이나 열 개수 변경시 전체체크박스 관련 이벤트
 		$('#tableList').on('draw.dt', function(){

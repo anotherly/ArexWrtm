@@ -77,6 +77,11 @@
 <script>
 	var chartObj;
 	var lteRIp='';
+	
+	// 누적 운영 시간 차트 배열 (전역)
+	var detailArr = [];
+	
+	
 	$(document).ready(function(){
 		
 		// 상세보기 버튼 클릭 전 css
@@ -431,7 +436,7 @@
 			// 차트에 넣을 데이터 불러오기
 			var detailChart = ajaxMethod("/detailChart.ajax",{"lteRIp":lteRIp}).data;
 
-			var detailArr = [];
+			//var detailArr = [];
 
 			for (var j = 0; j < dateArr.length; j++) {
 			    var found = false; // detailChart에서 찾았는지 여부를 표시하는 변수
@@ -440,7 +445,7 @@
 			    for (var i = 0; i < detailChart.length; i++) {
 			        // receiveTime이 같으면 lteROper 값을 detailArr에 넣고 found를 true로 설정
 			        if (dateArr[j] === detailChart[i].receiveTime.substring(0, 7)) {
-/* 						var dayVal = Math.floor(detailChart[i].lteROper / 86400);
+						/* var dayVal = Math.floor(detailChart[i].lteROper / 86400);
 			            detailArr[j] = dayVal;  */
 			            
 			            detailArr[j] = detailChart[i].lteROper;
@@ -464,13 +469,18 @@
 					
 				$('#title2').css('margin-bottom','33px');
 				
+				let beforeVal = null;
+				let Ycounter = 0;
+				var firstVal = 0;
+				var secondVal = 0;
+				
 				var chartD = c3.generate({
 				    bindto: '#opration_box',
 					size :{
 				    	auto : true
 				    }, 
 				    data: {
-				    	type: "line",
+				    	type: "area",
 				        x: 'x',
 				        columns: [
 				            ['x', operArr[0] + '월', operArr[1] + '월', operArr[2] + '월', operArr[3] + '월', operArr[4] + '월', operArr[5] + '월'],
@@ -491,21 +501,66 @@
 				            }
 				        },
 				        y: {
+				        	
+				        	padding: { bottom: 10 }, // 패딩으로 음수값 제거
 				        	tick: {
-				        		/* count : 7, */
+				        		//count : 7,
 				                format: function(value) {
+									console.log("value	/	Ycounter	/	beforeVal	/	firstVal"+value+"/"+Ycounter+"/"+beforeVal+"/"+firstVal);
+									console.log(beforeVal);
 									var days = Math.floor(value / 86400);
+									/* 	
 				                    console.log("format :" + days);
-				                    return days + '일'; // Y축 레이블  
-
-				                    /* var days = Math.floor(value / 86400);
-				                    console.log("format :" + days);
-				                    return days >= 0 ? days : ''; // days가 음수일 경우 빈 문자열 반환 */
+				                    return days >= 0 ? days+'일' : ''; // days가 음수일 경우 빈 문자열 반환 */
+				                    //
+				                    if(value >= 0){
+				                    	
+				                    	//초
+				                    	if(value<60){
+				                    		return value + '초';
+				                    	}
+				                    	//분
+				                    	else if(value<60*60){
+				                    		return Math.floor(value / 60) + '분';
+				                    	}
+				                    	//시
+				                    	else if(value<60*60*24){
+				                    		return Math.floor(value / (60*60)) + '시간';
+				                    	}
+				                    	//일
+				                    	else{
+				                    		return Math.floor(value / (60*60*24)) + '일' + Math.floor( (value % (60*60*24)) / (60*60) ) +'시간';
+				                    	}
+				                    	
+				                    	/* if(Ycounter == 0) {
+					                    	Ycounter += 1;
+					                    	beforeVal = days;
+					                    	firstVal = days;
+					                    	return days + '일';
+					                    } else {
+					                    	if(days == beforeVal) {
+					                    		if(beforeVal == firstVal && secondVal == 0) {
+					                    			Ycounter += 1;
+					                    			 secondVal +=1;
+					                    			console.log(beforeVal);
+						                    		beforeVal = days;
+					                    			return days + '일';
+					                    		} else {
+						                    		beforeVal = days;
+					                    			return '';
+					                    		}
+					                    	} else {
+					                    		beforeVal = days;
+					                    		return days + '일';
+					                    	}
+					                    }  */
+				                    	return days + '일';
+				                    }
 				                }
 				            }, 
 				            label: {
-				                text: '누적 시간(일)',
-				                position: 'outer-left',
+				                text: '누적 시간',
+				                position: 'outer-left'
 				            }
 				        }
 				    },
@@ -547,7 +602,7 @@
 
 				cssChart();
 				chartD.resize();
-				
+
 /* 				$('#opration_box svg').css('margin-left','32px'); */
 				$('#opration_box').show();
 

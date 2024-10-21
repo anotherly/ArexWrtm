@@ -73,6 +73,7 @@
 					if($("select[name='userAuth']").val()==0){
 						$("#departCode").val("");
 					}else{
+						console.log('else 실행');
 						$("#departCode").val(dept);
 					}
 					
@@ -223,7 +224,7 @@
 								<div class="ctn_tbl_td">
 									<select class="table_sel"  style="width: 164px; height:100%;"  name="userAuth">
 									    <c:forEach var="authVo" items="${authList}">
-									        <option value="${authVo.authLevel}"<c:if test="${data.authLevel eq authVo.authLevel}">selected</c:if>>
+									        <option value="${authVo.authLevel}"<c:if test="${data.userAuth eq authVo.authLevel}">selected</c:if>>
 										        ${authVo.authDefine}
 									        </option>
 									    </c:forEach>
