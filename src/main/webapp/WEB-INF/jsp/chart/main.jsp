@@ -22,14 +22,13 @@
 			/* td 스타일 조정 */
 			.lte-table td {
 				width : 167px; /* tr 전체 넓이 / 7 값 */
-				height : 165px;
+				height : 185px;
 			} 
 			
 		}
 		
-		@media(max-width : 1920px) {
+		@media(max-width : 2200px) {
 			/* 화면이 FullHD일 때 */
-			
 			/* 단말기 카운터 스타일 조정  */
 			#countRouter {
 				font-size : 15px;
@@ -41,6 +40,7 @@
 				height : 65px;
 			}
 		}
+
     </style>
 <script>
 	var teamCode='';
@@ -137,7 +137,7 @@
 		});
 		
 		//좌측 메인차트 갱신
-		mainChartTimer=setInterval(function(){
+		/* mainChartTimer=setInterval(function(){
 			$("#all_chart").empty();
 			var userAuth='${login.userAuth}';
 			if(userAuth==0){
@@ -180,7 +180,7 @@
 	    		}
 			});
 			
-		},30*1000);
+		},30*1000); */
 	});
 	
 	//동적 테이블(삭제 및 갱신)시 td 클릭 이벤트

@@ -86,7 +86,8 @@
 			});
 			
 			$("#btnCancel").on('click',function(){
-				location.href='/terminal/list.do';
+				/* location.href='/terminal/list.do'; */
+				history.go(-1);
 			});
 			
 			$("#btnReload").on('click',function(){
@@ -121,173 +122,194 @@
 	
 
 </head>
-	<!-- work Start -->
-	<div id="work" class="work-wrap" style="padding-top: 0px;">
-		<!-- contents_box Start -->
-		<div id="contents_box" class="contents_box" style="margin-top: 0px;">
-			<!-- 컨텐츠 테이블 헤더 Start -->
-			<div class="ctn_tbl_header">
-				<div class="ttl_ctn">단말기 정보 수정</div>
-				<!-- 컨텐츠 타이틀 -->
-				<div class="txt_info">
-					<em class="txt_info_rep">*</em> 표시는 필수 입력 항목입니다.
-				</div>
-				<!-- 설명글 -->
+<body class="open">
+	<!-- lnb Start ------------------>
+		    <aside id="lnb" class="lnb">
+		        <a class="lnb-control" title="메뉴 펼침/닫침"><span class="menu-toggle">메뉴 펼침/닫침</span></a>
+		        <nav class="navbar navbar-expand-sm navbar-default">
+		            <ul class="menu-inner"></ul>
+		        </nav>
+		    </aside>
+	    <!-- lnb End ------------------>
+	    
+	    <!-- container Start ------------------>
+		<div id="container" class="container-wrap"  style="margin-top: 0px;">
+			<!-- header Start ------------------>
+			<div id="header" class="header-wrap">
 			</div>
-			<!-- 컨텐츠 테이블 헤더 End -->
-			<!-- 컨텐츠 테이블 영역 Start -->
-			<form id="acDetailFrm" name="acDetailFrm" method="post" enctype="multipart/form-data">
-				<div class="ctn_tbl_area">
-					<div class="ctn_tbl_row">
-						<div class="ctn_tbl_th fm_rep">팀명</div>
-						<div class="ctn_tbl_td">
-							<input type="hidden" id="lteRCode" name ="lteRCode" class="form-control">
-							<input type="hidden" id="teamCnt" name ="teamCnt" placeholder="" class="form-control" readonly>
-							<input type="hidden" id="deviceCnt" name ="deviceCnt" placeholder="" class="form-control" readonly>
-							<input type="hidden" id="getDeviceInfoYdt" name ="getDeviceInfoYdt" placeholder="" class="form-control" readonly>
+			<!-- header End ------------------>
+			<!-- contents Start ------------------>
+			<div id="contents" class="contents-wrap">
+				<!-- work Start -->
+				<div id="work" class="work-wrap" style="padding-top: 0px;">
+					<!-- contents_box Start -->
+					<div id="contents_box" class="contents_box">
+						<!-- 컨텐츠 테이블 헤더 Start -->
+						<div class="ctn_tbl_header">
+							<div class="ttl_ctn">단말기 정보 수정</div>
+							<!-- 컨텐츠 타이틀 -->
+							<div class="txt_info">
+								<em class="txt_info_rep">*</em> 표시는 필수 입력 항목입니다.
+							</div>
+							<!-- 설명글 -->
+						</div>
+						<!-- 컨텐츠 테이블 헤더 End -->
+						<!-- 컨텐츠 테이블 영역 Start -->
+						<form id="acDetailFrm" name="acDetailFrm" method="post" enctype="multipart/form-data">
+							<div class="ctn_tbl_area">
+								<div class="ctn_tbl_row">
+									<div class="ctn_tbl_th fm_rep">팀명</div>
+									<div class="ctn_tbl_td">
+										<input type="hidden" id="lteRCode" name ="lteRCode" class="form-control">
+										<input type="hidden" id="teamCnt" name ="teamCnt" placeholder="" class="form-control" readonly>
+										<input type="hidden" id="deviceCnt" name ="deviceCnt" placeholder="" class="form-control" readonly>
+										<input type="hidden" id="getDeviceInfoYdt" name ="getDeviceInfoYdt" placeholder="" class="form-control" readonly>
+										
+										<div class="form-group">
+				                            <select name="select" id="CPY_CODE" class="form-control">
+				                            	<c:set var="SHT" value="ARX-SCH-SHT" />
+				                            	<c:set var="SST" value="ARX-SSC-SST" />
+				                            	<c:set var="JGT" value="ARX-ELC-JGT" />
+				                                <option value="ARX-SCH-SHT" <c:if test="${data.lteRCode eq SHT}">selected</c:if> >신호팀</option>
+				                                <option value="ARX-SSC-SST" <c:if test="${data.lteRCode eq SST}">selected</c:if> >시설팀</option>
+				                                <option value="ARX-ELC-JGT" <c:if test="${data.lteRCode eq JGT}">selected</c:if> >전기팀</option>
+				                            </select>
+				                        </div>
+									</div>
+								</div>
+								<div class="ctn_tbl_row">
+									<div class="ctn_tbl_th">장비명(사용 용도)</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="lteRUsed" name ="lteRUsed" value="${data.lteRUsed}" class="form-control">
+									</div>
+									<div class="ctn_tbl_th">설치 위치</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="insLocTxt" name ="insLocTxt" value="${data.insLocTxt}" class="form-control">
+									</div>
+								</div>
+								<div class="ctn_tbl_row">
+									<div class="ctn_tbl_th">IMEI 정보</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="lteRImei" name ="lteRImei" value="${data.lteRImei}" class="form-control">
+									</div>
+									<div class="ctn_tbl_th">IMSI 정보</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="lteRImsi" name ="lteRImsi" value="${data.lteRImsi}" class="form-control">
+									</div>
+								</div>
+								<div class="ctn_tbl_row">
+									<div class="ctn_tbl_th">Serial No</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="lteRserial" name ="lteRserial" value="${data.lteRserial}" class="form-control">
+									</div>
+									<div class="ctn_tbl_th">MAC Add</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="lteRMacAdd" name ="lteRMacAdd" value="${data.lteRMacAdd}" class="form-control" readonly>
+									</div>
+								</div>
+								<div class="ctn_tbl_row">
+									<div class="ctn_tbl_th">WAN IP</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="lteRIp" name ="lteRIp" value="${data.lteRIp}" class="form-control" readonly>
+									</div>
+									<div class="ctn_tbl_th">게이트웨이 IP</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="conGw" name ="conGw" value="${data.conGw}" class="form-control">
+									</div>
+								</div>
+								<div class="ctn_tbl_row">
+									<div class="ctn_tbl_th">Client#1 IP</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="conSystem01Ip" name ="conSystem01Ip" value="${data.conSystem01Ip}" class="form-control">
+									</div>
+									<div class="ctn_tbl_th">Client#1 이름</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="conSystem01" name ="conSystem01" value="${data.conSystem01}" class="form-control">
+									</div>
+								</div>
+								<div class="ctn_tbl_row">
+									<div class="ctn_tbl_th">Client#2 IP</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="conSystem02Ip" name ="conSystem02Ip" value="${data.conSystem02Ip}" class="form-control">
+									</div>
+									<div class="ctn_tbl_th">Client#2 이름</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="conSystem02" name ="conSystem02" value="${data.conSystem02}" class="form-control">
+									</div>
+								</div>
+								<div class="ctn_tbl_row">
+									<div class="ctn_tbl_th">유심번호(Volte번호)</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="lteRSimNo" name ="lteRSimNo" value="${data.lteRSimNo}" class="form-control">
+									</div>
+									<div class="ctn_tbl_th">사용자 id</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="lteRUseRId" name ="lteRUseRId" value="${data.lteRUseRId}" placeholder="" class="form-control">
+									</div>
+								</div>
+								<div class="ctn_tbl_row">
+									<div class="ctn_tbl_th">무선장치 모델</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="lteRDeviceType" name ="lteRDeviceType" value="${data.lteRDeviceType}" class="form-control">
+									</div>
+									<div class="ctn_tbl_th">펌웨어 버전</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="swVerCode" name ="swVerCode" value="${data.swVerCode}" class="form-control">
+									</div>
+								</div>
+								<div class="ctn_tbl_row">
+									<div class="ctn_tbl_th">Cell ID</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="lterCellId" name ="lterCellId" value="${data.lterCellId}" class="form-control" >
+									</div>
+									<div class="ctn_tbl_th ">사용 유무</div>
+									<div class="ctn_tbl_td">
+										<select name ="usedYn">
+											<option value='1' <c:if test="${data.useYn eq 1}">selected</c:if> >사용</option>
+											<option value='0' <c:if test="${data.useYn eq 0}">selected</c:if> >미사용</option>
+										</select>
+									</div>
+								</div>
+								<div class="ctn_tbl_row">
+									<div class="ctn_tbl_th">Band</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="lteRBand" name ="lteRBand" value="${data.lteRBand}" class="form-control" >
+									</div>
+									<div class="ctn_tbl_th">Channel </div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="lteRChannel" name ="lteRChannel" value="${data.lteRChannel}" class="form-control" >
+									</div>
+								</div>
+								<div class="ctn_tbl_row">
+									<div class="ctn_tbl_th">MCC</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="lteRMCC" name ="lteRMCC" value="${data.lteRMCC}" class="form-control" >
+									</div>
+									<div class="ctn_tbl_th">MNC</div>
+									<div class="ctn_tbl_td">
+										<input type="text" id="lteRMNC" name ="lteRMNC" value="${data.lteRMNC}" class="form-control" >
+									</div>
+								</div>
+							</div>
 							
-							<div class="form-group">
-	                            <select name="select" id="CPY_CODE" class="form-control">
-	                            	<c:set var="SHT" value="ARX-SCH-SHT" />
-	                            	<c:set var="SST" value="ARX-SSC-SST" />
-	                            	<c:set var="JGT" value="ARX-ELC-JGT" />
-	                                <option value="ARX-SCH-SHT" <c:if test="${data.lteRCode eq SHT}">selected</c:if> >신호팀</option>
-	                                <option value="ARX-SSC-SST" <c:if test="${data.lteRCode eq SST}">selected</c:if> >시설팀</option>
-	                                <option value="ARX-ELC-JGT" <c:if test="${data.lteRCode eq JGT}">selected</c:if> >전기팀</option>
-	                            </select>
-	                        </div>
-						</div>
+							<!-- btn_box Start -->
+							<div class="btn_box">
+								<div class="right">
+									<input type="button" class="btn" id="btnReload" alt="갱신" value="단말기정보 불러오기" style="background:darkgrey;color:#fff;"/>
+									<input type="button" class="btn btn_primary" id="btnSave" alt="저장" value="저장" />
+									<input type="button" class="btn" id="btnCancel" alt="취소" value="취소" />
+								</div>
+							</div>
+							<!-- btn_box End -->
+						</form>
 					</div>
-					<div class="ctn_tbl_row">
-						<div class="ctn_tbl_th">장비명(사용 용도)</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="lteRUsed" name ="lteRUsed" value="${data.lteRUsed}" class="form-control">
-						</div>
-						<div class="ctn_tbl_th">설치 위치</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="insLocTxt" name ="insLocTxt" value="${data.insLocTxt}" class="form-control">
-						</div>
-					</div>
-					<div class="ctn_tbl_row">
-						<div class="ctn_tbl_th">IMEI 정보</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="lteRImei" name ="lteRImei" value="${data.lteRImei}" class="form-control">
-						</div>
-						<div class="ctn_tbl_th">IMSI 정보</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="lteRImsi" name ="lteRImsi" value="${data.lteRImsi}" class="form-control">
-						</div>
-					</div>
-					<div class="ctn_tbl_row">
-						<div class="ctn_tbl_th">Serial No</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="lteRserial" name ="lteRserial" value="${data.lteRserial}" class="form-control">
-						</div>
-						<div class="ctn_tbl_th">MAC Add</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="lteRMacAdd" name ="lteRMacAdd" value="${data.lteRMacAdd}" class="form-control" readonly>
-						</div>
-					</div>
-					<div class="ctn_tbl_row">
-						<div class="ctn_tbl_th">WAN IP</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="lteRIp" name ="lteRIp" value="${data.lteRIp}" class="form-control" readonly>
-						</div>
-						<div class="ctn_tbl_th">게이트웨이 IP</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="conGw" name ="conGw" value="${data.conGw}" class="form-control">
-						</div>
-					</div>
-					<div class="ctn_tbl_row">
-						<div class="ctn_tbl_th">Client#1 IP</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="conSystem01Ip" name ="conSystem01Ip" value="${data.conSystem01Ip}" class="form-control">
-						</div>
-						<div class="ctn_tbl_th">Client#1 이름</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="conSystem01" name ="conSystem01" value="${data.conSystem01}" class="form-control">
-						</div>
-					</div>
-					<div class="ctn_tbl_row">
-						<div class="ctn_tbl_th">Client#2 IP</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="conSystem02Ip" name ="conSystem02Ip" value="${data.conSystem02Ip}" class="form-control">
-						</div>
-						<div class="ctn_tbl_th">Client#2 이름</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="conSystem02" name ="conSystem02" value="${data.conSystem02}" class="form-control">
-						</div>
-					</div>
-					<div class="ctn_tbl_row">
-						<div class="ctn_tbl_th">유심번호(Volte번호)</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="lteRSimNo" name ="lteRSimNo" value="${data.lteRSimNo}" class="form-control">
-						</div>
-						<div class="ctn_tbl_th">사용자 id</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="lteRUseRId" name ="lteRUseRId" value="${data.lteRUseRId}" placeholder="" class="form-control">
-						</div>
-					</div>
-					<div class="ctn_tbl_row">
-						<div class="ctn_tbl_th">무선장치 모델</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="lteRDeviceType" name ="lteRDeviceType" value="${data.lteRDeviceType}" class="form-control">
-						</div>
-						<div class="ctn_tbl_th">펌웨어 버전</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="swVerCode" name ="swVerCode" value="${data.swVerCode}" class="form-control">
-						</div>
-					</div>
-					<div class="ctn_tbl_row">
-						<div class="ctn_tbl_th">Cell ID</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="lterCellId" name ="lterCellId" value="${data.lterCellId}" class="form-control" >
-						</div>
-						<div class="ctn_tbl_th ">사용 유무</div>
-						<div class="ctn_tbl_td">
-							<select name ="usedYn">
-								<option value='1' <c:if test="${data.useYn eq 1}">selected</c:if> >사용</option>
-								<option value='0' <c:if test="${data.useYn eq 0}">selected</c:if> >미사용</option>
-							</select>
-						</div>
-					</div>
-					<div class="ctn_tbl_row">
-						<div class="ctn_tbl_th">Band</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="lteRBand" name ="lteRBand" value="${data.lteRBand}" class="form-control" >
-						</div>
-						<div class="ctn_tbl_th">Channel </div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="lteRChannel" name ="lteRChannel" value="${data.lteRChannel}" class="form-control" >
-						</div>
-					</div>
-					<div class="ctn_tbl_row">
-						<div class="ctn_tbl_th">MCC</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="lteRMCC" name ="lteRMCC" value="${data.lteRMCC}" class="form-control" >
-						</div>
-						<div class="ctn_tbl_th">MNC</div>
-						<div class="ctn_tbl_td">
-							<input type="text" id="lteRMNC" name ="lteRMNC" value="${data.lteRMNC}" class="form-control" >
-						</div>
-					</div>
+					<!-- contents_box End -->
+					<!-- footer End ------------------>
 				</div>
-				
-				<!-- btn_box Start -->
-				<div class="btn_box">
-					<div class="right">
-						<input type="button" class="btn" id="btnReload" alt="갱신" value="단말기정보 불러오기" style="background:darkgrey;color:#fff;"/>
-						<input type="button" class="btn btn_primary" id="btnSave" alt="저장" value="저장" />
-						<input type="button" class="btn" id="btnCancel" alt="취소" value="취소" />
-					</div>
-				</div>
-				<!-- btn_box End -->
-			</form>
-		</div>
-		<!-- contents_box End -->
-	
-		<!-- footer End ------------------>
-	
+				<!-- work End -->
+			</div>
+		<!-- contents End ------------------>
 	</div>
-	<!-- work End -->
+	<!-- container End ------------------>
+</body>
 </html>

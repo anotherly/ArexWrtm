@@ -152,7 +152,7 @@
 		});
 		
 		//원형 end
-
+		
 		//최초 사이즈 지정
 		$("#pie_chart1").css('min-width','25vw');
 		$("#pie_chart1").css('min-height','35vh');
@@ -174,6 +174,18 @@
 
 		//화면 테마에 맞춰 그래프 선 및 폰트 색상 변경
 		cssChart();
+		
+		$(window).on('resize', function() {
+			console.log('resize');
+			
+			//반응형 화면 사이즈에 맞춰 사이즈 조정
+			pie1.resize();
+			pie2.resize();
+			bar.resize();
+
+			//화면 테마에 맞춰 그래프 선 및 폰트 색상 변경
+			cssChart();
+		});
 		
 	});
 </script>

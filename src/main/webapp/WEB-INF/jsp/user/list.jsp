@@ -185,11 +185,41 @@
 	
 	/* 검색 */
 	 function search(){
-		 console.log("검색");
-		 let frm = $("#searchFrm").serialize();
-		 var tagUrl="/user/list.ajax";
-		 tbSearch("tableList",tagUrl,frm);
+		
+		/* 24-10-22 : 등록일 선택 시, 좌측 달력보다 우측 달력이 과거인 경우 검색 못하도록 처리하기 */
+		console.log("검색");
+	
+		if($('#dateChk').is(':checked')) { // 등록일 선택한 경우 -> 검사 후 데이터 보내기 
+			var startDate = $('#sDate').val();
+			var endDate = $('#eDate').val();
+			
+			var dateChecker = dateCheck(startDate,endDate);
+		
+			if(!dateChecker) { // 선택한 등록일이 올바르지 않은 경우
+				alert('선택한 날짜가 올바르지 않습니다.');
+				return false;
+			} else { // 선택한 등록일이 올바른 경우
+				let frm = $("#searchFrm").serialize();
+				var tagUrl="/user/list.ajax";
+				tbSearch("tableList",tagUrl,frm);
+			}
+		} else { // 등록일 선택이 아닌 경우
+			let frm = $("#searchFrm").serialize();
+			var tagUrl="/user/list.ajax";
+			tbSearch("tableList",tagUrl,frm);
+		}
 	 }
+	
+	function dateCheck(startDate,endDate) {
+		const ldate = new Date(startDate);
+		const rdate = new Date(endDate);
+		
+		if(ldate.getTime() < rdate.getTime()){ // 정상적인 날짜인 경우 (좌측 달력이 우측 달력보다 과거인 경우)
+			return true;
+		} else { // 비정상적인 날짜인 경우 (좌측 달력이 우측 달력보다 미래인 경우)
+			return false;
+		}
+	}
     
 </script>
 </head>

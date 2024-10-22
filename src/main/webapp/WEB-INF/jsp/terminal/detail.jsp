@@ -12,6 +12,12 @@
 	    flex: 0 0 150px;
 	} */
 	
+	/* 단말기 관리 > 상세 페이지의 경우 세로로 길기 때문에 x축만 overflow hidden 처리 */
+	html, body {
+		overflow-x : hidden;
+		overflow-y : auto;
+	}
+	
 	.ctn_tbl_row .ctn_tbl_th,.ctn_tbl_row .ctn_tbl_td{
 		min-height:unset;
 		height:50px;
@@ -29,9 +35,13 @@
 		$(document).ready(function(){
 			console.log("상세");
 			var tagId="${data.lteRIp}";
+			
 			$("#btnSave").on('click', function(){
-				$("#contents").load('/terminal/update.do',{"lteRIp":tagId});
+				console.log('클릭');
+				/* $("#work").load('/terminal/update.do',{"lteRIp":tagId}); */
+				location.href='/terminal/update.do?lteRIp='+tagId;
 			});
+			
 			$("#btnCancel").on('click', function(){
 				location.href='/terminal/list.do';
 			});
@@ -40,7 +50,24 @@
 	
 	</script>
 </head>
-<body>
+<body class="open">
+	<!-- lnb Start ------------------>
+	    <aside id="lnb" class="lnb">
+	        <a class="lnb-control" title="메뉴 펼침/닫침"><span class="menu-toggle">메뉴 펼침/닫침</span></a>
+	        <nav class="navbar navbar-expand-sm navbar-default">
+	            <ul class="menu-inner"></ul>
+	        </nav>
+	    </aside>
+    <!-- lnb End ------------------>
+    
+    <!-- container Start ------------------>
+	<div id="container" class="container-wrap"  style="margin-top: 0px;">
+		<!-- header Start ------------------>
+		<div id="header" class="header-wrap">
+		</div>
+		<!-- header End ------------------>
+		<!-- contents Start ------------------>
+		<div id="contents" class="contents-wrap">
 			<!-- work Start -->
 			<div id="work" class="work-wrap" style="padding-top: 0px;">
 				<!-- contents_box Start -->
@@ -231,6 +258,9 @@
 
 			</div>
 			<!-- work End -->
+		</div>
+		<!-- contents End ------------------>
+	</div>
 	<!-- container End ------------------>
 </body>
 </html>

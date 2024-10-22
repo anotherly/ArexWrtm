@@ -14,6 +14,9 @@
 	background:none;
 	box-shadow: none;
 	padding:0;
+	
+	max-height: 0px !important;
+    min-height: 38vh;
 }
 
 .ctn_tbl_row .ctn_tbl_th,.ctn_tbl_row .ctn_tbl_td{
@@ -65,7 +68,7 @@
 
 @media(max-width : 1920px) {
 	#opration_box > svg{
-			margin-top : 0px;
+		margin-top : 0px;
 	}
 	
 	#chartDetail {
@@ -264,7 +267,6 @@
 		$('#chartDiv svg:first').addClass('svgFirst');
 	    $("#chartDiv").css('min-height','38vh');
 		chartObj.resize();
-		
 		
 	    subChartTimer=setInterval(function(){
 	    	console.log("차트 갱신");
@@ -504,15 +506,9 @@
 				        	
 				        	padding: { bottom: 10 }, // 패딩으로 음수값 제거
 				        	tick: {
-				        		//count : 7,
 				                format: function(value) {
-									console.log("value	/	Ycounter	/	beforeVal	/	firstVal"+value+"/"+Ycounter+"/"+beforeVal+"/"+firstVal);
-									console.log(beforeVal);
 									var days = Math.floor(value / 86400);
-									/* 	
-				                    console.log("format :" + days);
-				                    return days >= 0 ? days+'일' : ''; // days가 음수일 경우 빈 문자열 반환 */
-				                    //
+									
 				                    if(value >= 0){
 				                    	
 				                    	//초
@@ -532,28 +528,6 @@
 				                    		return Math.floor(value / (60*60*24)) + '일' + Math.floor( (value % (60*60*24)) / (60*60) ) +'시간';
 				                    	}
 				                    	
-				                    	/* if(Ycounter == 0) {
-					                    	Ycounter += 1;
-					                    	beforeVal = days;
-					                    	firstVal = days;
-					                    	return days + '일';
-					                    } else {
-					                    	if(days == beforeVal) {
-					                    		if(beforeVal == firstVal && secondVal == 0) {
-					                    			Ycounter += 1;
-					                    			 secondVal +=1;
-					                    			console.log(beforeVal);
-						                    		beforeVal = days;
-					                    			return days + '일';
-					                    		} else {
-						                    		beforeVal = days;
-					                    			return '';
-					                    		}
-					                    	} else {
-					                    		beforeVal = days;
-					                    		return days + '일';
-					                    	}
-					                    }  */
 				                    	return days + '일';
 				                    }
 				                }
@@ -663,7 +637,7 @@
 		
 		
 		<!--  운영 시간 차트 띄울 div  -->
-		<div id="opration_box" class="contents_box2" style="display:none; max-height: 300px;position: relative;display: flex;align-content: center;align-items: center;">
+		<div id="opration_box" class="contents_box2" style="display:none;position: relative;display: flex;align-content: center;align-items: center;height: 85%;">
 		</div>
 		
 		<div id="contents_box" class="contents_box">
