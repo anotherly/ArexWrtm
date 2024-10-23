@@ -6,7 +6,6 @@
     <title>단말장치(LTE-R) 관리 WEB 시스템</title>
 	<meta charset="UTF-8">
     <jsp:include page="../cmn/top.jsp" flush="false" />
-
 <script>
 	//차트 다운로드에 필요한 것들
 	var downCnt=0;//변환그림의 현재 인덱스

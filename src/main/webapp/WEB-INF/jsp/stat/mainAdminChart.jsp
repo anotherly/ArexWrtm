@@ -6,7 +6,51 @@
 <head>
 <title>단말장치(LTE-R) 관리 WEB 시스템</title>
 <meta charset="UTF-8">
-
+<style>
+		@media(max-width : 1910px) {
+			
+			body, html {
+				width : 1920px;
+				height : 1080px;
+				overflow : auto;
+			}
+			
+			aside.lnb {
+				height : 1080px;
+				position : absolute;
+			}
+		
+			.menu-inner {
+				height: 264px;
+			}
+			
+			.menu-inner > .menu-item  {
+				width : 60px;
+			}
+			
+			.lnb .lnb-control {
+				width : 1920px;
+			}
+			
+			.open .container-wrap {
+				width : 1860px;
+			}
+			
+			.container-wrap .header-wrap {
+				position : absolute;
+				width : 1920px;
+				z-index:999;
+			}
+			
+			.containerAll {
+				width: 1820px;
+    			height: 960px;
+    			min-width : 0px;
+    			min-height : 0px;
+			}
+			
+		}
+	</style>
 <script>
 
 	var pie1;
@@ -174,7 +218,6 @@
 
 		//화면 테마에 맞춰 그래프 선 및 폰트 색상 변경
 		cssChart();
-		
 	});
 </script>
 </head>

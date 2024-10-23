@@ -8,6 +8,10 @@
     <jsp:include page="../cmn/top.jsp" flush="false" />
     
     <style>
+    	.router_top {
+    		margin-bottom : 10px;
+    	}
+    	
     	/* 24-10-18 : 단말기 개수 폰트 사이즈 설정 */
 		@media(max-width : 3840px) {
 			/* 화면이 4K 일 때 */
@@ -22,12 +26,12 @@
 			/* td 스타일 조정 */
 			.lte-table td {
 				width : 167px; /* tr 전체 넓이 / 7 값 */
-				height : 185px;
+				height : 165px;
 			} 
 			
 		}
 		
-		@media(max-width : 2200px) {
+		@media(max-width : 1920px) {
 			/* 화면이 FullHD일 때 */
 			/* 단말기 카운터 스타일 조정  */
 			#countRouter {
@@ -41,6 +45,101 @@
 			}
 		}
 
+
+		@media(max-width : 1910px) {
+			
+			body, html {
+				width : 1920px;
+				height : 1080px;
+				overflow : auto;
+			}
+			
+			aside.lnb {
+				height : 1080px;
+				position : absolute;
+			}
+		
+			.menu-inner {
+				height: 264px;
+			}
+			
+			.menu-inner > .menu-item  {
+				width : 60px;
+			}
+			
+			.lnb .lnb-control {
+				width : 1920px;
+			}
+			
+			.open .container-wrap {
+				width : 1860px;
+			}
+			
+			.container-wrap .header-wrap {
+				position : absolute;
+				width : 1920px;
+				z-index:999;
+			}
+			
+			.containerAll {
+				width: 1820px;
+    			height: 980px;
+    			min-width : 0px;
+    			min-height : 0px;
+			}
+			
+			.container-wrap {
+				margin-bottom : 40px;
+			}
+			
+			.container_b {
+				width : 890px;
+				height : 960px;
+				min-width : 0px;
+				justify-content: space-around;
+			}
+			
+			#all_chart {
+				margin-right : 50px;
+			}
+			
+			.router_top{
+				margin-bottom : 25px;
+			}
+			
+			.lte-table td {
+				height : 120px;
+			}
+			
+			.img-container>div {
+				width: 75px;
+	    		height: 60px;
+			}
+			
+			.td-div span{
+				font-size : 13px;
+			}
+			
+			#trainDiv {
+				height : 85% !important;
+			}
+			
+			#chartDiv {
+				max-height : 0px !important;
+				min-height : 400px !important;
+			}
+			
+			.svgFirst {
+				height : 380px;
+				min-height : 0px;
+			}
+			
+			.title {
+				margin-bottom : 0px !important;
+			}
+		}
+		
+		
     </style>
 <script>
 	var teamCode='';
@@ -225,7 +324,7 @@
 			<!-- 우측 단말기 테이블 전체-->
 			<div id="container_b" class="container_b" style="padding: 20px 0 0 37px;">
 				<!-- 팀별 선택 현황 -->
-				<div style="width:100%;display:flex;margin-bottom:10px;">
+				<div class="router_top" style="width:100%;display:flex;">
 					<div id="teamSlt" class="tab_container" style="display:flex;">
 						<c:if test="${login.userAuth==0}">
 							<div id="tab_all" class="arex_tab selected"><span>전체</span></div>
@@ -252,10 +351,10 @@
 							</table>
 						</div>
 					</div>
-				</div>
-				<div class="tilte" style="width: 100%;display: flex;align-items: center;">
+					<div class="tilte" style="width: 100%;display: flex;align-items: center;">
 					<span style="font-size: 18px;font-weight: bold;color: #fff;margin-right:10px;">단말기 상태정보 수신시각 : </span>
 					<span id="nowDt" style="font-size: 18px;font-weight: bold;color: #fff;"> 1234</span>
+				</div>
 				</div>
 			</div>
 		</div>
