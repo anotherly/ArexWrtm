@@ -175,7 +175,7 @@ table.dataTable tbody tr{
 							
 						<div id="btnIns" style="display: flex;justify-content: space-around;">
 							<input type="button" class="btn btn_primary" id="btnDownload" value="다운로드">
-						</div>
+						</div>0
 					</div>
 				</div>
 				<div id="trainDiv"style="width: 100%;height: 100%;" >
