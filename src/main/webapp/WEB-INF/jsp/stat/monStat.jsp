@@ -31,6 +31,10 @@ table.dataTable tbody tr{
     color: #fff;
 }
 
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	color : white !important;
+}
+
 </style>
 <script>
 	$(document).ready(function(){
@@ -162,7 +166,7 @@ table.dataTable tbody tr{
 				
 				<!-- 단말기 테이블 -->
 				<div style="display: flex;width: 100%;height: 50px;flex-direction: row;align-items: center;justify-content: space-between;margin-bottom: 10px;">
-					<h3 class="chart-title">단말기별 일일 평균 수치값</h3>
+					<h3 class="chart-title">단말기별 월 평균 수치값</h3>
 					<!-- 엑셀 다운로드 -->
 					<div style="display: flex;justify-content: space-between;width: 350px;align-items: center;">
 						<div class='input-group date' id='datetimepicker1'>

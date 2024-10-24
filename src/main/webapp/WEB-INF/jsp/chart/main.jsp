@@ -236,7 +236,7 @@
 		});
 		
 		//좌측 메인차트 갱신
-		/* mainChartTimer=setInterval(function(){
+		mainChartTimer=setInterval(function(){
 			$("#all_chart").empty();
 			var userAuth='${login.userAuth}';
 			if(userAuth==0){
@@ -279,7 +279,7 @@
 	    		}
 			});
 			
-		},30*1000); */
+		},30*1000);
 	});
 	
 	//동적 테이블(삭제 및 갱신)시 td 클릭 이벤트

@@ -143,7 +143,8 @@ public class TerminalController {
 		}
 		return mav;
 	}
-	//(상셰)
+	
+	//(상세)
 	@RequestMapping(value="/terminal/detail.do")
 	public @ResponseBody ModelAndView reqDetail( 
 	HttpServletRequest request, HttpServletResponse response

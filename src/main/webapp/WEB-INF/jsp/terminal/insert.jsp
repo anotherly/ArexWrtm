@@ -42,15 +42,23 @@
 			
 			$("#insertForm").submit(function(){
 				console.log("정보 저장");
-				//맥주소가 없을경우
-				var macAdd=$("#lteRMacAdd").val();
-				if(macAdd==''||typeof macAdd === "undefined"){
-					$("#lteRMacAdd").val("unknown"+$("#deviceCnt").val());
+				
+				var insertChecker = confirm('이대로 등록하시겠습니까?');
+				
+				if(insertChecker) {
+					//맥주소가 없을경우
+					var macAdd=$("#lteRMacAdd").val();
+					if(macAdd==''||typeof macAdd === "undefined"){
+						$("#lteRMacAdd").val("unknown"+$("#deviceCnt").val());
+					}
+					$("#lteRCode").val($("#CPY_CODE").val());
+					let queryString = $("#insertForm").serialize();
+					ajaxMethod('/terminal/insert.ajax',queryString,'/terminal/list.do','저장되었습니다');
+					
+				} else {
+					return false;
 				}
-				$("#lteRCode").val($("#CPY_CODE").val());
-				let queryString = $("#insertForm").serialize();
-				ajaxMethod('/terminal/insert.ajax',queryString,'/terminal/list.do','저장되었습니다');
-				location.href='/terminal/list.do';
+				
 			}); 
 			
 			//y면 체크 아니면 비체크인데 비체크값을 n으로 변경

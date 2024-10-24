@@ -37,6 +37,7 @@
 			
 			$("#btnSave").on('click',function(){
 				console.log("정보 저장");
+			
 				var validChk = true;
 				$(".input_base_require").each(function(i,list){
 					console.log("필수값체크");
@@ -59,9 +60,16 @@
 				});
 				
 				if(validChk){
-					$("#lteRCode").val($("#CPY_CODE").val());
-					let queryString = $("#acDetailFrm").serialize();
-					ajaxMethod('/terminal/update.ajax',queryString,'/terminal/list.do','저장되었습니다');
+					var updateChecker = confirm('이대로 저장하시겠습니까?');
+					
+					if(updateChecker) {
+						$("#lteRCode").val($("#CPY_CODE").val());
+						let queryString = $("#acDetailFrm").serialize();
+						ajaxMethod('/terminal/update.ajax',queryString,'/terminal/list.do','저장되었습니다');
+					} else {
+						return false;
+					}
+					
 				}
 			}); 
 			

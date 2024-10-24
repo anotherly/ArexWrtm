@@ -196,7 +196,8 @@
 			var dateChecker = dateCheck(startDate,endDate);
 		
 			if(!dateChecker) { // 선택한 등록일이 올바르지 않은 경우
-				alert('선택한 날짜가 올바르지 않습니다.');
+				alert('종료일이 시작일 보다 과거일 수 없습니다.');
+				$('#eDate').focus();
 				return false;
 			} else { // 선택한 등록일이 올바른 경우
 				let frm = $("#searchFrm").serialize();

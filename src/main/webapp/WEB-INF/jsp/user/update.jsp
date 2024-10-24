@@ -55,31 +55,38 @@
 			
 			$("#btnSave").on('click',function(){
 				console.log("정보 저장");
-				var validChk = true;
-				$(".input_base_require").each(function(i,list){
-					console.log("필수값체크");
-					if($(this).val()==null||$(this).val()==''){
-						alert("필수 항목을 기재해 주세요");
-						$(this).focus();
-						validChk=false;
-						return false;
-					}
-				});
-				
-				if(validChk){
+					var validChk = true;
 					
-					var dept = $("#cpyCode option:selected").val()+"-"+$("#hqCode option:selected").val()+"-"+$("#teamCode option:selected").val();
-					//240112 수정 - 메인 관리자 권한일땐 공란으로
-					if($("select[name='userAuth']").val()==0){
-						$("#departCode").val("");
-					}else{
-						console.log('else 실행');
-						$("#departCode").val(dept);
-					}
+					$(".input_base_require").each(function(i,list){
+						console.log("필수값체크");
+						if($(this).val()==null||$(this).val()==''){
+							alert("필수 항목을 기재해 주세요");
+							$(this).focus();
+							validChk=false;
+							return false;
+						}
+					});
 					
-					let queryString = $("#updateForm").serialize();
-					ajaxMethod('/user/update.ajax',queryString,'/user/list.do','저장되었습니다');
-				}
+					if(validChk){
+						
+						var dept = $("#cpyCode option:selected").val()+"-"+$("#hqCode option:selected").val()+"-"+$("#teamCode option:selected").val();
+						//240112 수정 - 메인 관리자 권한일땐 공란으로
+						if($("select[name='userAuth']").val()==0){
+							$("#departCode").val("");
+						}else{
+							console.log('else 실행');
+							$("#departCode").val(dept);
+						}
+						
+						var updateChecker = confirm('이대로 저장하시겠습니까?');
+						if(updateChecker) {
+							let queryString = $("#updateForm").serialize();
+							ajaxMethod('/user/update.ajax',queryString,'/user/list.do','저장되었습니다');
+						} else {
+							return false;
+						}
+					}
+
 			}); 
 			
 			//y면 체크 아니면 비체크인데 비체크값을 n으로 변경

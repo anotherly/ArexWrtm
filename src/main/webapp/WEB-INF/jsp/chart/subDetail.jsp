@@ -90,6 +90,9 @@
 		// 상세보기 버튼 클릭 전 css
 		$('#opration_box').hide();
 		
+		// d클래스 추가
+		dclassAdd();
+		
 		// 상세 클릭 관련 변수
 		var detailChecker = 'true';
 		
@@ -431,6 +434,23 @@
 		        $('#oper_text').text(returnOfer);
 		    }
 		}
+		
+		
+		// 좌측 영역 사용용도  + d클래스 작업
+		function dclassAdd() {
+			var ipVal = '${data.lteRIp}'; // 선택된 단말기 ip 값 받아오기
+			var use = '${data.lteRUsed}'; // 사용용도 값 받아오기
+			dClass = ipVal.substr(9); // d클래스 슬라이스
+			
+			
+			console.log('사용용도 :' + use);
+			console.log('슬라이스 :' + dClass);
+			
+			$('.showFirst').text(use + '_' + dClass);
+			$('.showSecond').text(use + '_' + dClass + ' 운영 시간 정보');
+			
+		}
+		
 
 		$('#showOper').on('click', function(){
 			console.log(' 운영시간 차트 버튼 클릭');
@@ -608,7 +628,7 @@
 </script>
 
 <div class="tilte" style="width: 100%;display: flex;align-items: center;justify-content: space-between;margin-bottom: 33px;">
-	<span style="font-size: 25px;font-weight: bold;border-bottom: 2px double yellow;color: #fff;">${data.lteRUsed}</span>
+	<span class="showFirst" style="font-size: 25px;font-weight: bold;border-bottom: 2px double yellow;color: #fff;">${data.lteRUsed}</span>
 	<span id="flip" style="font-size: 20px;font-weight: bold;color:yellow;cursor: pointer;">◀◀ 접어두기</span>
 </div>
 <div id="content" style="width: 100%;">

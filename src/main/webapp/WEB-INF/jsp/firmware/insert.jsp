@@ -16,7 +16,9 @@
 			
 			$("#btnSave").on('click',function(){
 				console.log("정보 저장");
+				
 				var validChk = true;
+				
 				$(".input_base_require").each(function(i,list){
 					console.log("필수값체크");
 					if($(this).val()==null||$(this).val()==''){
@@ -29,21 +31,29 @@
 				
 				if(validChk){
 					console.log("파일 등록");
-					let frm = $("#insertForm").serialize();
-				    var options = {
-			            url:'/firmware/insert.ajax',
-			            type:"post",
-			            dataType: "json",
-			            data : frm,
-			            success: function(res){
-			            	alert("저장되었습니다.");
-			            	location.href='/firmware/list.do';
-			            } ,
-			            error: function(res,error){
-			                alert("에러가 발생했습니다."+error);
-			            }
-				    };
-				    $('#insertForm').ajaxSubmit(options);
+					
+					var insertChecker = confirm('이대로 등록하시겠습니까?');
+					
+					if(insertChecker) {
+						let frm = $("#insertForm").serialize();
+					    var options = {
+				            url:'/firmware/insert.ajax',
+				            type:"post",
+				            dataType: "json",
+				            data : frm,
+				            success: function(res){
+				            	alert("저장되었습니다.");
+				            	location.href='/firmware/list.do';
+				            } ,
+				            error: function(res,error){
+				                alert("에러가 발생했습니다."+error);
+				            }
+					    };
+					    $('#insertForm').ajaxSubmit(options);
+					} else {
+						return false;
+					}
+					
 				}
 			}); 
 			
