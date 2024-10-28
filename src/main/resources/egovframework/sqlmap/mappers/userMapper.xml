@@ -209,5 +209,11 @@
             #{item}
         </foreach>
 	</delete>
+	
+	<!--  상세에서 사용자 삭제  -->
+	<delete id="deleteUserD" parameterType="userVO">
+	   	DELETE FROM TBL_USER_INFO
+	   	WHERE USER_ID = #{userId}
+	</delete>
 
 </mapper>

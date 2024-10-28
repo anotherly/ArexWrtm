@@ -47,6 +47,13 @@ public class TerminalServiceImpl implements TerminalService{
 		map.put("chkList",listArr);
 		TerminalMapper.deleteTerminal(map);		
 	}
+	
+	//사용자 삭제 (상세에서)
+	@Override
+	public void deleteTerminalD(String lteIp) {
+		TerminalMapper.deleteTerminalD(lteIp);
+	}
+	
 	@Override
 	public TerminalVo chartQ(TerminalVo inputVo) {
 		return TerminalMapper.chartQ(inputVo);

@@ -18,6 +18,8 @@ public interface TerminalService {
 	
 	public void deleteTerminal(List<String> listArr);
 
+	public void deleteTerminalD(String lteIp);
+	
 	TerminalVo chartQ(TerminalVo inputVo);
 	List<TerminalVo> chartD(TerminalVo inputVo);
 	

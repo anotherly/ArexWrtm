@@ -31,6 +31,8 @@
 	
 	</style>
 	<script>
+		var delUrl="/terminal/deleteD.ajax";
+		var delbak="/terminal/list.do";
 	
 		$(document).ready(function(){
 			console.log("상세");
@@ -46,6 +48,19 @@
 				location.href='/terminal/list.do';
 			});
 			//$(".ctn_tbl_row .ctn_tbl_th").css("flex","0 0 150px");
+			
+			// 24-10-28 : 상세에서 삭제 버튼 생성
+			$('#btnDelete').on('click', function(){
+				var checker = confirm('정말로 삭제하시겠습니까?');
+				
+				if(checker) {
+					var lteIp = '${data.lteRIp}';
+					var data = {"lteIp":lteIp};
+					ajaxMethod(delUrl, data, delbak);
+				} else {
+					return false;
+				}
+			});
 		});
 	
 	</script>
@@ -246,6 +261,7 @@
 						<div class="btn_box">
 							<div class="right">
 								<input type="button" class="btn btn_primary" id="btnSave" alt="저장" value="수정" />
+								<input type='button' id='btnDelete' class='btn btn_primary' value='삭제'>
 								<input type="button" class="btn" id="btnCancel" alt="취소" value="취소" />
 							</div>
 						</div>

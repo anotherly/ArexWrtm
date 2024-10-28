@@ -30,5 +30,7 @@ public interface UserMapper{
 	public void updateUser(UserVO uvo);
 	//사용자 삭제
 	public void deleteUser(HashMap<String, Object> map);
+	//상세에서 사용자 삭제
+	public void deleteUserD(String userId);
 	
 }

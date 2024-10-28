@@ -57,5 +57,9 @@ public class UserServiceImpl implements UserService{
 		map.put("chkList",userArr);
 		userMapper.deleteUser(map);		
 	}
-
+	
+	// 상세에서 사용자 삭제
+	public void deleteUserD(String userId) {
+		userMapper.deleteUserD(userId);
+	}
 }

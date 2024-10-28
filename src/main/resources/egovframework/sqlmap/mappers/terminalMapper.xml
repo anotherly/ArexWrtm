@@ -417,6 +417,11 @@
         </foreach>
 	</delete>
 	
+	<!--  상세에서 사용자 삭제  -->
+	<delete id="deleteTerminalD" >
+	    DELETE FROM TBL_ROUTER_INFO
+	    WHERE `LTE-R_IP` = #{lteIp};
+	</delete>
 	
 	<!-- 단말기 차트 관련 쿼리 - 최초 개별 단말기 선택 시 -->
 	<select id="chartQFirst" parameterType="terminalVo" resultMap="selectTerminalList">

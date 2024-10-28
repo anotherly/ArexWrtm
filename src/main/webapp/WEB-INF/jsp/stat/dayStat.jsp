@@ -171,14 +171,8 @@ table td {
 			<!-- <div id="container_chart" class="container_b"></div> -->
 			
 			<div id="chtImg" class="container_b" style="width: 100%;"></div>
-			<!-- 우측 단말기 테이블 전체-->
-			<div id="container_b" class="container_b"style="padding-left:37px;width: 100%;">
-				<div style="width:100%;display:flex;margin-bottom:10px;">
-				</div>
-				<!-- 팀별 선택 현황 -->
-				
-				<!-- 단말기 테이블 -->
-				<div style="display: flex;width: 100%;height: 50px;flex-direction: row;align-items: center;justify-content: space-between;margin-bottom: 10px;">
+			<!-- 단말기 테이블 -->
+				<div style="display: flex;width: 100%;height: 50px;flex-direction: row;align-items: center;justify-content: space-between;margin-bottom: 10px; padding-left:37px;">
 					<h3 class="chart-title">단말기별 일일 평균 수치값</h3>
 					<!-- 엑셀 다운로드 -->
 					<div style="display: flex;justify-content: space-between;width: 350px;align-items: center;">
@@ -188,12 +182,16 @@ table td {
 								<span class="glyphicon glyphicon-calendar"></span>
 							</span>
 						</div>
-							
 						<div id="btnIns" style="display: flex;justify-content: space-around;">
 							<input type="button" class="btn btn_primary" id="btnDownload" value="다운로드">
 						</div>
 					</div>
 				</div>
+			<!-- 우측 단말기 테이블 전체-->
+			<div id="container_b" class="container_b"style="padding-left:37px;width: 100%;">
+				<div style="width:100%;display:flex;margin-bottom:10px;">
+				</div>
+				<!-- 팀별 선택 현황 -->
 				<div id="trainDiv"style="width: 100%;height: 100%;" >
 					<table id="tableList" class="table table-bordered" style="width: 100%;">
 						<thead>

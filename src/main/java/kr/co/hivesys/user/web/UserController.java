@@ -271,4 +271,21 @@ public class UserController {
 		return mav;
 	}
 	
+	
+	//상세에서 사용자 삭제
+	@RequestMapping(value="/user/deleteD.ajax")
+ 	public @ResponseBody ModelAndView userDetailDelete(@RequestParam(value="userId") String userId , HttpServletRequest request) throws Exception {
+		logger.debug("▶▶▶▶▶▶▶상세에서 회원정보 삭제!!!!!!!!!!!!!!!!");
+		
+		url = request.getRequestURI().substring(request.getContextPath().length()).split(".do")[0];
+		ModelAndView mav = new ModelAndView("jsonView");
+		
+		try {
+			userService.deleteUserD(userId);
+		} catch (Exception e) {
+			mav.addObject("msg","에러가 발생하였습니다");
+		}
+		return mav;
+	}
+	
 }

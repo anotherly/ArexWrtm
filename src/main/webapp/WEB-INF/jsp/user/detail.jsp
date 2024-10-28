@@ -9,6 +9,9 @@
     <jsp:include page="../cmn/top.jsp" flush="false" />
     
     <script>
+    var delUrl="/user/deleteD.ajax";
+	var delbak="/user/list.do";
+	
 	$(document).ready(function(){
 		console.log("상세");
 		var tagId='${data.userId}';
@@ -20,6 +23,18 @@
 		});
 		$("#btnCancel").on('click', function(){
 			location.href='/user/list.do';
+		});
+		
+		$('#btnDelete').on('click', function() {
+			var checker = confirm('정말로 삭제하시겠습니까?');
+			
+			if(checker) {
+				var userId = '${data.userId}';
+				var data = {"userId":userId};
+				ajaxMethod(delUrl, data, delbak);
+			} else {
+				return false;
+			}
 		});
 	});
 </script>
@@ -153,6 +168,7 @@
 						<div class="btn_box">
 							<div class="right">
 								<input type="button" class="btn btn_primary" id="btnSave" alt="저장" value="수정" />
+								<input type='button' id='btnDelete' class='btn btn_primary' value='삭제'>
 								<input type="button" class="btn" id="btnCancel" alt="취소" value="취소" />
 							</div>
 						</div>

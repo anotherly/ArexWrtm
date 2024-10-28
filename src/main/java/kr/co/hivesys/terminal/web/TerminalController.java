@@ -213,7 +213,7 @@ public class TerminalController {
 		return mav;
 	}
 	
-	//사용자 삭제
+	//단말기 삭제
 	@RequestMapping(value="/terminal/delete.ajax")
 	public @ResponseBody ModelAndView userDelete( @RequestParam(value="idArr[]")List<String> dataArr,HttpServletRequest request) throws Exception{
 		logger.debug("▶▶▶▶▶▶▶.회원정보 삭제!!!!!!!!!!!!!!!!");
@@ -229,6 +229,21 @@ public class TerminalController {
 		return mav;
 	}
 	
+	//24-10-28 : 상세에서 단말기 삭제
+	@RequestMapping(value="/terminal/deleteD.ajax")
+ 	public @ResponseBody ModelAndView terminalDetailDelete(@RequestParam(value="lteIp") String lteIp , HttpServletRequest request) throws Exception {
+		logger.debug("▶▶▶▶▶▶▶상세에서 회원정보 삭제!!!!!!!!!!!!!!!!");
+		
+		url = request.getRequestURI().substring(request.getContextPath().length()).split(".do")[0];
+		ModelAndView mav = new ModelAndView("jsonView");
+		
+		try {
+			terminalService.deleteTerminalD(lteIp);
+		} catch (Exception e) {
+			mav.addObject("msg","에러가 발생하였습니다");
+		}
+		return mav;
+	}
 	
 	//단말기 정보 가져오기
 	@RequestMapping(value="/terminal/deviceReload.ajax")

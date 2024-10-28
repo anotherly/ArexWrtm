@@ -87,6 +87,7 @@ function tbUpdate(that,paramUrl){
 2020.08.24   정다빈       최초작성
 ************************************************************************/
 function tbDelete(that,paramUrl,callback,tb){
+	console.log('dddd');
 	var idArr=[]; 
 
 	for(i=0;i<$("tbody tr").length;i++){

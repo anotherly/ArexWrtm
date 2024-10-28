@@ -36,4 +36,7 @@ public interface UserService {
 	//사용자 삭제
 	public void deleteUser(List<String> userArr);
 	
+	//상세에서 사용자 삭제
+	public void deleteUserD(String userId);
+	
 }

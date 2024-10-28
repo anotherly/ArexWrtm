@@ -21,6 +21,8 @@ public interface TerminalMapper {
 
 	void deleteTerminal(HashMap<String, Object> map);
 
+	void deleteTerminalD(String lteIp);
+	
 	TerminalVo chartQ(TerminalVo inputVo);
 	List<TerminalVo> chartD(TerminalVo inputVo);
 	
