@@ -13,6 +13,12 @@
 		  -ms-user-select:none;
 		  user-select:none
 		}
+		
+		/*24-10-25 : 테이블에서 간혹 커서가 바뀌는 문제 => 테이블의 td 영역에 커서를 포인터로 맞춤(important 처리)*/
+		table td{
+			cursor : pointer !important;
+		}
+		
     </style>
 <script>
 	var updUrl="/terminal/update.do";

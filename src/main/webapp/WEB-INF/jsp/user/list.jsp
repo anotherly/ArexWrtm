@@ -7,11 +7,17 @@
 	<meta charset="UTF-8">
     <jsp:include page="../cmn/top.jsp" flush="false" />
     <style>
+    	/* 드래그 방지 막기 */
     	body {
 		  -webkit-user-select:none;
 		  -moz-user-select:none;
 		  -ms-user-select:none;
 		  user-select:none
+		}
+		
+		/*24-10-25 : 테이블에서 간혹 커서가 바뀌는 문제 => 테이블의 td 영역에 커서를 포인터로 맞춤(important 처리)*/
+		table td{
+			cursor : pointer !important;
 		}
     </style>
 <script>

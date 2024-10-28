@@ -35,6 +35,23 @@ table.dataTable tbody tr{
 	color : white !important;
 }
 
+html,body {
+	overflow-y : auto !important;
+}
+
+/*24-10-25 : 테이블 내 텍스트 드래그 방지하기 */
+	body {
+		  -webkit-user-select:none;
+		  -moz-user-select:none;
+		  -ms-user-select:none;
+		  user-select:none
+		}
+
+/* 24-10-25 : 간혹 클릭되면 안되는 td에서 커서가 포인터일 때 default로 변경 처리*/
+table td {
+	cursor: default !important;
+}
+
 </style>
 <script>
 	$(document).ready(function(){
