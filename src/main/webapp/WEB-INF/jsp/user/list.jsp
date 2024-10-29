@@ -159,6 +159,20 @@
 			}
 		});
 
+		// 24-10-29 : 등록일 유효성 검사 함수
+		function dateCheckText(sDate,eDate) {
+			const lDate = new Date(sDate);
+			const rDate = new Date(eDate);
+			
+			console.log('날짜 선택 함수 진입');
+			
+			if(lDate.getTime() < rDate.getTime()){ // 정상적인 날짜인 경우 (좌측 달력이 우측 달력보다 과거인 경우)
+				$('#dateChecker').css('display', 'none'); // 정상이기 때문에 텍스트 가림 처리
+			} else { // 비정상적인 날짜인 경우 (좌측 달력이 우측 달력보다 미래인 경우)
+				$('#dateChecker').css('display','block');
+			}
+		}
+		
 		//데이트타임피커
 		 var toDate = new Date();
 		 $('#datetimepicker1').datetimepicker({
@@ -166,14 +180,32 @@
 			 defaultDate:moment().subtract(1, 'months'),
 			 maxDate : moment()
 		});
+		
 		/* .on('dp.change', function (e) {
 			calculDate();
 			tb.draw();
 		}); */
+		
+		//24-10-29 : 날짜 선택 및 변경 시 이벤트 
+		$('#datetimepicker1').on('dp.change', function (e) {
+			var sDate = $('#sDate').val();
+			var eDate = $('#eDate').val();
+
+			dateCheckText(sDate,eDate);
+		});
+	
 		 $('#datetimepicker2').datetimepicker({
 			 format:"YYYY-MM-DD",
 			 defaultDate:moment()
 			 ,maxDate : moment()
+		});
+		 
+		//24-10-29 : 날짜 선택 및 변경 시 이벤트 
+		$('#datetimepicker2').on('dp.change', function (e) {
+			var sDate = $('#sDate').val();
+			var eDate = $('#eDate').val();
+			
+			dateCheckText(sDate,eDate);
 		});
 		
 		$("#dateChk").on("click",function(){
@@ -227,7 +259,8 @@
 			return false;
 		}
 	}
-    
+	
+	
 </script>
 </head>
 <body class="open">
@@ -298,7 +331,7 @@
                             	등록일
                             </label>
                             	<div class='input-group date' id='datetimepicker1'>
-									<input type='text' class="form-cont" name="sDate" id="sDate" required/>
+									<input type='text' class="form-cont" name="sDate" id="sDate"  required/>
 									<span class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 									</span>
@@ -314,6 +347,9 @@
                     </form>
                     <div class="search_btn" style="position: absolute;right: 98px;top: 19px;">
                         <button class="btn btn_sch btn_primary" onclick="search()"><i class="ico_sch"></i>조회</button>
+                    </div>
+                    <div class="dateCheck_div" style="position:absolute; right: 320px; top:94px;">
+                    	<p id="dateChecker" style="color : red; font-size:13px; display:none;">종료일이 시작일보다 과거일 수 없습니다.</p>
                     </div>
                 </div>
                 <!-- search_box End -->

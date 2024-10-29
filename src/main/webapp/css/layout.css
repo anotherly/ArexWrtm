@@ -675,7 +675,9 @@ aside.lnb {
     word-wrap: break-word;
     background-color: #fff;    
     box-shadow: inset 0px 0 0 1px #c6c8ca;
-    padding: 20px;
+    /*24-10-29 : 텍스트 삽입을 위해 패딩 조절*/
+    /* 기존값 : padding:20px;*/
+    padding: 30px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
