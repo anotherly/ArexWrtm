@@ -9,7 +9,7 @@
 <jsp:include page="../cmn/top.jsp" flush="false" />
 	<script>
 		$(document).ready(function() {
-			console.log("수정");
+			//console.log("수정");
 			$('select').each(function(i,list){
 				var selVal=$(this).val();
 				//한글명
@@ -54,11 +54,11 @@
 			});		
 			
 			$("#btnSave").on('click',function(){
-				console.log("정보 저장");
+				//console.log("정보 저장");
 					var validChk = true;
 					
 					$(".input_base_require").each(function(i,list){
-						console.log("필수값체크");
+						//console.log("필수값체크");
 						if($(this).val()==null||$(this).val()==''){
 							alert("필수 항목을 기재해 주세요");
 							$(this).focus();
@@ -74,7 +74,7 @@
 						if($("select[name='userAuth']").val()==0){
 							$("#departCode").val("");
 						}else{
-							console.log('else 실행');
+							//console.log('else 실행');
 							$("#departCode").val(dept);
 						}
 						
@@ -91,7 +91,7 @@
 			
 			//y면 체크 아니면 비체크인데 비체크값을 n으로 변경
 			$('input[type="checkbox"]').each(function(i,list){
-				console.log("하단체크박스 : "+i+"	/	"+$(this).attr("id"));
+				//console.log("하단체크박스 : "+i+"	/	"+$(this).attr("id"));
 				if($(this).is(':checked')){
 					$(this).val('Y');
 				}else{
@@ -101,7 +101,7 @@
 			
 			//input 하위 모든 체크박스 클릭 시
 			$('input[type="checkbox"]').on('click',function(){
-				console.log("하단체크박스클릭");
+				//console.log("하단체크박스클릭");
 				if($(this).is(':checked')){
 					$(this).val('Y');
 				}else{

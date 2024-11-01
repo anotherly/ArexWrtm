@@ -310,3 +310,352 @@ function timerMethod(url,timer,timeRange,chartP,dv,ld1,ld2,ld3,ld4){
         });
 	},timeRange);
 }
+
+
+function mainAdminChart(){
+	alData=ajaxMethod("/chart/mainAdminChart.ajax");
+	
+	if(
+		typeof alData !== "undefined" && alData !=null && alData !=''		
+	){
+	
+	//데이터 집계부분
+	var pie1Data = alData.data1;
+	var pie2Data = alData.data2;
+	var barData  = alData.data3;
+	
+	var data1 = {};
+	var lgnds1 = []; 
+	var data2 = {};
+	var lgnds2 = []; 
+	pie1Data.forEach(function(e) {
+		lgnds1.push(e.teamName);
+	    data1[e.teamName] = e.cnt;
+	});
+	pie2Data.forEach(function(e) {
+		lgnds2.push(e.keyVal);
+	    data2[e.keyVal] = e.cnt;
+	}); 
+	
+	//범례값이 없을경우..
+	//사실 초기 디비설계만 잘짰어도 이런 뻘짓을 안해도 되는데..
+	//RSSI_STREGTH를 범례랑 값으로만 컬럼을 구성했어야만함
+	if(lgnds2.indexOf('EXCELLENT')==-1){
+		lgnds2.push('EXCELLENT');
+	    data2['EXCELLENT'] = 0;
+	}
+	if(lgnds2.indexOf('GOOD')==-1){
+		lgnds2.push('GOOD');
+	    data2['GOOD'] = 0;
+	}
+	if(lgnds2.indexOf('MIDDLE')==-1){
+		lgnds2.push('MIDDLE');
+	    data2['MIDDLE'] = 0;
+	}
+	if(lgnds2.indexOf('WEAK')==-1){
+		lgnds2.push('WEAK');
+	    data2['WEAK'] = 0;
+	}
+	////////////////////////
+	
+	var colorArr2 = {
+		'EXCELLENT': '#0072BE',
+        'GOOD': '#93BDC7',
+        'MIDDLE': '#A072CE',
+        'WEAK':'#bd0088'
+	};
+	
+	//원형 start
+	pie1 = c3.generate({
+		bindto: '#pie_chart1',
+	    data: {
+	        json: [ data1 ],
+	        keys: {
+	            value: lgnds1,
+	        },
+	        type:'pie',
+	        colors: {
+	            '신호팀': '#578BC9',
+	            '시설팀': '#85B400',
+	            '전기팀': '#D08B22'
+	        }
+	    }
+	    ,legend: {
+	        padding: 15,
+	        item: {
+	          tile: {
+	            width: 20,
+	            height: 20
+	          }
+	        }
+	      }
+	});
+	
+	pie2 = c3.generate({
+		bindto: '#pie_chart2',
+	    data: {
+	        json: [ data2 ],
+	        keys: {
+	            value: lgnds2,
+	        },
+	        type:'pie'
+        	,colors: colorArr2
+	    }
+	    ,legend: {
+	        //padding: 15,
+	        item: {
+	          tile: {
+	            width: 20,
+	            height: 20
+	          }
+	        }
+	      }
+	});
+	
+	var bar = c3.generate({
+		bindto: '#bar_chart',
+	    data: {
+	    	columns: [
+	            ['DOWN', barData[0].lteRComDnVal, barData[1].lteRComDnVal, barData[2].lteRComDnVal],
+	            ['UP'  , barData[0].lteRComUpVal, barData[1].lteRComUpVal, barData[2].lteRComUpVal]
+	        ],
+	        type: 'bar'
+	    }
+		,color: {
+            pattern: ['#A072CE','#71ABA8']
+        },
+	    axis: {
+		    x: {
+		        type: 'category',
+		        categories: ['신호','시설','전기']
+		    },
+            y: {
+                label: {
+                    text: '사용량(MB)',
+                    position: 'outer-left',
+                }
+            }
+	   }
+        ,bar: {
+	        width: {
+	            ratio: 0.5 // this makes bar width 50% of length between ticks
+	        }
+	        // or
+	        //width: 100 // this makes bar width 100px
+	    }
+		,legend: {
+			//padding: 30,
+			item: {
+				tile: {
+					width: 20,
+					height: 20
+				}
+			}
+		}
+	});
+	
+	//원형 end
+	
+	//최초 사이즈 지정
+	$("#pie_chart1").css('min-width','25vw');
+	$("#pie_chart1").css('min-height','35vh');
+	
+	$("#pie_chart2").css('min-width','25vw');
+	$("#pie_chart2").css('min-height','35vh');
+	
+	$("#bar_chart").css('min-width','40vw');
+	$("#bar_chart").css('min-height','38vh');
+	
+	//거지같은 범례 내리기 트랜스레이트
+	$("g.c3-legend-item.c3-legend-item-UP").css("transform","translateY(10px)");
+	$("g.c3-legend-item.c3-legend-item-DOWN").css("transform","translateY(10px)");
+	
+	//반응형 화면 사이즈에 맞춰 사이즈 조정
+	pie1.resize();
+	pie2.resize();
+	bar.resize();
+
+	//화면 테마에 맞춰 그래프 선 및 폰트 색상 변경
+	cssChart();
+	}
+}
+
+function mainUserChart(){
+	var alData=ajaxMethod("/chart/mainUserChart.ajax");
+	
+	if(
+		typeof alData !== "undefined" && alData !=null && alData !=''		
+	){
+	
+	var pie1Data=alData.data1;
+	var pie2Data=alData.data2;
+	var barData=alData.data3;
+	
+	var data1 = {};
+	var lgnds1 = []; 
+	var data2 = {};
+	var lgnds2 = []; 
+	pie1Data.forEach(function(e) {
+		lgnds1.push(e.keyVal);
+	    data1[e.keyVal] = e.cnt;
+	}); 
+	pie1Data.forEach(function(e) {
+		lgnds2.push(e.keyVal);
+	    data2[e.keyVal] = e.cnt;
+	}); 
+	
+	//범례값이 없을경우..
+	//사실 초기 디비설계만 잘짰어도 이런 뻘짓을 안해도 되는데..
+	//RSSI_STREGTH를 범례랑 값으로만 컬럼을 구성했어야만함
+	if(lgnds1.indexOf('EXCELLENT')==-1){ 
+		lgnds1.push('EXCELLENT');
+	    data1['EXCELLENT'] = 0;
+	}
+	if(lgnds1.indexOf('GOOD')==-1){ 
+		lgnds1.push('GOOD');
+	    data1['GOOD'] = 0;
+	}
+	if(lgnds1.indexOf('MIDDLE')==-1){ 
+		lgnds1.push('MIDDLE');
+	    data1['MIDDLE'] = 0;
+	}
+	if(lgnds1.indexOf('WEAK')==-1){ 
+		lgnds1.push('WEAK');
+	    data1['WEAK'] = 0;
+	}
+	////////////////////////
+	
+	//범례값이 없을경우..
+	//사실 초기 디비설계만 잘짰어도 이런 뻘짓을 안해도 되는데..
+	//RSSI_STREGTH를 범례랑 값으로만 컬럼을 구성했어야만함
+	if(lgnds2.indexOf('EXCELLENT')==-1){ 
+		lgnds2.push('EXCELLENT');
+	    data2['EXCELLENT'] = 0;
+	}
+	if(lgnds2.indexOf('GOOD')==-1){ 
+		lgnds2.push('GOOD');
+	    data2['GOOD'] = 0;
+	}
+	if(lgnds2.indexOf('MIDDLE')==-1){ 
+		lgnds2.push('MIDDLE');
+	    data2['MIDDLE'] = 0;
+	}
+	if(lgnds2.indexOf('WEAK')==-1){ 
+		lgnds2.push('WEAK');
+	    data2['WEAK'] = 0;
+	}
+	////////////////////////
+	
+	//원형 start
+	pie1 = c3.generate({
+		bindto: '#pie_chart1',
+	    data: {
+	        json: [ data1 ],
+	        keys: {
+	            value: lgnds1,
+	        },
+	        type:'pie'
+        	,colors: {
+	            'EXCELLENT': '#0072BE',
+	            'GOOD': '#93BDC7',
+	            'MIDDLE': '#A072CE',
+	            'WEAK':'#bd0088'
+	        }
+	    }
+	    /* ,color: {
+            pattern: ['#578BC9','#A072CE','#85B400','#D08B22']
+        } */
+	    ,legend: {
+	        padding: 15,
+	        item: {
+	          tile: {
+	            width: 20,
+	            height: 20
+	          }
+	        }
+	      }
+	});
+	
+	pie2 = c3.generate({
+		bindto: '#pie_chart2',
+	    data: {
+	        json: [ data2 ],
+	        keys: {
+	            value: lgnds2,
+	        },
+	        type:'pie'
+        	,colors: {
+	            'EXCELLENT': '#0072BE',
+	            'GOOD': '#93BDC7',
+	            'MIDDLE': '#A072CE',
+	            'WEAK':'#bd0088'
+	        }
+	    }
+	    ,legend: {
+	        padding: 15,
+	        item: {
+	          tile: {
+	            width: 20,
+	            height: 20
+	          }
+	        }
+	      }
+	});
+	
+	var bar = c3.generate({
+		bindto: '#bar_chart',
+	    data: {
+	    	columns: [
+	            ['DOWN', barData[0].lteRComDnVal],
+	            ['UP', barData[0].lteRComUpVal]
+	        ],
+	        type: 'bar'
+	    },
+	    color: {
+	    	pattern: ['#A072CE','#71ABA8']
+        },
+	    axis: {
+		    x: {
+		        type: 'category',
+		        categories: ['신호','시설','전기']
+		    },
+            y: {
+                label: {
+                    text: '사용량(MB)',
+                    position: 'outer-left',
+                }
+            }
+	   },
+	    bar: {
+	        width: {
+	            ratio: 0.3 // this makes bar width 50% of length between ticks
+	        }
+	        // or
+	        //width: 100 // this makes bar width 100px
+	    }
+	});
+	
+	//원형 end
+
+	//최초 사이즈 지정
+	$("#pie_chart1").css('min-width','38vh');
+	$("#pie_chart1").css('min-height','38vh');
+	$("#pie_chart2").css('min-width','38vh');
+	$("#pie_chart2").css('min-height','38vh');
+	$("#pie_chart2").css('min-width','38vh');
+	$("#bar_chart").css('min-width','50vh');
+	$("#bar_chart").css('min-height','38vh');
+
+	//거지같은 범례 내리기 트랜스레이트
+	$("g.c3-legend-item.c3-legend-item-UP").css("transform","translateY(10px)");
+	$("g.c3-legend-item.c3-legend-item-DOWN").css("transform","translateY(10px)");
+	
+	//반응형 화면 사이즈에 맞춰 사이즈 조정
+	pie1.resize();
+	pie2.resize();
+	bar.resize();
+
+	//화면 테마에 맞춰 그래프 선 및 폰트 색상 변경
+	cssChart();
+	}
+}

@@ -11,7 +11,7 @@
 	<script>
 	
 		$(document).ready(function() {
-			console.log("고객 업데이트 화면");
+			//console.log("고객 업데이트 화면");
 			
 			//최대일과 현재일이 같을 경우 발생할수 있는 문제에 대해 최대일에 +1초 
 			//먼저 변수 선언
@@ -24,7 +24,7 @@
 			 });
 			
 			$('.glyphicon-calendar').hover(function(){
-				console.log('달력 체크2');
+				//console.log('달력 체크2');
 			});
 			
 			//팀 변경시
@@ -36,11 +36,11 @@
 			});
 			
 			$("#btnSave").on('click',function(){
-				console.log("정보 저장");
+				//console.log("정보 저장");
 			
 				var validChk = true;
 				$(".input_base_require").each(function(i,list){
-					console.log("필수값체크");
+					//console.log("필수값체크");
 					if($(this).val()==null||$(this).val()==''){
 						alert("필수 항목을 기재해 주세요");
 						$(this).focus();
@@ -50,7 +50,7 @@
 				});
 				
 				$(".input_base_number").each(function(i,list){
-					console.log("숫자체크");
+					//console.log("숫자체크");
 					if(!(($(this).val()==null||$(this).val()=='')) &&  isNaN($(this).val())){
 						alert("MSP 요금제는 숫자값만 입력 가능합니다");
 						$(this).focus();
@@ -75,7 +75,7 @@
 			
 			//y면 체크 아니면 비체크인데 비체크값을 n으로 변경
 			$('input[type="checkbox"]').each(function(i,list){
-				console.log("하단체크박스 : "+i+"	/	"+$(this).attr("id"));
+				//console.log("하단체크박스 : "+i+"	/	"+$(this).attr("id"));
 				if($(this).is(':checked')){
 					$(this).val('Y');
 				}else{
@@ -85,7 +85,7 @@
 			
 			//input 하위 모든 체크박스 클릭 시
 			$('input[type="checkbox"]').on('click',function(){
-				console.log("하단체크박스클릭");
+				//console.log("하단체크박스클릭");
 				if($(this).is(':checked')){
 					$(this).val('Y');
 				}else{
@@ -100,7 +100,7 @@
 			
 			$("#btnReload").on('click',function(){
 				var rData=ajaxMethod('/terminal/deviceReload.ajax',{"lteRIp":$("#lteRIp").val()}).rData;
-				console.log(rData);
+				//console.log(rData);
 				//$("#lteRUsed").val(rData.lteRUsed);
 				//$("#insLocTxt").val(rData.insLocTxt);
 				$("#lteRImei").val(rData.lteRImei);

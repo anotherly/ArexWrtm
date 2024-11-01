@@ -42,7 +42,7 @@
 	
 	$('select[name="tableList_length"]').on('change', function(){
 		var selectVal = $(this).val();
-		console.log('현재 선택값 :' + selectVal);
+		//console.log('현재 선택값 :' + selectVal);
 	});
 	
 	

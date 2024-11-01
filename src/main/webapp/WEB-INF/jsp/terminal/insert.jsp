@@ -10,7 +10,7 @@
  	 
 	<script>
 		$(document).ready(function() {
-			console.log("단말기 등록 화면");
+			//console.log("단말기 등록 화면");
 			
 			var ajaxData=ajaxMethod('/terminal/routerTeamCnt.ajax',{"departCode":'ARX-SCH-SHT'}).data;
 			$("#teamCnt").val(ajaxData[0].teamCnt);
@@ -29,7 +29,7 @@
 			 });
 			
 			$('.glyphicon-calendar').hover(function(){
-				console.log('달력 체크2');
+				//console.log('달력 체크2');
 			});
 			
 			//팀 변경시
@@ -41,7 +41,7 @@
 			});
 			
 			$("#insertForm").submit(function(){
-				console.log("정보 저장");
+				//console.log("정보 저장");
 				
 				var insertChecker = confirm('이대로 등록하시겠습니까?');
 				
@@ -63,7 +63,7 @@
 			
 			//y면 체크 아니면 비체크인데 비체크값을 n으로 변경
 			$('input[type="checkbox"]').each(function(i,list){
-				console.log("하단체크박스 : "+i+"	/	"+$(this).attr("id"));
+				//console.log("하단체크박스 : "+i+"	/	"+$(this).attr("id"));
 				if($(this).is(':checked')){
 					$(this).val('Y');
 				}else{
@@ -73,7 +73,7 @@
 			
 			//input 하위 모든 체크박스 클릭 시
 			$('input[type="checkbox"]').on('click',function(){
-				console.log("하단체크박스클릭");
+				//console.log("하단체크박스클릭");
 				if($(this).is(':checked')){
 					$(this).val('Y');
 				}else{
@@ -83,7 +83,7 @@
 			
 			$("#btnReload").on('click',function(){
 				var rData=ajaxMethod('/terminal/deviceReload.ajax',{"lteRIp":$("#lteRIp").val()}).rData;
-				console.log(rData);
+				//console.log(rData);
 				//$("#lteRUsed").val(rData.lteRUsed);
 				//$("#insLocTxt").val(rData.insLocTxt);
 				$("#lteRImei").val(rData.lteRImei);

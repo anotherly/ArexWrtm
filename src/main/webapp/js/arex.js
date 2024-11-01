@@ -15,7 +15,7 @@ var plusPage=0;// 몫/6의 나머지 -> 남은 행수를 계산해서 채울때 
 
 //차트화면 우측 단말기테이블
 function trainOne(alData){
-	console.log("차트화면 우측 단말기테이블");
+	//console.log("차트화면 우측 단말기테이블");
 	$("#lteTbd").empty();
 	//전역변수 초기화
 	tbM="";
@@ -101,8 +101,8 @@ function tdCreate(tdid,backName,spanVal){
 	var useBack = spanVal.substr(findUnder);
 	
 	// 확인용 로그
-	/*console.log('언더바 앞 :' + useFront);
-	console.log('언더바 뒤:' + useBack);*/
+	/*//console.log('언더바 앞 :' + useFront);
+	//console.log('언더바 뒤:' + useBack);*/
 	
 	//갱신전에 선택된 단말기였다면 선택배경 유지되도록
 	if(chkTerId==tdid){
@@ -180,86 +180,3 @@ function hideTr(startPage,endPage){
 }
 
 
-
-
-/*//차트화면 우측 단말기테이블
-function trainOne(alData){
-	console.log("차트화면 우측 단말기테이블");
-	preStatNum=startNum;
-	
-	//전역변수 초기화
-	tbM="";
-	trCnt=1;
-	tbCnt=0;
-	
-	var oldName="";//팀이 변경되기 전 이전 팀
-	var enterLine=1;//줄 바꿀지말지
-	var blankCnt=0;//페이지 안깨지기 위한 공백 카운트
-	
-	for (var i = 0; i < alData.length; i++) {
-		var backName="";
-		if(i==0){
-			oldName=alData[i].teamName;
-		}
-		공 to the 백
-		//이전 데이터의 팀과 현재 팀이 다르다면 공백처리를 해야함
-		if(oldName != alData[i].teamName){
-			//다찰경우 제수(나누는 수 7)에서 나머지를 뺀만큼 공백임
-			var cnt = 7-parseInt((enterLine-1)%7);
-			for (var j = 0; j < cnt; j++) {
-				//td안에 들어갈 값을 만듬
-				tbM+= tdCreate('',backName,''); 
-				tbCnt++;
-				blankCnt++;
-			}
-			//행을 생성
-			trCreate();
-			//처리가 끝나면 갱신 기관으로 변경
-			oldName=alData[i].teamName;
-			enterLine=1;
-		//이전 데이터의 팀과 현재 팀이 같다면 공백처리 안하고 그냥 만듬
-		}else{
-			//배경 선택
-			backName=selectBackgra(alData[i].teamName,alData[i].obsCount);
-			//td 내부 만듬
-			tbM+= tdCreate(alData[i].lteRIp,backName,alData[i].lteRUsed); 
-			tbCnt++;
-			//7열 초과시 줄바꿈
-			if(parseInt((enterLine)%7)==0){
-				var tbCont = "<tr id='tr"+trCnt+"'>"+tbM+"</tr>";
-				$("#lteTbd").append(tbCont);	
-				tbM="";
-				trCnt++;
-			}else{
-				//데이터의 마지막
-				if(i==alData.length-1){
-					//다찰경우 제수(나누는 수 7)에서 나머지를 뺀만큼 공백임
-					var cnt = 7-parseInt((enterLine)%7);
-					for (var j = 0; j < cnt; j++) {
-						//td안에 들어갈 값을 만듬
-						tbM+= tdCreate('','lte_non','');
-					}
-					//행을 생성
-					trCreate();
-				}
-			}	
-			enterLine++;
-		}
-		//42개가 가득 찼을 경우
-		if(tbCnt==42){
-			console.log("핸들링 전 preStatNum"+preStatNum+" ,startNum"+startNum+" ,endNum"+endNum);
-			endNum=Number(alData[i].deviceCnt);
-			i=alData.length-1;
-			break;
-		}else{
-			//다음 페이지 처리를 위한변수
-			if(alData.length-1==i){
-				console.log("핸들링 전 preStatNum"+preStatNum+" ,startNum"+startNum+" ,endNum"+endNum);
-				endNum=Number(alData[i].deviceCnt);
-				startNum=Number(alData[i].deviceCnt);
-			}
-		}
-	}
-	console.log("테이블 로직 js에서 작업을 마치고 preStatNum"+preStatNum+" ,startNum"+startNum+" ,endNum"+endNum);
-	//hideTr(0,6);
-}*/

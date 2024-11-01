@@ -35,7 +35,7 @@
 		//$("#sideDiv").load("/sidebar/company.do");
 
 		iidx = 3;
-		console.log("사용자 목록 화면 진입");
+		//console.log("사용자 목록 화면 진입");
 		var colCnt=0;
 		var idxTb =0;
 		
@@ -50,7 +50,7 @@
             	{
             		data:   "lteRIp",
 	            	"render": function (data, type, row, meta) {
-	            		//console.log(meta.row+"	/	"+meta.col);
+	            		////console.log(meta.row+"	/	"+meta.col);
                         return '<input type="checkbox" id="chk" name="chk" value="'+data+'">';
 	                },
             		/* ,className: "select-checkbox" */
@@ -66,7 +66,7 @@
                 {
             		data:   "lteRIp",
 	            	"render": function (data, type, row, meta) {
-	            		//console.log(meta.row+"	/	"+meta.col);
+	            		////console.log(meta.row+"	/	"+meta.col);
                         return '<a href="http://'+data+'" target="_blank">http://'+data+'</a>';
 	                },
                 }
@@ -112,7 +112,7 @@
 		
 		//페이지 이동이나 열 개수 변경시 전체체크박스 관련 이벤트
 		$('#tableList').on('draw.dt', function(){
-			//console.log("데이터테이블 값 변경");
+			////console.log("데이터테이블 값 변경");
 			//인덱스 번호 재설정
 			$('#tableList input:checkbox[name="chk"]').each(function(i,list) {
 				$(this).attr("id","chk"+i)
@@ -151,7 +151,7 @@
 		
 		//상세 화면 조회
 		$("#tableList").on("click", "tbody td:not(':first-child'):not(':last-child')", function(){
-			console.log("목록에서 상세요소 클릭");
+			//console.log("목록에서 상세요소 클릭");
 			var tagId = $(this).parent().children().first().children().first().val();
 			$(this).attr('id');
 			if(tagId!="chkTd"){
@@ -183,7 +183,7 @@
 
 	/* 검색 */
 	 function search(){
-		 console.log("검색");
+		 //console.log("검색");
 		 let frm = $("#searchFrm").serialize();
 		 var tagUrl="/terminal/list.ajax";
 		 tbSearch("tableList",tagUrl,frm);

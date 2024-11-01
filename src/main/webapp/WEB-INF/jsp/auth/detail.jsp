@@ -8,7 +8,7 @@
 
 // 커밋 확인용 주석
 	$(document).ready(function(){
-		console.log("상세");
+		//console.log("상세");
 		var tagId='${data.authLevel}';
 		$("#btnSave").on('click', function(){
 			$("#contents").load('/auth/update.do',{"authLevel":tagId});

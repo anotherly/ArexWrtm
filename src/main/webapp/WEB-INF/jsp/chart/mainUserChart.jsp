@@ -8,13 +8,11 @@
 <meta charset="UTF-8">
 
 <script>
-
-	var pie1;
-	var pie2;
-	var bar;
-
+/* 	var pie1;
+var pie2;
+var bar; */
 	$(document).ready(function(){
-		console.log("메인차트 일반사용자");
+		//console.log("메인차트 일반사용자");
 		var alData=ajaxMethod("/chart/mainUserChart.ajax");
 		
 		var pie1Data=alData.data1;
@@ -197,6 +195,18 @@
 		//화면 테마에 맞춰 그래프 선 및 폰트 색상 변경
 		cssChart();
 		
+
+		$(window).on('resize', function() {
+			//console.log('resize');
+			
+			//반응형 화면 사이즈에 맞춰 사이즈 조정
+			pie1.resize();
+			pie2.resize();
+			bar.resize();
+
+			//화면 테마에 맞춰 그래프 선 및 폰트 색상 변경
+			cssChart();
+		});
 		
 	});
 </script>

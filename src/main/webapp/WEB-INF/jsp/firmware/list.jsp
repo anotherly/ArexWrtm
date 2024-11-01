@@ -23,11 +23,11 @@
 	var iidx;//날짜컬럼 인덱스
 	var selectlang;
 	$(document).ready(function(){
-		console.log("단말기 화면 진입1");
+		//console.log("단말기 화면 진입1");
 		//테이블 기본설정 세팅
 		dtTbSetting();
 		iidx = 3;
-		console.log("단말기 화면 진입2");
+		//console.log("단말기 화면 진입2");
 		var colCnt=0;
 		var idxTb =0;
 		
@@ -94,7 +94,7 @@
 		
 		//페이지 이동이나 열 개수 변경시 전체체크박스 관련 이벤트
 		$('#tableList').on('draw.dt', function(){
-			//console.log("데이터테이블 값 변경");
+			////console.log("데이터테이블 값 변경");
 			//인덱스 번호 재설정
 			$('#tableList input:checkbox[name="chk"]').each(function(i,list) {
 				$(this).attr("id","chk"+i)
@@ -129,7 +129,7 @@
 		
 		//상세 화면 조회
 		/* $("#tableList").on("click", "tbody td:not(':first-child')", function(){
-			console.log("목록에서 상세요소 클릭");
+			//console.log("목록에서 상세요소 클릭");
 			var tagId = $(this).parent().children().first().children().first().val();
 			$(this).attr('id');
 			if(tagId!="chkTd"){
@@ -154,7 +154,7 @@
 	
 	/* 검색 */
 	 function search(){
-		 console.log("검색");
+		 //console.log("검색");
 		 let frm = $("#searchFrm").serialize();
 		 var tagUrl="/firmware/list.ajax";
 		 tbSearch("tableList",tagUrl,frm);

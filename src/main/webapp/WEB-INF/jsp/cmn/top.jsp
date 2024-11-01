@@ -65,7 +65,7 @@
 </head>
 <script>
 	$(document).ready(function() {
-		console.log("탑 화면");
+		//console.log("탑 화면");
 		
 		setInterval(function(){
 			var nowhh = new Date().getHours();
@@ -78,14 +78,14 @@
 		var sessionVo = '${login.userId}';
 		//로그인(세션) 여부를 판별하여 화면전환 (로그인/메인화면)
 		if(sessionVo==''){
-			console.log("로그인 세션X");//로그인 안되있음
+			//console.log("로그인 세션X");//로그인 안되있음
 			alert("로그인이 필요한 서비스이므로 로그인 창으로 이동합니다");
 			logBfurl=location.href;
 			location.href="/login/login.do";
 			
 			/* if(location.href.indexOf("/chart/") == -1
 			&&location.href.indexOf("/stat/") == -1){
-				console.log("로그인 페이지로 이동");
+				//console.log("로그인 페이지로 이동");
 				alert("로그인이 필요한 서비스이므로 로그인 창으로 이동합니다");
 				logBfurl=location.href;
 				location.href="/login/login.do";
@@ -102,7 +102,7 @@
 		});
 		
 		window.onload = function() {
-			console.log("윈도우 온로드");
+			//console.log("윈도우 온로드");
 			document.querySelector(".lnb-control").addEventListener(
 			"click", function() {
 				if ($('body').attr('class') == 'open') {
@@ -117,9 +117,9 @@
 		// 윈도우 resize이벤트를 통한 전체화면 여부 체크
 		$(window).on('resize', function() {
 			if(screen.width === window.innerWidth && screen.height === window.innerHeight){
-				console.log("full screen");
+				//console.log("full screen");
 			} else {
-				console.log("nomal screen");
+				//console.log("nomal screen");
 			}      
 		});
 	});

@@ -9,12 +9,12 @@
 
 <script>
 
-	var pie1;
+/* 	var pie1;
 	var pie2;
-	var bar;
+	var bar; */
 
 	$(document).ready(function(){
-		console.log("메인차트 관리자");
+		//console.log("메인차트 관리자");
 		var alData=ajaxMethod("/chart/mainAdminChart.ajax");
 		//데이터 집계부분
 		var pie1Data = alData.data1;
@@ -176,7 +176,7 @@
 		cssChart();
 		
 		$(window).on('resize', function() {
-			console.log('resize');
+			//console.log('resize');
 			
 			//반응형 화면 사이즈에 맞춰 사이즈 조정
 			pie1.resize();

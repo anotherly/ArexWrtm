@@ -18,10 +18,10 @@
 	<script src="<%=request.getContextPath()%>/js/common/validation.js"></script>
 <script>
 	$(document).ready(function() {
-		console.log("로그인 컨텐츠");
+		//console.log("로그인 컨텐츠");
 		
 		$("#loginForm").submit( function(event){
-			console.log("로그인 버튼 클릭");
+			//console.log("로그인 버튼 클릭");
 			event.preventDefault();
 			// serialize는 form의 <input> 요소들의 name이 배열형태로 그 값이 인코딩되어 URL query string으로 하는 메서드
 			let queryString = $(this).serialize();

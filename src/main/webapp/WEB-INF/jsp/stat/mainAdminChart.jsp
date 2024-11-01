@@ -58,7 +58,7 @@
 	var bar;
 
 	$(document).ready(function(){
-		console.log("메인차트 관리자");
+		//console.log("메인차트 관리자");
 		
 		var alData=ajaxMethod("/stat/mainAdminChart.ajax",{"keyDate":$("#sDate").val(),"keyType":typeId});
 		

@@ -11,7 +11,7 @@
 	$(document).ready(function(){
 		var alData=ajaxMethod("/terminal/list.ajax").data;
 		trainOne(alData);
-		console.log("chart 진입");
+		//console.log("chart 진입");
 		//$("#container_chart").hide();
 		var userAuth='${login.userAuth}';
 		if(userAuth==0){
@@ -22,7 +22,7 @@
 		
 		//페이징 처리
 		$('#paging span').on('click',function(){
-			console.log("paging : "+preStatNum);
+			//console.log("paging : "+preStatNum);
 			var btnId=$(this).attr('id');
 			if (btnId=='pageStart') {//앞으로 가기
 				alData=ajaxMethod("/terminal/list.ajax",{"startNum":preStatNum,"endNum":endNum,"teamCode":teamCode}).data;
@@ -69,7 +69,7 @@
     	$("#all_chart").empty();
 		/* $("#all_chart").hide();
 		$("#container_chart").show(); */
-    	console.log($(this));
+    	//console.log($(this));
     	lineVal=$(this).attr('id');
     	$("#all_chart").load("/chart/subDetail.do",{"lteRIp":lineVal});
     	//$("#container_chart").load("/chart/subDetail.do",{"lteRMacAdd":lineVal});

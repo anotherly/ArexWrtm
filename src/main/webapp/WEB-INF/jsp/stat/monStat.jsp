@@ -57,7 +57,7 @@ table td {
 	$(document).ready(function(){
 		var now = new Date();
 		var yesterday = new Date(now.setDate(now.getDate() - 1));	
-		console.log("chart 진입");
+		//console.log("chart 진입");
 		//$("#container_chart").hide();
 		var userAuth='${login.userAuth}';
 		if(userAuth==0){
@@ -81,7 +81,7 @@ table td {
 				tbSearch("tableList","/stat/list.ajax",{"keyDate":$("#sDate").val(),"keyType":typeId});
 		 });
 		
-		console.log("월별통계");
+		//console.log("월별통계");
 		//테이블 기본설정 세팅
 		dtTbSetting();
 		iidx = 3;
@@ -106,7 +106,7 @@ table td {
                 {
             		data:   "lteRIp",
                 	"render": function (data, type, row, meta) {
-                        //console.log(data);
+                        ////console.log(data);
                         return data;
                     }
                 },
@@ -143,7 +143,7 @@ table td {
 		
 		//페이지 이동이나 열 개수 변경시 전체체크박스 관련 이벤트
 		$('#tableList').on('draw.dt', function(){
-			//console.log("데이터테이블 값 변경");
+			////console.log("데이터테이블 값 변경");
 			//인덱스 번호 재설정
 			$('#tableList input:checkbox[name="chk"]').each(function(i,list) {
 				$(this).attr("id","chk"+i);
@@ -151,7 +151,7 @@ table td {
 		});
 
 		$("#btnDownload").click(function() {
-			console.log("다운로드 버튼 클릭");
+			//console.log("다운로드 버튼 클릭");
 			//엑셀 다운로드 후 언로드 방지
 			cssNonChart();
 			c3Title="MONTH";
@@ -162,7 +162,7 @@ table td {
 			
 			exportChartToPng('chtImg');
 			//rkFlag = true;
-			console.log("다운로드 버튼 클릭 완료");
+			//console.log("다운로드 버튼 클릭 완료");
 		});
 	});
 	

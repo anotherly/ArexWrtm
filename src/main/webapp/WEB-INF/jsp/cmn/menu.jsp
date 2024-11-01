@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <script>
 	$(document).ready(function() {
-		console.log("메뉴 화면");
+		//console.log("메뉴 화면");
 	});
 </script>
 <li class="menu-item" id="ROOT_TEST_SW">

@@ -7,7 +7,7 @@
 <script>
 
 	$(document).ready(function(){
-		console.log("상세");
+		//console.log("상세");
 		var tagId='${data.departCode}';
 		$("#btnSave").on('click', function(){
 			$("#contents").load('/depart/update.do',{"departCode":tagId});

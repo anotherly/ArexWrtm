@@ -13,7 +13,7 @@
 	var delbak="/user/list.do";
 	
 	$(document).ready(function(){
-		console.log("상세");
+		//console.log("상세");
 		var tagId='${data.userId}';
 		$("#btnSave").on('click', function(){
 			/* $("#contents").load('/user/update.do',{"userId":tagId}); */

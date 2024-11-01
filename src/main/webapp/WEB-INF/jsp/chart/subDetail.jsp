@@ -100,7 +100,7 @@
 		var dateArr = [];
 		
 		
-		console.log("서브 상세");
+		//console.log("서브 상세");
 		//차트 화면일경우 상세정보 테마 변경
 		/* $('.contents_box').css('background','none');
 		$('.ctn_tbl_th').css('background','#02221A');
@@ -272,7 +272,7 @@
 		chartObj.resize();
 		
 	    subChartTimer=setInterval(function(){
-	    	console.log("차트 갱신");
+	    	//console.log("차트 갱신");
 			var rtVo=ajaxMethod("/realtimeChart.ajax",{"lteRIp":lteRIp}).data;
 			var MEMORY = rtVo.memCritVal; 
 			var UP = rtVo.lteRComUpVal; 
@@ -443,8 +443,8 @@
 			dClass = ipVal.substr(9); // d클래스 슬라이스
 			
 			
-			console.log('사용용도 :' + use);
-			console.log('슬라이스 :' + dClass);
+			//console.log('사용용도 :' + use);
+			//console.log('슬라이스 :' + dClass);
 			
 			$('.showFirst').text(use + '_' + dClass);
 			$('.showSecond').text(use + '_' + dClass + ' 운영 시간 정보');
@@ -453,7 +453,7 @@
 		
 
 		$('#showOper').on('click', function(){
-			console.log(' 운영시간 차트 버튼 클릭');
+			//console.log(' 운영시간 차트 버튼 클릭');
 			
 			// 차트에 넣을 데이터 불러오기
 			var detailChart = ajaxMethod("/detailChart.ajax",{"lteRIp":lteRIp}).data;

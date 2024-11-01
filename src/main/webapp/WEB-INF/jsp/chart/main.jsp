@@ -144,6 +144,11 @@
 <script>
 	var teamCode='';
 	var chkTerId='';
+	
+	var pie1;
+	var pie2;
+	var bar;
+	
 	$(document).ready(function(){
 		
 		// 24-10-10 : 페이지 옮겨도 30초 후 갱신 시 페이지 변하지 않도록 처리하기 위한 변수
@@ -160,7 +165,7 @@
 		//시간 갱신
 		$("#nowDt").text(alData.nowDt);
 		
-		console.log("chart 진입");
+		//console.log("chart 진입");
 		var userAuth='${login.userAuth}';
 		if(userAuth==0){
 			$("#all_chart").load("/chart/mainAdminChart.do");
@@ -237,18 +242,19 @@
 		
 		//좌측 메인차트 갱신
 		mainChartTimer=setInterval(function(){
-			$("#all_chart").empty();
+			//$("#all_chart").empty();
 			var userAuth='${login.userAuth}';
 			if(userAuth==0){
 				$("#all_chart").load("/chart/mainAdminChart.do");
 			}else{
 				$("#all_chart").load("/chart/mainUserChart.do");
 			}
+			
 		},30*1000); // 기본값 30*1000 
 		
 		//우측 단말기 갱신
 		tableTimer=setInterval(function(){
-			console.log("우측 단말기 갱신");
+			//console.log("우측 단말기 갱신");
 			// 선택된 탭이 전체일 때
 			if(teamCode == '') {
 				var alData=ajaxMethod("/terminal/list.ajax");

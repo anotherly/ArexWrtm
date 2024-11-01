@@ -35,11 +35,11 @@
 		var delbak="/terminal/list.do";
 	
 		$(document).ready(function(){
-			console.log("상세");
+			//console.log("상세");
 			var tagId="${data.lteRIp}";
 			
 			$("#btnSave").on('click', function(){
-				console.log('클릭');
+				//console.log('클릭');
 				/* $("#work").load('/terminal/update.do',{"lteRIp":tagId}); */
 				location.href='/terminal/update.do?lteRIp='+tagId;
 			});

@@ -8,7 +8,7 @@
 	var chartObj;
 	var lteRIp='';
 	$(document).ready(function(){
-		console.log("서브 상세");
+		//console.log("서브 상세");
 		//차트 화면일경우 상세정보 테마 변경
 		$('.contents_box').css('background','none');
 		$('.ctn_tbl_th').css('background','#02221A');
@@ -173,7 +173,7 @@
 		//$("#chartDetail").load("/chart/subDetail.do",{"lteRIp":lteRIp});
 		
 	    subChartTimer=setInterval(function(){
-	    	console.log("nws timeinterval");
+	    	//console.log("nws timeinterval");
 	    	
 			var rtVo=ajaxMethod("/realtimeChart.ajax",{"lteRIp":lteRIp}).data;
 			var MEMORY = rtVo.memCritVal; 
