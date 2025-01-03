@@ -216,6 +216,9 @@
 		//팀별 조회
 		$(".arex_tab").on('click',function(){
 			
+			nowPage = 0;
+			nextPage = 1;
+			
 			//색상 활성 비활성
 			var parDiv=$(this).parent().children();
 			$(parDiv).each(function(i,list){

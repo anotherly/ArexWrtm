@@ -70,6 +70,17 @@
 						}
 					});
 					
+					// 24-12-24 : 비밀번호 불일치 시 등록 막기
+					var pw = $("#userPw").val();
+					var pwChk = $("#userPw1").val();
+					
+					if(pw != pwChk) {
+						alert("입력하신 비밀번호와 비밀번호 확인이 다릅니다.");
+						validChk=false;
+						return false;
+					}
+					
+					
 					if(validChk){
 						var dept = $("#cpyCode option:selected").val()+"-"+$("#hqCode option:selected").val()+"-"+$("#teamCode option:selected").val();
 						//240112 수정 - 메인 관리자 권한일땐 공란으로

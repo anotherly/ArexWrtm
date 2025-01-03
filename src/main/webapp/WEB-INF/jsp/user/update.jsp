@@ -67,6 +67,16 @@
 						}
 					});
 					
+					// 비밀번호 불일치 시 등록 막기
+					var pw = $("#userPw").val();
+					var pwChk = $("#userPw1").val();
+					
+					if(pw != pwChk) {
+						alert("입력하신 비밀번호와 비밀번호 확인이 다릅니다.");
+						validChk=false;
+						return false;
+					}
+					
 					if(validChk){
 						
 						var dept = $("#cpyCode option:selected").val()+"-"+$("#hqCode option:selected").val()+"-"+$("#teamCode option:selected").val();
@@ -163,11 +173,11 @@
 							<div class="ctn_tbl_row">
 								<div class="ctn_tbl_th ">비밀번호(변경시에만 입력)</div>
 								<div class="ctn_tbl_td">
-									<input type="text" id="userPw" name ="userPw" value=""  placeholder="" class="form-control ">
+									<input type="password" id="userPw" name ="userPw" value=""  placeholder="" class="form-control ">
 								</div>
 								<div class="ctn_tbl_th ">비밀번호 확인(변경시에만 입력)</div>
 								<div class="ctn_tbl_td">
-									<input type="text" id="userPw1" name ="userPw1" value=""  placeholder="" class="form-control ">
+									<input type="password" id="userPw1" name ="userPw1" value=""  placeholder="" class="form-control ">
 								</div>
 							</div>
 							
