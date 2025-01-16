@@ -62,4 +62,9 @@ public class UserServiceImpl implements UserService{
 	public void deleteUserD(String userId) {
 		userMapper.deleteUserD(userId);
 	}
+	
+	// 본부/처/실 선택 시 select box 값 변경
+	public List<UserVO> selectTeam(String nowHq) throws Exception {
+		return userMapper.selectTeam(nowHq);
+	}
 }

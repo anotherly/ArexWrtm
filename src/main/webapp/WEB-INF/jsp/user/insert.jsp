@@ -10,7 +10,6 @@
  	 
 	<script>
 		$(document).ready(function() {
-			//console.log("고객 등록 화면");
 
 			$('select').each(function(i,list){
 				var selVal=$(this).val();
@@ -81,9 +80,24 @@
 					}
 					
 					
+					// 25-01-03 : 전화번호 유효성 체크하기
+					var phoneCell = $('#userPhone').val(); // 휴대 전화번호
+					var cell = $('#userTel').val(); // 유선 전화번호
+					
+					if(phoneCell.length >= 1 && phoneCell.length < 11) {
+						alert("입력하신 휴대 전화번호의 길이가 유효하지 않습니다.");
+						validChk=false;
+						return false;
+					}else if(cell.length >= 1 && cell.length < 11) {
+						alert("입력하신 유선 전화번호의 길이가 유효하지 않습니다.");
+						validChk=false;
+						return false;
+					}
+					
 					if(validChk){
 						var dept = $("#cpyCode option:selected").val()+"-"+$("#hqCode option:selected").val()+"-"+$("#teamCode option:selected").val();
-						//240112 수정 - 메인 관리자 권한일땐 공란으로
+						
+						//250114 수정 - 전체 관리자 권한일 땐 공란으로 => 미기재 또는 해당없음으로 들어감
 						if($("select[name='userAuth']").val()==0){
 							$("#departCode").val("");
 						}else{
@@ -125,6 +139,39 @@
 			$("#btnCancel").on('click',function(){
 				location.href='/user/list.do';
 			});
+			
+			
+			
+			// 본부/처/실 바뀔 때 마다 그에 맞는 팀명 불러오기
+			$('#hqCode').on('click', function() {
+				var nowHq = $('#hqCode').val();
+				
+				
+				// ajax 요청 보내기
+				$.ajax({
+				    type: 'POST',
+				    url: '/user/selectTeam.ajax',
+				    data: { "nowHq": nowHq },
+				    dataType: 'json',  
+				    success: function(data) {
+				        var $select = $('#teamCode');
+				        $select.empty();
+				        
+				        var selectList = data.selectList;
+				        selectList.forEach(function(selectList) {
+				            var optionHTML = '<option value="' + selectList.teamCode + '">' + selectList.teamName + '</option>';
+				            $select.append(optionHTML);
+				            
+				            
+				        });
+				        console.log("ajax 요청 완료");
+				    },
+				    error: function() {
+				        console.log("오류 발생");
+				    }
+				});
+			});
+			
 		});
 	</script>
 
@@ -165,7 +212,7 @@
 								<input type="hidden" id="departCode" name ="departCode" class="form-control">
 								<div class="ctn_tbl_th fm_rep">사용자 ID</div>
 								<div class="ctn_tbl_td">
-									<input type="text" id="userId" name ="userId" placeholder="" class="form-control input_base_require">
+									<input type="text" id="userId" name ="userId" placeholder="" class="form-control input_base_require" maxlength="12">
 								</div>
 								<div class="ctn_tbl_th fm_rep">사용자 이름</div>
 								<div class="ctn_tbl_td">
@@ -221,11 +268,11 @@
 							<div class="ctn_tbl_row">
 								<div class="ctn_tbl_th ">휴대 전화번호 ( - 생략)</div>
 								<div class="ctn_tbl_td">
-									<input type="text" id="userPhone" name ="userPhone" placeholder="" onkeydown='onlyNumber(event)' onkeyup='onlyNumber(event)' class="form-control">
+									<input type="text" id="userPhone" name ="userPhone" placeholder="" onkeydown='onlyNumber(event)' onkeyup='onlyNumber(event)' maxlength="11" class="form-control">
 								</div>
 								<div class="ctn_tbl_th ">유선 전화번호( - 생략)</div>
 								<div class="ctn_tbl_td">
-									<input type="text" id="userTel" name ="userTel" placeholder="" onkeydown='onlyNumber(event)' onkeyup='onlyNumber(event)'  class="form-control">
+									<input type="text" id="userTel" name ="userTel" placeholder="" onkeydown='onlyNumber(event)' onkeyup='onlyNumber(event)' maxlength="11"  class="form-control">
 								</div>
 							</div>
 							

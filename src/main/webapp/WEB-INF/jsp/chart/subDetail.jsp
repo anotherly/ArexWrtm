@@ -329,25 +329,28 @@
 			return cArr; // 월을 넣은 배열 리턴
 		}
 		
-		function getDates() {
-		    const cDate = new Date(); // 현재 날짜 가져오기
-		    const cYear = cDate.getFullYear(); // 현재 년도 가져오기
-		    const cMonth = cDate.getMonth(); // 현재 월 가져오기 : 0(1월)~11(12월)
-		    const cArr = []; // 반환할 배열
-
-		    // 월 배열에 넣기
-		    for (var i = 0; i < 6; i++) {
-		        // 12로 나눈 나머지를 사용하여 월 계산
-		        var month = (cMonth - i + 12) % 12; 
-		        var yearOffset = Math.floor((cMonth - i) / 12); 
-		        var year = cYear - yearOffset; 
-		        var date = year + "-" + String(month + 1).padStart(2, '0'); 
-		        cArr.unshift(date); 
-		    }
-
-		    return cArr; // 날짜를 넣은 배열 리턴
-		}
 		
+		
+		// 25-01-14 : 날짜 가져오기 (현재 달 ~ 현재달 - 6 까지)
+		function getDates() {
+			const dateArr = [];  // 반환할 배열 변수 생성
+			
+			var arrCnt = 5; // 오름차순으로 정렬해야 하기 때문에 카운트 변수 필요
+			for(var i=0; i < 6; i++) {
+				var now = new Date();
+				var MonthAgo = new Date(now);
+				MonthAgo.setMonth(MonthAgo.getMonth() - i);
+				var inputDate = MonthAgo.toISOString().slice(0, 7);
+				
+				dateArr[arrCnt] = inputDate; // 반환 배열에 값 넣기
+				arrCnt--;
+			}
+			
+			console.log("반환 배열 : " + dateArr);
+		    return dateArr; // 날짜를 넣은 배열 리턴
+		    
+		}
+			
 		
 		operArr = getMonths(); // 전역 변수 배열에 값 저장
 		dateArr = getDates();
@@ -458,6 +461,8 @@
 			// 차트에 넣을 데이터 불러오기
 			var detailChart = ajaxMethod("/detailChart.ajax",{"lteRIp":lteRIp}).data;
 
+			
+			console.log("진입");
 			//var detailArr = [];
 
 			for (var j = 0; j < dateArr.length; j++) {

@@ -111,7 +111,7 @@ function onlyNumber(event,that,min,max) {
 		event.target.value = "";
 		//console.log("값 초과2 : "+event.target.value+" "+$(that).val());
 	}else{
-		console.log("값 초과 안함 : "+event.target.value+" "+$(that).val());
+		/*console.log("값 초과 안함 : "+event.target.value+" "+$(that).val());*/
 		return;
 	}
 }

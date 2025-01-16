@@ -216,4 +216,11 @@
 	   	WHERE USER_ID = #{userId}
 	</delete>
 
+
+	<!-- 본부/처/실 선택에 따라 select box값 조회 -->
+	<select id="selectTeam" resultMap="selectUser">
+		SELECT team_code,team_name
+		FROM tbl_depart_info
+		WHERE hq_code = #{nowHq};	
+	</select>
 </mapper>

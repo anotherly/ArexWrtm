@@ -39,4 +39,8 @@ public interface UserService {
 	//상세에서 사용자 삭제
 	public void deleteUserD(String userId);
 	
+	
+	
+	// 본부/처/실 클릭 시 select box 값 변경
+	public List<UserVO> selectTeam(String nowHq) throws Exception;
 }

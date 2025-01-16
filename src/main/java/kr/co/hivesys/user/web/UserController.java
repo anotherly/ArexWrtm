@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
-import org.springframework.ui.Model;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -14,13 +12,12 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.hivesys.auth.service.AuthService;
 import kr.co.hivesys.auth.vo.AuthVo;
@@ -161,7 +158,7 @@ public class UserController {
 		return mav;
 	}
 	
-	//(상셰)
+	//(상세)
 	@RequestMapping(value="/user/detail.do")
 	public @ResponseBody ModelAndView reqDetail( 
 	HttpServletRequest request, HttpServletResponse response
@@ -287,5 +284,21 @@ public class UserController {
 		}
 		return mav;
 	}
+	
+	
+	
+	// 본부/처/실 선택 시 선택 가능한 팀명만 보내기
+	@RequestMapping(value="/user/selectTeam.ajax")
+	public ModelAndView selectTeam(@RequestParam("nowHq") String nowHq, Model model, HttpServletRequest request) throws Exception {
+		ModelAndView mav = new ModelAndView("jsonView");
+		
+		List<UserVO> selectList = new ArrayList<UserVO>();
+		selectList = userService.selectTeam(nowHq);
+		
+		mav.addObject("selectList", selectList);
+
+		return mav;
+	}
+	
 	
 }
