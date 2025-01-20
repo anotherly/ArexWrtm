@@ -160,7 +160,7 @@
 				            
 				            
 				        });
-				        console.log("ajax 요청 완료");
+				       /*  console.log("ajax 요청 완료"); */
 				    },
 				    error: function() {
 				        console.log("오류 발생");

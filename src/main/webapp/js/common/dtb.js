@@ -19,7 +19,7 @@ function tbSearch(tbId,tagUrl,frm){
 			data : frm,
 			async : false,
 			success : function(json) {
-				console.log("데이터테이블 검색 성공");
+				/*console.log("데이터테이블 검색 성공");*/
 				
 				if(json.data.length != 0){
 					//성공시 테이블 갱신하고 신규 데이터 생성

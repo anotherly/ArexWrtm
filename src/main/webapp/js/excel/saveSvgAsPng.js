@@ -387,17 +387,17 @@
         //다운로드 구간은 이쪽에서 이루어짐 (수정시작)
         rkFlag = true;
         //console.log("saveLink : "+saveLink);
-        console.log("다중차트 혹은 단일차트 다운로드 변환");
+        /*console.log("다중차트 혹은 단일차트 다운로드 변환");*/
         if(fcnt!=1){
         	rkFlag = true;
         	$('#img_val'+downCnt).val(""); 
             $('#img_val'+downCnt).val(uri); 
         	if(downCnt+1==fcnt){
         		var frm = document.captureForm; 
-        	    console.log("보내는 타이틀 c3TagId : "+c3TagId);
+        	   /* console.log("보내는 타이틀 c3TagId : "+c3TagId);*/
         	     frm.action =  "/capture/"+c3TagId+".do"; 
         	     frm.submit();
-        	     console.log("saveSvg에서 다운로드 완료");
+        	     /*console.log("saveSvg에서 다운로드 완료");*/
         	     document.body.removeChild(saveLink);
         	    	fcnt=0;
         	    	downCnt=0;

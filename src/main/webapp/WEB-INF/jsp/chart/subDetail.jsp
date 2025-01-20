@@ -345,8 +345,6 @@
 				dateArr[arrCnt] = inputDate; // 반환 배열에 값 넣기
 				arrCnt--;
 			}
-			
-			console.log("반환 배열 : " + dateArr);
 		    return dateArr; // 날짜를 넣은 배열 리턴
 		    
 		}
@@ -462,7 +460,7 @@
 			var detailChart = ajaxMethod("/detailChart.ajax",{"lteRIp":lteRIp}).data;
 
 			
-			console.log("진입");
+			/* console.log("진입"); */
 			//var detailArr = [];
 
 			for (var j = 0; j < dateArr.length; j++) {
